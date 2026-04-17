@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>UHA Customer Journey — Dr. P Program Automation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js"></script>
+<style>
+  :root {
+    --bg: #FAF7F2;
+    --bg-card: #FFFFFF;
+    --ink: #1A1A1A;
+    --ink-soft: #4A4A4A;
+    --ink-mute: #8A8A8A;
+    --border: #E8E0D4;
+    --accent: #8B4A6B;
+    --accent-soft: #F5E8EE;
+    --accent-ink: #5C2E44;
+    --ok: #2D7A50;
+    --ok-soft: #E6F2EC;
+    --warn: #B8863D;
+    --warn-soft: #FBF3E4;
+    --skip: #B84A4A;
+    --skip-soft: #FBE8E8;
+    --shadow: 0 1px 2px rgba(26,26,26,0.04), 0 8px 24px rgba(26,26,26,0.06);
+    --radius: 14px;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3 { font-family: 'Fraunces', Georgia, serif; font-weight: 600; letter-spacing: -0.02em; margin: 0; }
+  h1 { font-size: clamp(2.2rem, 4.5vw, 3.6rem); line-height: 1.08; }
+  h2 { font-size: clamp(1.6rem, 2.8vw, 2.2rem); line-height: 1.15; margin-bottom: 0.6rem; }
+  h3 { font-size: 1.15rem; font-family: 'Inter', sans-serif; font-weight: 600; letter-spacing: -0.01em; }
+  p { margin: 0 0 1rem; color: var(--ink-soft); }
+  .container { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+
+  /* Top nav */
+  nav.topnav {
+    position: sticky; top: 0; z-index: 100;
+    backdrop-filter: blur(12px);
+    background: rgba(250, 247, 242, 0.85);
+    border-bottom: 1px solid var(--border);
+  }
+  .topnav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 24px; max-width: 1180px; margin: 0 auto;
+  }
+  .brand {
+    font-family: 'Fraunces', serif;
+    font-size: 1.05rem; font-weight: 600;
+    color: var(--ink);
+  }
+  .brand .dot { color: var(--accent); }
+  .nav-links { display: flex; gap: 22px; }
+  .nav-links a {
+    color: var(--ink-soft); text-decoration: none; font-size: 0.88rem;
+    transition: color 0.15s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  @media (max-width: 720px) { .nav-links { display: none; } }
+
+  /* Hero */
+  .hero {
+    padding: 80px 0 60px;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero-eyebrow {
+    display: inline-block;
+    background: var(--accent-soft); color: var(--accent-ink);
+    padding: 6px 14px; border-radius: 999px;
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.04em;
+    text-transform: uppercase; margin-bottom: 20px;
+  }
+  .hero h1 { max-width: 820px; margin-bottom: 20px; }
+  .hero .lede {
+    font-size: 1.12rem; max-width: 680px; color: var(--ink-soft);
+    margin-bottom: 36px;
+  }
+  .hero-stats {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+    max-width: 820px;
+  }
+  .stat-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 18px 20px;
+  }
+  .stat-num {
+    font-family: 'Fraunces', serif; font-size: 2rem; color: var(--accent-ink);
+    font-weight: 600; line-height: 1; margin-bottom: 4px;
+  }
+  .stat-label { font-size: 0.8rem; color: var(--ink-mute); text-transform: uppercase; letter-spacing: 0.06em; }
+  @media (max-width: 720px) { .hero-stats { grid-template-columns: repeat(2, 1fr); } }
+
+  /* Sections */
+  section { padding: 72px 0; border-bottom: 1px solid var(--border); }
+  .section-label {
+    font-size: 0.78rem; color: var(--accent);
+    font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .section-intro { max-width: 720px; margin-bottom: 40px; }
+
+  /* Flowchart card */
+  .diagram-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 40px 30px;
+    box-shadow: var(--shadow); overflow: auto;
+  }
+  .mermaid { display: flex; justify-content: center; font-family: 'Inter', sans-serif; }
+
+  /* Timeline */
+  .timeline {
+    display: grid; grid-template-columns: 1fr; gap: 0;
+    position: relative; padding-left: 30px;
+    border-left: 2px solid var(--border);
+  }
+  .tl-item { position: relative; padding: 20px 0 20px 30px; }
+  .tl-item::before {
+    content: ''; position: absolute; left: -40px; top: 26px;
+    width: 18px; height: 18px; border-radius: 50%;
+    background: var(--bg); border: 3px solid var(--accent);
+  }
+  .tl-item.is-cond::before { border-color: var(--warn); }
+  .tl-item.is-end::before { border-color: var(--ok); background: var(--ok); }
+  .tl-when {
+    display: inline-block; font-family: 'Fraunces', serif;
+    font-size: 0.9rem; font-weight: 600; color: var(--accent-ink);
+    background: var(--accent-soft); padding: 3px 10px; border-radius: 6px;
+    margin-bottom: 6px;
+  }
+  .tl-item.is-cond .tl-when { color: #7a5820; background: var(--warn-soft); }
+  .tl-item.is-end .tl-when { color: #1f5536; background: var(--ok-soft); }
+  .tl-title { font-weight: 600; font-size: 1.05rem; margin-bottom: 4px; }
+  .tl-desc { color: var(--ink-soft); font-size: 0.92rem; }
+  .tl-tags { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 0.72rem; font-weight: 500; font-family: 'Inter', monospace;
+    padding: 3px 9px; border-radius: 999px;
+    background: #F0EBE2; color: var(--ink-soft); border: 1px solid var(--border);
+  }
+  .chip.plus { background: var(--ok-soft); color: #1f5536; border-color: #c8e1d2; }
+  .chip.minus { background: #EFE8E8; color: #7a3c3c; border-color: #e0cfcf; }
+  .chip.email { background: var(--accent-soft); color: var(--accent-ink); border-color: #ead6df; }
+
+  /* Two paths */
+  .paths-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  }
+  @media (max-width: 820px) { .paths-grid { grid-template-columns: 1fr; } }
+  .path-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 28px; box-shadow: var(--shadow);
+  }
+  .path-card.a { border-top: 4px solid var(--ok); }
+  .path-card.b { border-top: 4px solid var(--warn); }
+  .path-header { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+  .path-badge {
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
+    padding: 3px 10px; border-radius: 4px;
+  }
+  .path-card.a .path-badge { background: var(--ok-soft); color: #1f5536; }
+  .path-card.b .path-badge { background: var(--warn-soft); color: #7a5820; }
+  .path-step {
+    display: flex; gap: 14px; padding: 14px 0;
+    border-bottom: 1px dashed var(--border);
+  }
+  .path-step:last-child { border-bottom: none; }
+  .step-num {
+    flex-shrink: 0; width: 28px; height: 28px;
+    border-radius: 50%; background: var(--accent-soft); color: var(--accent-ink);
+    font-weight: 600; font-size: 0.82rem;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .step-body { flex: 1; }
+  .step-when { font-size: 0.78rem; color: var(--ink-mute); margin-bottom: 2px; }
+  .step-title { font-weight: 600; font-size: 0.95rem; }
+
+  /* Email grid */
+  .email-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
+  }
+  @media (max-width: 900px) { .email-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .email-grid { grid-template-columns: 1fr; } }
+  .email-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 20px;
+    transition: transform 0.15s, box-shadow 0.15s;
+    position: relative; overflow: hidden;
+  }
+  .email-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+  .email-card::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
+    background: var(--accent);
+  }
+  .email-card.cond::before { background: var(--warn); }
+  .email-card.ascend::before { background: var(--ok); }
+  .email-id {
+    display: inline-block; font-family: 'Inter', monospace;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.05em;
+    color: var(--accent-ink); background: var(--accent-soft);
+    padding: 3px 8px; border-radius: 4px; margin-bottom: 10px;
+  }
+  .email-card.cond .email-id { color: #7a5820; background: var(--warn-soft); }
+  .email-card.ascend .email-id { color: #1f5536; background: var(--ok-soft); }
+  .email-subj { font-weight: 600; font-size: 0.95rem; margin-bottom: 6px; line-height: 1.4; }
+  .email-trigger { font-size: 0.82rem; color: var(--ink-mute); margin-bottom: 10px; }
+  .email-preheader { font-size: 0.85rem; color: var(--ink-soft); font-style: italic; }
+
+  /* Integration map */
+  .integration {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 40px; box-shadow: var(--shadow);
+  }
+  .int-row {
+    display: grid; grid-template-columns: 1fr auto 1fr; gap: 30px; align-items: center;
+  }
+  @media (max-width: 820px) { .int-row { grid-template-columns: 1fr; } }
+  .int-box {
+    background: var(--bg); border: 2px solid var(--border);
+    border-radius: 12px; padding: 24px; text-align: center;
+  }
+  .int-box.interact { border-color: var(--accent); }
+  .int-box.ghl { border-color: var(--ok); }
+  .int-name { font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 600; margin-bottom: 4px; }
+  .int-role { font-size: 0.85rem; color: var(--ink-mute); }
+  .int-arrow {
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    color: var(--ink-mute);
+  }
+  .int-arrow svg { width: 48px; height: 20px; }
+  .int-arrow-label { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; }
+  .int-mapping {
+    margin-top: 24px; background: var(--bg); border-radius: 10px; padding: 20px;
+    font-family: 'Inter', monospace; font-size: 0.85rem;
+  }
+  .int-map-row {
+    display: grid; grid-template-columns: 1fr auto 1fr; gap: 16px; align-items: center;
+    padding: 6px 0;
+  }
+  .int-map-row > div:first-child { color: var(--accent-ink); }
+  .int-map-row > div:last-child { color: #1f5536; }
+  .int-arrow-small { color: var(--ink-mute); }
+
+  /* QA matrix */
+  .qa-table {
+    width: 100%; border-collapse: collapse;
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius); overflow: hidden;
+    box-shadow: var(--shadow); font-size: 0.92rem;
+  }
+  .qa-table th, .qa-table td {
+    padding: 14px 16px; text-align: left; border-bottom: 1px solid var(--border);
+  }
+  .qa-table th {
+    background: var(--bg); font-weight: 600; font-size: 0.78rem;
+    text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-mute);
+  }
+  .qa-table tr:last-child td { border-bottom: none; }
+  .qa-table td.scen { font-family: 'Fraunces', serif; font-weight: 600; color: var(--accent-ink); }
+  .qa-emails { display: flex; flex-wrap: wrap; gap: 5px; }
+  .qa-emails .chip { font-size: 0.68rem; padding: 2px 7px; }
+
+  /* Decision matrix */
+  .matrix-wrap { overflow-x: auto; }
+  .matrix {
+    width: 100%; border-collapse: collapse; min-width: 640px;
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius); overflow: hidden;
+    box-shadow: var(--shadow); font-size: 0.9rem;
+  }
+  .matrix th, .matrix td { padding: 12px 14px; text-align: center; border-bottom: 1px solid var(--border); }
+  .matrix th:first-child, .matrix td:first-child { text-align: left; font-weight: 500; }
+  .matrix th { background: var(--bg); font-size: 0.76rem; font-weight: 600; color: var(--ink-mute); text-transform: uppercase; letter-spacing: 0.05em; }
+  .matrix .y { color: var(--ok); font-weight: 700; font-size: 1.05rem; }
+  .matrix .n { color: var(--ink-mute); }
+  .matrix .s { color: var(--skip); font-weight: 600; font-size: 0.8rem; }
+
+  /* Footer */
+  footer {
+    padding: 40px 0 60px; text-align: center;
+    color: var(--ink-mute); font-size: 0.85rem;
+  }
+  footer strong { color: var(--ink-soft); }
+
+  /* Utilities */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  @media (max-width: 820px) { .grid-2 { grid-template-columns: 1fr; } }
+  .kbd {
+    font-family: 'Inter', monospace; font-size: 0.82rem;
+    background: var(--bg); border: 1px solid var(--border);
+    padding: 2px 6px; border-radius: 4px;
+    color: var(--ink-soft);
+  }
+  .legend {
+    display: flex; gap: 20px; flex-wrap: wrap; margin-top: 14px;
+    font-size: 0.82rem; color: var(--ink-mute);
+  }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <div class="brand">Dr. P Automation <span class="dot">·</span> UHA</div>
+    <div class="nav-links">
+      <a href="#flow">Flow</a>
+      <a href="#timeline">Timeline</a>
+      <a href="#paths">Paths</a>
+      <a href="#emails">Emails</a>
+      <a href="#integration">Integration</a>
+      <a href="#qa">QA</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="container">
+    <span class="hero-eyebrow">Ultimate Hormone Assessment · $47</span>
+    <h1>The UHA Customer Journey, mapped end-to-end.</h1>
+    <p class="lede">Every tag, every wait, every email — from checkout to the handoff into general nurture. Built on Interact for the quiz and GoHighLevel for everything else.</p>
+
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Workflows</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">9</div>
+        <div class="stat-label">Emails</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">10</div>
+        <div class="stat-label">Day journey</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">2</div>
+        <div class="stat-label">Result types</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- FLOW DIAGRAM -->
+<section id="flow">
+  <div class="container">
+    <div class="section-label">01 · Big Picture</div>
+    <h2>The whole flow in one diagram.</h2>
+    <p class="section-intro">Starts at purchase. Branches based on whether the buyer takes the quiz. Re-converges at Day 6 for the Challenge cross-sell, which suppresses if they've already bought.</p>
+
+    <div class="diagram-card">
+      <div class="mermaid">
+flowchart TD
+    A([Visitor lands on UHA page]):::start --> B[Buys UHA - $47]:::purchase
+    B --> C{{Redirect to Interact Quiz}}:::action
+    B -.-> D["Tags: uha_purchaser, uha_quiz_pending<br/>Email: UHA-1 backup link"]:::tagEmail
+
+    C --> E{Takes Quiz?}:::decide
+
+    E -->|YES| F[Interact Webhook fires]:::action
+    F --> G["Tag: +uha_completed<br/>Field: uha_result_type set"]:::tagEmail
+    G --> H{Result Type?}:::decide
+    H -->|estrogen_dominant| I[UHA-2-ED Hormone Report]:::email
+    H -->|balanced| J[UHA-2-BAL Hormone Report]:::email
+    I --> K[Day 3, 9am]:::wait
+    J --> K
+    K --> L{Result Type?}:::decide
+    L -->|ED| M[UHA-4-ED Now What]:::email
+    L -->|BAL| N[UHA-4-BAL Now What]:::email
+
+    E -->|NO, 4hrs later| O[UHA-3 Nudge 1]:::email
+    O --> P[Day 2, 9am]:::wait
+    P --> Q{Still no quiz?}:::decide
+    Q -->|YES| R[UHA-3b Nudge 2]:::email
+    Q -->|quiz taken| F
+
+    M --> S[Day 6, 9am]:::wait
+    N --> S
+    R --> S
+    S --> T{Bought Challenge?}:::decide
+    T -->|NO| U[UHA-5 Challenge Pitch]:::ascend
+    T -->|YES| V[Skip]:::skip
+    U --> W[Day 10, 9am]:::wait
+    V --> W
+    W --> X{Bought Challenge?}:::decide
+    X -->|NO| Y[UHA-6 Final Touch]:::ascend
+    X -->|YES| Z[Skip]:::skip
+    Y --> END([End - General Nurture]):::end
+    Z --> END
+
+    classDef start fill:#F5E8EE,stroke:#8B4A6B,color:#5C2E44,stroke-width:2px
+    classDef end fill:#E6F2EC,stroke:#2D7A50,color:#1f5536,stroke-width:2px
+    classDef purchase fill:#8B4A6B,stroke:#5C2E44,color:#fff,stroke-width:2px
+    classDef action fill:#FFF,stroke:#8A8A8A,color:#1A1A1A
+    classDef decide fill:#FBF3E4,stroke:#B8863D,color:#7a5820
+    classDef email fill:#F5E8EE,stroke:#8B4A6B,color:#5C2E44
+    classDef ascend fill:#E6F2EC,stroke:#2D7A50,color:#1f5536
+    classDef skip fill:#FBE8E8,stroke:#B84A4A,color:#7a3c3c
+    classDef wait fill:#F0EBE2,stroke:#8A8A8A,color:#4A4A4A,stroke-dasharray: 4 4
+    classDef tagEmail fill:#FAF7F2,stroke:#E8E0D4,color:#4A4A4A
+      </div>
+    </div>
+
+    <div class="legend">
+      <div class="legend-item"><span class="legend-dot" style="background:#8B4A6B;"></span>Purchase / core email</div>
+      <div class="legend-item"><span class="legend-dot" style="background:#B8863D;"></span>Decision / conditional</div>
+      <div class="legend-item"><span class="legend-dot" style="background:#2D7A50;"></span>Cross-sell / end</div>
+      <div class="legend-item"><span class="legend-dot" style="background:#B84A4A;"></span>Suppressed</div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline" style="background:#F5F1EA;">
+  <div class="container">
+    <div class="section-label">02 · Timeline</div>
+    <h2>What fires, and when.</h2>
+    <p class="section-intro">The full 10-day cadence. Conditional sends are marked — they only fire if the gating tag is present or absent.</p>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <span class="tl-when">T+0 · Immediate</span>
+        <div class="tl-title">UHA Purchase</div>
+        <div class="tl-desc">Checkout fires. Contact created in GHL. Redirected straight to the Interact quiz.</div>
+        <div class="tl-tags">
+          <span class="chip plus">+uha_purchaser</span>
+          <span class="chip plus">+uha_quiz_pending</span>
+          <span class="chip email">Email: UHA-1</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-when">Anytime · Webhook</span>
+        <div class="tl-title">Quiz Completed (Interact → GHL)</div>
+        <div class="tl-desc">Sends result email instantly based on estrogen_dominant vs balanced.</div>
+        <div class="tl-tags">
+          <span class="chip plus">+uha_completed</span>
+          <span class="chip minus">−uha_quiz_pending</span>
+          <span class="chip email">Email: UHA-2-ED or UHA-2-BAL</span>
+        </div>
+      </div>
+
+      <div class="tl-item is-cond">
+        <span class="tl-when">T+4 hrs · Conditional</span>
+        <div class="tl-title">Quiz Nudge 1</div>
+        <div class="tl-desc">Only fires if uha_completed is still absent.</div>
+        <div class="tl-tags"><span class="chip email">Email: UHA-3</span></div>
+      </div>
+
+      <div class="tl-item is-cond">
+        <span class="tl-when">Day 2, 9am · Conditional</span>
+        <div class="tl-title">Quiz Nudge 2</div>
+        <div class="tl-desc">Second nudge — still gated on quiz not taken.</div>
+        <div class="tl-tags"><span class="chip email">Email: UHA-3b</span></div>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-when">Day 3, 9am</span>
+        <div class="tl-title">The Now-What Email</div>
+        <div class="tl-desc">Sent only to quiz completers. Variant splits on result type.</div>
+        <div class="tl-tags"><span class="chip email">Email: UHA-4-ED or UHA-4-BAL</span></div>
+      </div>
+
+      <div class="tl-item is-cond">
+        <span class="tl-when">Day 6, 9am · Conditional</span>
+        <div class="tl-title">Ascension Bridge — Challenge Pitch</div>
+        <div class="tl-desc">Suppresses if purchased_challenge tag is present.</div>
+        <div class="tl-tags"><span class="chip email">Email: UHA-5</span></div>
+      </div>
+
+      <div class="tl-item is-cond">
+        <span class="tl-when">Day 10, 9am · Conditional</span>
+        <div class="tl-title">Final Touch</div>
+        <div class="tl-desc">Final Challenge pitch. Suppresses if already converted.</div>
+        <div class="tl-tags"><span class="chip email">Email: UHA-6</span></div>
+      </div>
+
+      <div class="tl-item is-end">
+        <span class="tl-when">Day 10+ · Handoff</span>
+        <div class="tl-title">End Workflow → General Nurture</div>
+        <div class="tl-desc">Contact continues receiving broadcast nurture content. No more UHA-specific automation.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TWO PATHS -->
+<section id="paths">
+  <div class="container">
+    <div class="section-label">03 · Two Paths</div>
+    <h2>Quiz taker vs quiz skipper.</h2>
+    <p class="section-intro">The flow branches on a single behavior: whether the buyer actually takes the assessment they paid for. Most other conditionals cascade from that.</p>
+
+    <div class="paths-grid">
+      <div class="path-card a">
+        <div class="path-header">
+          <span class="path-badge">PATH A</span>
+          <h3>Takes the quiz</h3>
+        </div>
+        <div class="path-step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-when">T+0</div>
+            <div class="step-title">UHA-1 sent — backup quiz link</div>
+          </div>
+        </div>
+        <div class="path-step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-when">Whenever they finish</div>
+            <div class="step-title">UHA-2 — Hormone Report (ED or BAL)</div>
+          </div>
+        </div>
+        <div class="path-step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-when">Day 3, 9am</div>
+            <div class="step-title">UHA-4 — Now What (ED or BAL)</div>
+          </div>
+        </div>
+        <div class="path-step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <div class="step-when">Day 6, 9am</div>
+            <div class="step-title">UHA-5 — Challenge Pitch</div>
+          </div>
+        </div>
+        <div class="path-step">
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <div class="step-when">Day 10, 9am</div>
+            <div class="step-title">UHA-6 — Final Touch → End</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="path-card b">
+        <div class="path-header">
+          <span class="path-badge">PATH B</span>
+          <h3>Skips the quiz</h3>
+        </div>
+        <div class="path-step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-when">T+0</div>
+            <div class="step-title">UHA-1 sent — backup quiz link</div>
+          </div>
+        </div>
+        <div class="path-step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-when">T+4 hours</div>
+            <div class="step-title">UHA-3 — Nudge 1</div>
+          </div>
+        </div>
+        <div class="path-step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-when">Day 2, 9am</div>
+            <div class="step-title">UHA-3b — Nudge 2</div>
+          </div>
+        </div>
+        <div class="path-step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <div class="step-when">Day 6, 9am</div>
+            <div class="step-title">UHA-5 — Challenge Pitch</div>
+          </div>
+        </div>
+        <div class="path-step">
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <div class="step-when">Day 10, 9am</div>
+            <div class="step-title">UHA-6 — Final Touch → End</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EMAIL LIBRARY -->
+<section id="emails" style="background:#F5F1EA;">
+  <div class="container">
+    <div class="section-label">04 · Email Library</div>
+    <h2>Nine templates. Seven unique, two with variants.</h2>
+    <p class="section-intro">Every send in the UHA flow, with subject line and trigger. Result-variant pairs share a slot — WF-2 branches on <span class="kbd">uha_result_type</span>.</p>
+
+    <div class="email-grid">
+      <div class="email-card">
+        <div class="email-id">UHA-1</div>
+        <div class="email-subj">Your assessment link (in case you need it)</div>
+        <div class="email-trigger">Trigger: Immediate on purchase</div>
+        <div class="email-preheader">You should've already started — this is your backup.</div>
+      </div>
+      <div class="email-card">
+        <div class="email-id">UHA-2-ED</div>
+        <div class="email-subj">[First Name], your hormone results</div>
+        <div class="email-trigger">Trigger: Quiz webhook · if result = ED</div>
+        <div class="email-preheader">Here's what your assessment revealed — save this email.</div>
+      </div>
+      <div class="email-card">
+        <div class="email-id">UHA-2-BAL</div>
+        <div class="email-subj">[First Name], your hormone results</div>
+        <div class="email-trigger">Trigger: Quiz webhook · if result = BAL</div>
+        <div class="email-preheader">Here's what your assessment revealed — save this email.</div>
+      </div>
+      <div class="email-card cond">
+        <div class="email-id">UHA-3</div>
+        <div class="email-subj">Your assessment is waiting for you</div>
+        <div class="email-trigger">Trigger: T+4hrs · if quiz not taken</div>
+        <div class="email-preheader">10 minutes → personalized hormone insights.</div>
+      </div>
+      <div class="email-card cond">
+        <div class="email-id">UHA-3b</div>
+        <div class="email-subj">Still curious about your hormones?</div>
+        <div class="email-trigger">Trigger: Day 2, 9am · if quiz not taken</div>
+        <div class="email-preheader">Your assessment is ready whenever you are.</div>
+      </div>
+      <div class="email-card">
+        <div class="email-id">UHA-4-ED</div>
+        <div class="email-subj">So now you know — here's what to do about it</div>
+        <div class="email-trigger">Trigger: Day 3, 9am · ED completers</div>
+        <div class="email-preheader">3 things estrogen dominant women get wrong about diet.</div>
+      </div>
+      <div class="email-card">
+        <div class="email-id">UHA-4-BAL</div>
+        <div class="email-subj">So now you know — here's how to protect it</div>
+        <div class="email-trigger">Trigger: Day 3, 9am · BAL completers</div>
+        <div class="email-preheader">The #1 thing balanced women accidentally do.</div>
+      </div>
+      <div class="email-card ascend">
+        <div class="email-id">UHA-5</div>
+        <div class="email-subj">Can I be honest with you about something?</div>
+        <div class="email-trigger">Trigger: Day 6, 9am · skip if bought Challenge</div>
+        <div class="email-preheader">I've been thinking about your results.</div>
+      </div>
+      <div class="email-card ascend">
+        <div class="email-id">UHA-6</div>
+        <div class="email-subj">One more thing about your results</div>
+        <div class="email-trigger">Trigger: Day 10, 9am · skip if bought Challenge</div>
+        <div class="email-preheader">This was on my mind and I wanted to share it.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTEGRATION -->
+<section id="integration">
+  <div class="container">
+    <div class="section-label">05 · Integration</div>
+    <h2>One webhook. That's it.</h2>
+    <p class="section-intro">The entire UHA flow hinges on a single integration point: Interact POSTs quiz results to a GHL inbound webhook. If this breaks, everything downstream breaks.</p>
+
+    <div class="integration">
+      <div class="int-row">
+        <div class="int-box interact">
+          <div class="int-name">Interact</div>
+          <div class="int-role">48-question quiz host</div>
+        </div>
+        <div class="int-arrow">
+          <svg viewBox="0 0 48 20" fill="none" stroke="currentColor" stroke-width="1.5">
+            <line x1="2" y1="10" x2="42" y2="10"/>
+            <polyline points="36,4 44,10 36,16"/>
+          </svg>
+          <div class="int-arrow-label">POST JSON</div>
+        </div>
+        <div class="int-box ghl">
+          <div class="int-name">GHL</div>
+          <div class="int-role">Inbound webhook → WF-2</div>
+        </div>
+      </div>
+
+      <div class="int-mapping">
+        <div class="int-map-row">
+          <div>email</div><div class="int-arrow-small">→</div><div>Standard: Email</div>
+        </div>
+        <div class="int-map-row">
+          <div>first_name</div><div class="int-arrow-small">→</div><div>Standard: First Name</div>
+        </div>
+        <div class="int-map-row">
+          <div>uha_result_type</div><div class="int-arrow-small">→</div><div>Custom: uha_result_type</div>
+        </div>
+        <div class="int-map-row">
+          <div>uha_quiz_completed_at</div><div class="int-arrow-small">→</div><div>Custom: uha_quiz_completed_at</div>
+        </div>
+      </div>
+
+      <p style="margin-top:18px; margin-bottom:0; font-size:0.88rem;">
+        <strong style="color:var(--accent-ink);">Contract requirement:</strong>
+        the <span class="kbd">uha_result_type</span> value must be exactly
+        <span class="kbd">estrogen_dominant</span> or <span class="kbd">balanced</span> —
+        lowercase, underscored. If Interact outputs display text ("Estrogen Dominant"), add a mapping step.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- DECISION MATRIX -->
+<section id="matrix" style="background:#F5F1EA;">
+  <div class="container">
+    <div class="section-label">06 · Send Matrix</div>
+    <h2>Which emails fire in each scenario.</h2>
+    <p class="section-intro">Cross-reference of every email against the four main user paths. Useful for debugging when a contact "should have" received something but didn't.</p>
+
+    <div class="matrix-wrap">
+      <table class="matrix">
+        <thead>
+          <tr>
+            <th>Email</th>
+            <th>Quiz · ED</th>
+            <th>Quiz · BAL</th>
+            <th>Skips Quiz</th>
+            <th>Bought Challenge Day 5</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>UHA-1 Backup link</td><td class="y">✓</td><td class="y">✓</td><td class="y">✓</td><td class="y">✓</td></tr>
+          <tr><td>UHA-2-ED Report</td><td class="y">✓</td><td class="n">—</td><td class="n">—</td><td class="y">✓*</td></tr>
+          <tr><td>UHA-2-BAL Report</td><td class="n">—</td><td class="y">✓</td><td class="n">—</td><td class="y">✓*</td></tr>
+          <tr><td>UHA-3 Nudge 1</td><td class="n">—</td><td class="n">—</td><td class="y">✓</td><td class="n">—</td></tr>
+          <tr><td>UHA-3b Nudge 2</td><td class="n">—</td><td class="n">—</td><td class="y">✓</td><td class="n">—</td></tr>
+          <tr><td>UHA-4-ED Now What</td><td class="y">✓</td><td class="n">—</td><td class="n">—</td><td class="y">✓*</td></tr>
+          <tr><td>UHA-4-BAL Now What</td><td class="n">—</td><td class="y">✓</td><td class="n">—</td><td class="y">✓*</td></tr>
+          <tr><td>UHA-5 Challenge Pitch</td><td class="y">✓</td><td class="y">✓</td><td class="y">✓</td><td class="s">SKIPPED</td></tr>
+          <tr><td>UHA-6 Final Touch</td><td class="y">✓</td><td class="y">✓</td><td class="y">✓</td><td class="s">SKIPPED</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:0.82rem; color:var(--ink-mute); margin-top:12px;">* Assumes quiz was taken before Day 5. If Challenge purchase happens first, UHA-2 and UHA-4 still fire — cross-sell suppression only affects UHA-5 and UHA-6.</p>
+  </div>
+</section>
+
+<!-- QA -->
+<section id="qa">
+  <div class="container">
+    <div class="section-label">07 · QA Test Matrix</div>
+    <h2>Four scenarios to validate before launch.</h2>
+    <p class="section-intro">Run each with a throwaway email. If all four pass, you're safe to publish.</p>
+
+    <table class="qa-table">
+      <thead>
+        <tr>
+          <th style="width:50px;">#</th>
+          <th>Scenario</th>
+          <th>Setup</th>
+          <th>Expected Sequence</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="scen">A</td>
+          <td><strong>Happy path — ED</strong></td>
+          <td>Buy + take quiz fast (answer for ED)</td>
+          <td><div class="qa-emails"><span class="chip email">UHA-1</span><span class="chip email">UHA-2-ED</span><span class="chip email">UHA-4-ED</span><span class="chip email">UHA-5</span><span class="chip email">UHA-6</span></div></td>
+        </tr>
+        <tr>
+          <td class="scen">B</td>
+          <td><strong>Happy path — BAL</strong></td>
+          <td>Buy + take quiz fast (answer for BAL)</td>
+          <td><div class="qa-emails"><span class="chip email">UHA-1</span><span class="chip email">UHA-2-BAL</span><span class="chip email">UHA-4-BAL</span><span class="chip email">UHA-5</span><span class="chip email">UHA-6</span></div></td>
+        </tr>
+        <tr>
+          <td class="scen">C</td>
+          <td><strong>Quiz skipper</strong></td>
+          <td>Buy, never take quiz</td>
+          <td><div class="qa-emails"><span class="chip email">UHA-1</span><span class="chip email">UHA-3</span><span class="chip email">UHA-3b</span><span class="chip email">UHA-5</span><span class="chip email">UHA-6</span></div></td>
+        </tr>
+        <tr>
+          <td class="scen">D</td>
+          <td><strong>Cross-sell suppression</strong></td>
+          <td>Buy + quiz + manually tag <span class="kbd">purchased_challenge</span> before Day 6</td>
+          <td><div class="qa-emails"><span class="chip email">UHA-1</span><span class="chip email">UHA-2</span><span class="chip email">UHA-4</span><span class="chip minus">UHA-5 skipped</span><span class="chip minus">UHA-6 skipped</span></div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- TAG STATE -->
+<section id="state" style="background:#F5F1EA;">
+  <div class="container">
+    <div class="section-label">08 · Contact State</div>
+    <h2>How tags change over a contact's journey.</h2>
+    <p class="section-intro">GHL uses tags as the source of truth for conditional logic. Here's what each tag means and when it flips.</p>
+
+    <div class="matrix-wrap">
+      <table class="matrix">
+        <thead>
+          <tr>
+            <th>Stage</th>
+            <th>uha_purchaser</th>
+            <th>uha_quiz_pending</th>
+            <th>uha_completed</th>
+            <th>uha_result_type</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Pre-purchase</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">null</td></tr>
+          <tr><td>Post-checkout</td><td class="y">✓</td><td class="y">✓</td><td class="n">—</td><td class="n">null</td></tr>
+          <tr><td>Quiz completed</td><td class="y">✓</td><td class="n">—</td><td class="y">✓</td><td class="y">ED / BAL</td></tr>
+          <tr><td>Day 10+ (end)</td><td class="y">✓</td><td class="n">varies</td><td class="n">varies</td><td class="n">varies</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p><strong>UHA Customer Journey · Dr. P Program Automation</strong></p>
+    <p>Paired with <span class="kbd">uha-build-spec.md</span> (specialist brief) and <span class="kbd">email-copy-uha-challenge.md</span> (copy).</p>
+  </div>
+</footer>
+
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'base',
+    themeVariables: {
+      fontFamily: 'Inter, sans-serif',
+      fontSize: '14px',
+      primaryColor: '#F5E8EE',
+      primaryBorderColor: '#8B4A6B',
+      primaryTextColor: '#1A1A1A',
+      lineColor: '#8A8A8A',
+      background: '#FFFFFF',
+    },
+    flowchart: {
+      curve: 'basis',
+      padding: 20,
+      nodeSpacing: 50,
+      rankSpacing: 60,
+    }
+  });
+</script>
+
+</body>
+</html>

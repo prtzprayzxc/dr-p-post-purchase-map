@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dr. P — All Program Flows</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:       #F7F4EE;
+    --ink:      #1A1A1A;
+    --ink-soft: #4A4A4A;
+    --ink-mute: #8A8A8A;
+    --border:   #E8E0D4;
+    --spine:    #0E6B6B;
+    --spine-soft: #E2F0EF;
+    --accent:   #FFFFFF;
+    --radius:   10px;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 14px;
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    flex-direction: column;
+  }
+  h1 { font-family: 'Fraunces', Georgia, serif; font-weight: 600; letter-spacing: -0.02em; margin: 0; }
+
+  /* ===== Top bar ===== */
+  .topbar {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 10px 18px;
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    z-index: 10;
+  }
+  .brand {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+  }
+  .brand .eyebrow {
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--spine);
+    font-weight: 700;
+  }
+  .brand h1 { font-size: 1rem; margin-top: 2px; }
+
+  /* ===== Tabs ===== */
+  .tabs {
+    display: flex;
+    gap: 6px;
+    margin-left: auto;
+    padding: 4px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+  }
+  .tab {
+    padding: 7px 16px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    transition: background 120ms ease, color 120ms ease;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .tab:hover { color: var(--ink); background: rgba(14,107,107,0.04); }
+  .tab.active {
+    background: var(--spine);
+    color: #fff;
+    box-shadow: 0 1px 4px rgba(14,107,107,0.25);
+  }
+  .tab .price {
+    font-size: 0.66rem;
+    font-weight: 500;
+    opacity: 0.75;
+  }
+  .tab.active .price { opacity: 0.9; }
+
+  .hint {
+    font-size: 0.72rem;
+    color: var(--ink-mute);
+    margin-left: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .hint kbd {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-family: 'SF Mono', Consolas, monospace;
+    font-size: 0.7rem;
+    color: var(--ink-soft);
+  }
+  .hint kbd + kbd { margin-left: 3px; }
+
+  /* ===== Stage (iframe container) ===== */
+  .stage {
+    flex: 1 1 auto;
+    position: relative;
+    overflow: hidden;
+    background: var(--bg);
+  }
+  .stage iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: none;
+  }
+  .stage iframe.active { display: block; }
+
+  /* Loading shimmer — shown behind active iframe until it loads */
+  .stage::before {
+    content: 'Loading flow…';
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ink-mute);
+    font-size: 0.85rem;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .stage iframe { position: relative; z-index: 1; background: var(--bg); }
+
+  /* ===== Kajabi note bar (Challenge, MEM, HWN) ===== */
+  .kajabi-note {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 18px;
+    background: #F5EEFA;
+    border-bottom: 1px solid #DCC9EC;
+    font-size: 0.76rem;
+    color: #4A3A62;
+    line-height: 1.45;
+  }
+  .kajabi-note .badge {
+    flex: 0 0 auto;
+    font-size: 0.6rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #fff;
+    background: #6B3FA0;
+    padding: 3px 8px;
+    border-radius: 999px;
+    margin-top: 1px;
+  }
+  .kajabi-note strong { color: #2E1A4A; font-weight: 600; }
+  .kajabi-note .sep { color: #C4AED9; margin: 0 6px; }
+  .kajabi-note[hidden] { display: none; }
+
+  @media (max-width: 720px) {
+    .topbar { flex-wrap: wrap; gap: 10px; padding: 10px 12px; }
+    .tabs { margin-left: 0; order: 3; width: 100%; justify-content: space-between; }
+    .hint { display: none; }
+    .tab { padding: 6px 10px; font-size: 0.74rem; }
+    .kajabi-note { padding: 8px 12px; font-size: 0.72rem; }
+    .kajabi-note .sep { display: none; }
+    .kajabi-note .entries { display: block; }
+    .kajabi-note .entries > span { display: block; margin-top: 2px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">
+    <span class="eyebrow">Dr. P Program Automation</span>
+    <h1>Post-Purchase Flows</h1>
+  </div>
+
+  <div class="hint">
+    <span>Drag to pan inside each flow</span>
+    <span>·</span>
+    <span>Press <kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd> or <kbd>←</kbd><kbd>→</kbd> to switch</span>
+  </div>
+
+  <div class="tabs" role="tablist" aria-label="Program flows">
+    <button class="tab active" id="tab-uha" data-target="uha" role="tab" aria-selected="true" aria-controls="frame-uha" tabindex="0">
+      UHA <span class="price">$47</span>
+    </button>
+    <button class="tab" id="tab-challenge" data-target="challenge" role="tab" aria-selected="false" aria-controls="frame-challenge" tabindex="-1">
+      Challenge <span class="price">$47</span>
+    </button>
+    <button class="tab" id="tab-mem" data-target="mem" role="tab" aria-selected="false" aria-controls="frame-mem" tabindex="-1">
+      MEM <span class="price">$1,997</span>
+    </button>
+    <button class="tab" id="tab-hwn" data-target="hwn" role="tab" aria-selected="false" aria-controls="frame-hwn" tabindex="-1">
+      HWN <span class="price">$47/mo</span>
+    </button>
+  </div>
+</div>
+
+<div class="kajabi-note" id="kajabiNote" role="note">
+  <span class="badge">Kajabi</span>
+  <div>
+    <strong>General rule — applies to every Kajabi course (Challenge, MEM, HWN):</strong> Kajabi sends one "Set Up Your Account" email automatically to brand-new users when access is granted. We do not write that email. Our emails simply point her back to the right login link, and once her password is set she can get in from 3 places:
+    <span class="entries">
+      <span>the Kajabi setup email</span><span class="sep">·</span><span>the Login button on callmedoctorp.com</span><span class="sep">·</span><span>any link in our emails</span>
+    </span>
+  </div>
+</div>
+
+<div class="stage">
+  <iframe
+    id="frame-uha"
+    class="active"
+    role="tabpanel"
+    aria-labelledby="tab-uha"
+    data-src="../services/uha/visuals/uha-flow-simple.html"
+    title="UHA Flow"
+    loading="eager"></iframe>
+  <iframe
+    id="frame-challenge"
+    role="tabpanel"
+    aria-labelledby="tab-challenge"
+    data-src="../services/challenge/visuals/challenge-flow-simple.html"
+    title="Challenge Flow"
+    loading="lazy"></iframe>
+  <iframe
+    id="frame-mem"
+    role="tabpanel"
+    aria-labelledby="tab-mem"
+    data-src="../services/mem/visuals/mem-flow-simple.html"
+    title="MEM Flow"
+    loading="lazy"></iframe>
+  <iframe
+    id="frame-hwn"
+    role="tabpanel"
+    aria-labelledby="tab-hwn"
+    data-src="../services/hwn/visuals/hwn-flow-simple.html"
+    title="HWN Flow"
+    loading="lazy"></iframe>
+</div>
+
+<script>
+  (function () {
+    const ORDER = ['uha', 'challenge', 'mem', 'hwn'];
+    const KAJABI = new Set(['challenge', 'mem', 'hwn']);
+    const tabs = Array.from(document.querySelectorAll('.tab'));
+    const frames = document.querySelectorAll('.stage iframe');
+    const kajabiNote = document.getElementById('kajabiNote');
+    const loaded = new Set();
+
+    // Eager-load the first active frame
+    frames.forEach(f => {
+      if (f.classList.contains('active') && f.dataset.src) {
+        f.src = f.dataset.src;
+        loaded.add(f.id);
+      }
+    });
+
+    function activate(target, opts) {
+      const focus = opts && opts.focus;
+      tabs.forEach(t => {
+        const on = t.dataset.target === target;
+        t.classList.toggle('active', on);
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        t.setAttribute('tabindex', on ? '0' : '-1');
+        if (on && focus) t.focus();
+      });
+      frames.forEach(f => {
+        const on = f.id === 'frame-' + target;
+        f.classList.toggle('active', on);
+        if (on && !loaded.has(f.id) && f.dataset.src) {
+          f.src = f.dataset.src;
+          loaded.add(f.id);
+        }
+      });
+      if (kajabiNote) kajabiNote.hidden = !KAJABI.has(target);
+      try {
+        history.replaceState(null, '', '#' + target);
+      } catch (_) { /* ignore */ }
+    }
+
+    tabs.forEach(t => t.addEventListener('click', () => activate(t.dataset.target)));
+
+    // Roving tabindex: Left/Right arrows + Home/End cycle the tablist
+    tabs.forEach(t => {
+      t.addEventListener('keydown', (e) => {
+        const i = ORDER.indexOf(t.dataset.target);
+        if (i < 0) return;
+        let next = null;
+        if (e.key === 'ArrowRight') next = ORDER[(i + 1) % ORDER.length];
+        else if (e.key === 'ArrowLeft') next = ORDER[(i - 1 + ORDER.length) % ORDER.length];
+        else if (e.key === 'Home') next = ORDER[0];
+        else if (e.key === 'End') next = ORDER[ORDER.length - 1];
+        if (next) { e.preventDefault(); activate(next, { focus: true }); }
+      });
+    });
+
+    // Global 1/2/3/4 switch
+    document.addEventListener('keydown', (e) => {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      const map = { '1': 'uha', '2': 'challenge', '3': 'mem', '4': 'hwn' };
+      if (map[e.key]) activate(map[e.key]);
+    });
+
+    // Honor #hash on load, else sync note to default active tab
+    const initial = (location.hash || '').replace('#', '');
+    if (ORDER.includes(initial)) activate(initial);
+    else if (kajabiNote) kajabiNote.hidden = !KAJABI.has('uha');
+  })();
+</script>
+
+</body>
+</html>

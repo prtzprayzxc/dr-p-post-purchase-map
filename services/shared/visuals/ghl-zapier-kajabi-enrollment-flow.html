@@ -1,0 +1,2702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GHL → Zapier → Kajabi — Enrollment Flow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Canvas surface */
+    --bg:         #F7F4EE;
+    --bg-card:    #FFFFFF;
+    --ink:        #1A1A1A;
+    --ink-soft:   #4A4A4A;
+    --ink-mute:   #8A8A8A;
+    --ink-faint:  #B8B0A4;
+    --border:     #E8E0D4;
+    --border-strong: #D4CAB9;
+
+    /* ---------- Semantic flow palette (NEW) ---------- */
+    /* Spine = main happy path (deep teal, cool, calm, dominant) */
+    --spine:        #0E6B6B;
+    --spine-deep:   #0A5050;
+    --spine-soft:   #E2F0EF;
+    --spine-band:   #EEF7F6;
+
+    /* Recovery = quiz-not-done nudges (amber, warm, "we're catching you") */
+    --recovery:      #C47A2C;
+    --recovery-soft: #FBEFDC;
+
+    /* Side = UHA-1 backup — always fires (same amber family) */
+    --side:       #C47A2C;
+    --side-soft:  #FBEFDC;
+
+    /* Scaffold = system / BTS (neutral grey, subservient) */
+    --scaffold:      #8A8A8A;
+    --scaffold-soft: #ECEAE6;
+
+    /* Surface icon colors (small badges only, not whole cards) */
+    --ico-web:   #2E6FAE;
+    --ico-quiz:  #6B5B8A;
+    --ico-mail:  #B8863D;
+    --ico-bts:   #5C6670;
+
+    --shadow-xs:  0 1px 2px rgba(26,26,26,0.04);
+    --shadow-sm:  0 1px 2px rgba(26,26,26,0.04), 0 4px 10px rgba(26,26,26,0.05);
+    --shadow-md:  0 2px 4px rgba(26,26,26,0.05), 0 12px 32px rgba(26,26,26,0.09);
+    --shadow-hero: 0 2px 6px rgba(14,107,107,0.10), 0 18px 42px rgba(14,107,107,0.14);
+    --radius:     14px;
+
+    /* Sizing */
+    --hero-w:     320px;
+    --sat-w:      236px;
+    --col-gap:    260px;
+    --row-gap:    185px;
+    --lane-pad:   40px;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; height: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  h1, h2, h3 { font-family: 'Fraunces', Georgia, serif; font-weight: 600; letter-spacing: -0.02em; margin: 0; }
+  code {
+    font-family: 'SF Mono', Consolas, monospace;
+    font-size: 0.82em;
+    background: rgba(14,107,107,0.08);
+    padding: 1px 6px;
+    border-radius: 4px;
+    color: var(--spine-deep);
+  }
+
+  /* =========== Header =========== */
+  header.hero {
+    padding: 14px 22px;
+    background: #FFFFFF;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    z-index: 20;
+  }
+  header.hero .title-block { flex: 0 0 auto; }
+  header.hero .eyebrow {
+    font-size: 0.66rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--spine);
+    font-weight: 700;
+    margin-bottom: 3px;
+  }
+  header.hero h1 { font-size: 1.22rem; line-height: 1.1; }
+  header.hero .sub { color: var(--ink-mute); font-size: 0.78rem; margin-top: 3px; }
+
+  .legend {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    font-size: 0.72rem;
+    margin-left: auto;
+    align-items: flex-start;
+  }
+  .legend-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 2px 10px 2px 0;
+    border-right: 1px solid var(--border);
+  }
+  .legend-group:last-child { border-right: none; padding-right: 0; }
+  .legend-label {
+    font-size: 0.58rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 800;
+    color: var(--ink-mute);
+    align-self: center;
+  }
+  .legend-item { display: flex; align-items: center; gap: 6px; color: var(--ink-soft); }
+  .legend-swatch {
+    width: 24px; height: 4px; border-radius: 2px;
+    display: inline-block;
+  }
+  .swatch-spine    { background: var(--spine); height: 5px; }
+  .swatch-recovery { background: repeating-linear-gradient(90deg, var(--recovery), var(--recovery) 5px, transparent 5px, transparent 9px); }
+  .swatch-side     { background: var(--side); }
+  .swatch-scaffold { background: repeating-linear-gradient(90deg, var(--scaffold), var(--scaffold) 3px, transparent 3px, transparent 7px); }
+  .legend-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    display: inline-block;
+  }
+  .legend-dot.surf-web  { background: var(--ico-web); }
+  .legend-dot.surf-quiz { background: var(--ico-quiz); }
+  .legend-dot.surf-mail { background: var(--ico-mail); }
+  .legend-dot.surf-bts  { background: var(--ico-bts); }
+
+  .help-hint {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    font-size: 0.72rem;
+    color: var(--ink-mute);
+    background: var(--bg);
+    padding: 6px 10px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+  }
+  .help-hint .kbd {
+    display: inline-block;
+    font-family: 'SF Mono', Consolas, monospace;
+    font-size: 0.7rem;
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-bottom-width: 2px;
+    border-radius: 4px;
+    padding: 1px 5px;
+    color: var(--ink-soft);
+  }
+
+  /* =========== Viewport (pan/zoom host) =========== */
+  .viewport {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    background: var(--bg);
+    cursor: grab;
+    touch-action: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  .viewport.panning { cursor: grabbing; }
+  .viewport.panning,
+  .viewport.panning * {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  /* =========== Canvas (the transformed thing) =========== */
+  .canvas {
+    position: absolute;
+    top: 0; left: 0;
+    transform-origin: 0 0;
+    will-change: transform;
+    padding: 200px 300px 300px 200px;
+    isolation: isolate;
+  }
+  .canvas::before {
+    content: "";
+    position: absolute;
+    inset: -10000px; /* huge dot field */
+    background-image: radial-gradient(rgba(14,107,107,0.14) 1.5px, transparent 0);
+    background-size: 36px 36px;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  /* SVG connector layer — sits behind cards, matches canvas size.
+     overflow: visible lets connectors still render when cards are dragged
+     beyond the original grid boundary. */
+  svg.connectors {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: visible;
+  }
+
+  /* =========== Flow grid: 3 rows × 8 columns =========== */
+  /*  row 1 = satellite-top (BTS system chips above the spine)
+      row 2 = hero spine    (main happy path — the hero of the flow)
+      row 3 = satellite-bottom (side emails below the spine)
+  */
+  .flow {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-rows: 240px 500px 240px;
+    grid-template-columns: repeat(7, var(--hero-w));
+    column-gap: var(--col-gap);
+    row-gap: var(--row-gap);
+    align-items: stretch;
+  }
+
+  /* Spine band — now a structural "Box Outline" that encapsulates the main path */
+  .spine-band {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    background: rgba(14,107,107,0.03);
+    border: 2.5px dashed rgba(14,107,107,0.20);
+    border-radius: 50px;
+    margin: 0 -120px;
+    pointer-events: none;
+    z-index: 0;
+    position: relative;
+    box-shadow: inset 0 0 40px rgba(14,107,107,0.03);
+  }
+  .spine-band::before {
+    content: "THE HERO SPINE — HAPPY PATH";
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg);
+    padding: 2px 16px;
+    font-size: 0.68rem;
+    font-weight: 800;
+    border: 1.5px solid rgba(14,107,107,0.25);
+    border-radius: 20px;
+    color: var(--spine);
+    letter-spacing: 0.18em;
+  }
+
+
+  /* Cell wrappers (centering cards within their grid slot) */
+  .cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+    height: 100%; /* REQUIRED for flex centering inside grid tracks */
+  }
+  .cell.stack { flex-direction: column; gap: 12px; }
+  .cell.row-sat-top    { grid-row: 1; display: grid !important; place-items: center !important; }
+  .cell.row-spine      {
+    grid-row: 2;
+    display: grid !important;
+    place-items: center !important;
+    height: 100%;
+  }
+  .cell.row-sat-bottom { grid-row: 3; display: grid !important; place-items: center !important; }
+
+  /* =========== Card base =========== */
+  .card {
+    position: relative;
+    background: var(--bg-card);
+    border: 1px solid transparent;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    isolation: isolate;
+  }
+  .card.hero {
+    display: flex;
+    flex-direction: column;
+    margin: 0 !important; /* Reset margin to let place-items work */
+  }
+  .card.clickable:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+  }
+  .card.clickable:focus-visible {
+    outline: 3px solid rgba(14,107,107,0.40);
+    outline-offset: 3px;
+  }
+
+  /* Surface icon chip (top-right corner, small, so we still know WHERE) */
+  .ico-chip {
+    position: absolute;
+    top: 12px; right: 12px;
+    width: 24px; height: 24px;
+    border-radius: 6px;
+    font-size: 0.88rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.04);
+    color: var(--ink-mute);
+    line-height: 1;
+    z-index: 3;
+    font-weight: 600;
+  }
+  .ico-chip.web  { background: rgba(46,111,174,0.12);  color: var(--ico-web); }
+  .ico-chip.quiz { background: rgba(107,91,138,0.12);  color: var(--ico-quiz); }
+  .ico-chip.mail { background: rgba(184,134,61,0.14);  color: var(--ico-mail); }
+  .ico-chip.bts  { background: rgba(92,102,112,0.12);  color: var(--ico-bts); }
+
+  /* =========== SURFACE color coding (top bar on every card) =========== */
+  /* A 5px colored strip across the top of each card tells you WHERE it
+     happens (website / quiz / email / BTS), without competing with the
+     teal "spine" left-border that signals ROLE (on main path or not). */
+  .card.surface-quiz,
+  .card.surface-mail,
+  .card.surface-bts {
+    overflow: hidden; /* so the bar rounds with the card */
+  }
+  .card.surface-web {
+    overflow: hidden;
+    border-left: 6px solid var(--ico-web) !important;
+  }
+  .card.surface-web::after,
+  .card.surface-quiz::after,
+  .card.surface-mail::after,
+  .card.surface-bts::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .card.surface-web::after  { background: var(--ico-web); }
+  .card.surface-quiz::after { background: var(--ico-quiz); }
+  .card.surface-mail::after { background: var(--ico-mail); }
+  .card.surface-bts::after  { background: var(--ico-bts); }
+
+  /* Surface-colored "kind" pill — overrides the default teal-on-spine pill */
+  .card.surface-web.kind-tinted  .kind { background: rgba(46,111,174,0.12);  color: var(--ico-web); }
+  .card.surface-quiz.kind-tinted .kind { background: rgba(107,91,138,0.12);  color: var(--ico-quiz); }
+  .card.surface-mail.kind-tinted .kind { background: rgba(184,134,61,0.16);  color: #8A6320; }
+  .card.surface-bts.kind-tinted  .kind { background: rgba(92,102,112,0.12);  color: var(--ico-bts); }
+
+  /* Subtle surface-tint on card bg (very muted so teal border still dominates) */
+  .card.hero.surface-web  { background: linear-gradient(180deg, rgba(46,111,174,0.025) 0%, #FFFFFF 65%); }
+  .card.hero.surface-quiz { background: linear-gradient(180deg, rgba(107,91,138,0.03) 0%, #FFFFFF 65%); }
+  .card.hero.surface-mail { background: linear-gradient(180deg, rgba(184,134,61,0.035) 0%, #FFFFFF 65%); }
+  .card.hero.surface-bts  { background: linear-gradient(180deg, rgba(92,102,112,0.03) 0%, #FFFFFF 65%); }
+
+  /* Adjust step badge to sit above the top surface bar */
+  .card.hero .step { z-index: 4; }
+  /* Adjust ico-chip to sit above the top surface bar */
+  .ico-chip { margin-top: 2px; }
+
+  /* =========================================================
+     CHROME WRAPPERS — shape-as-affordance
+     Each card LOOKS like what it actually is:
+     .web-chrome   → a browser window (traffic dots + URL pill)
+     .email-chrome → an inbox preview (sender + subject + preview)
+     ========================================================= */
+
+  /* ---- Shared chrome resets (allow badge overlap) ---- */
+  .card.web-chrome,
+  .card.email-chrome,
+  .card.system-card,
+  .sub-card.web-chrome {
+    padding: 0 !important;
+    overflow: visible !important; /* allow badges to stick out */
+  }
+  .card.web-chrome::after,
+  .card.email-chrome::after,
+  .sub-card.web-chrome::after {
+    display: none !important; /* hide the 5px surface bar when chrome is used */
+  }
+  /* hide the tiny ico-chip when chrome is used (chrome itself signals surface) */
+  .card.web-chrome > .ico-chip,
+  .card.email-chrome > .ico-chip,
+  .sub-card.web-chrome > .ico-chip { display: none; }
+
+  /* =========== SYSTEM CHROME (ops / automation / gate) =========== */
+  .card.system-card {
+    padding: 0;
+    overflow: hidden;
+    border-radius: 13px;
+  }
+  .card.system-card::after,
+  .card.system-card > .ico-chip {
+    display: none !important;
+  }
+  .card.system-card .sys-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 9px 12px;
+    border-bottom: 1px solid rgba(92,102,112,0.20);
+    background: linear-gradient(180deg, #51565D 0%, #3D4146 100%);
+    color: #FFFFFF;
+    border-radius: 13px 13px 0 0; /* manual clipping */
+  }
+  .card.system-card .sys-topbar .sys-chip {
+    color: #B2BDC8;
+  }
+  .card.system-card .sys-topbar .sys-mini {
+    background: rgba(255,255,255,0.12);
+    border-color: rgba(255,255,255,0.18);
+    color: #FFFFFF;
+  }
+  .card.system-card .sys-topbar .sys-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 800;
+    color: var(--ico-bts);
+  }
+  .card.system-card .sys-topbar .sys-gear {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(92,102,112,0.12);
+    color: var(--ico-bts);
+    font-size: 0.7rem;
+    line-height: 1;
+  }
+  .card.system-card .sys-topbar .sys-mini {
+    font-family: 'SF Mono', Consolas, monospace;
+    font-size: 0.58rem;
+    color: var(--ink-mute);
+    background: rgba(255,255,255,0.72);
+    border: 1px solid rgba(92,102,112,0.16);
+    border-radius: 10px;
+    padding: 2px 6px;
+    white-space: nowrap;
+  }
+  .card.system-card .sys-body {
+    padding: 16px 18px 18px;
+    background: #FFFFFF;
+    font-family: inherit;
+  }
+  .card.system-card .sys-body .detail code {
+    background: #F4F5F6;
+    padding: 2px 5px;
+    border-radius: 4px;
+    font-family: 'SF Mono', Consolas, monospace;
+    font-size: 0.85em;
+  }
+  .card.system-card .kind {
+    display: inline-block;
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-bottom: 6px;
+  }
+
+  /* =========== WEB CHROME (browser window look) =========== */
+  .card.web-chrome.hero {
+    border: 1.5px solid rgba(14,107,107,0.24);
+    border-left: 6px solid var(--ico-web) !important;
+    box-shadow:
+      0 2px 6px rgba(14,107,107,0.10),
+      0 16px 36px rgba(14,107,107,0.14);
+  }
+  .card.web-chrome.hero:hover { border-color: rgba(14,107,107,0.42); }
+
+  /* Quiz variant — purple palette on same browser shape */
+  .card.web-chrome.hero.surface-quiz {
+    border-color: rgba(14,107,107,0.24);
+    box-shadow:
+      0 2px 6px rgba(14,107,107,0.10),
+      0 16px 36px rgba(14,107,107,0.14);
+  }
+
+  .web-chrome .chrome-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    background: linear-gradient(180deg, #F8FAFC 0%, #E2E8F0 100%);
+    border-bottom: 1px solid rgba(14,107,107,0.18);
+    position: relative;
+    z-index: 2;
+    border-radius: var(--radius) var(--radius) 0 0; /* manual clipping */
+  }
+  .web-chrome .chrome-bar .url-pill {
+    flex: 1 1 0;
+    min-width: 0;
+    background: #FFFFFF;
+    border: 1px solid rgba(14,107,107,0.16);
+    border-radius: 10px;
+    padding: 4px 12px;
+    font-size: 0.72rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: inset 0 1px 2px rgba(14,107,107,0.06);
+  }
+  .card.web-chrome.surface-quiz .chrome-bar {
+    background: linear-gradient(180deg, #F1EDF5 0%, #E4DDEE 100%);
+    border-bottom-color: rgba(107,91,138,0.22);
+  }
+  .chrome-bar .tdots {
+    display: flex;
+    gap: 5px;
+    flex-shrink: 0;
+  }
+  .chrome-bar .tdot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    border: 0.5px solid rgba(0,0,0,0.10);
+  }
+  .chrome-bar .tdot.r { background: #FF5F56; }
+  .chrome-bar .tdot.y { background: #FFBD2E; }
+  .chrome-bar .tdot.g { background: #27C93F; }
+  .chrome-bar .url-pill {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    background: rgba(255,255,255,0.92);
+    border: 1px solid rgba(46,111,174,0.18);
+    border-radius: 11px;
+    font-family: 'SF Mono', Consolas, monospace;
+    font-size: 0.7rem;
+    line-height: 1.2;
+    color: var(--ink-soft);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .card.web-chrome.surface-quiz .url-pill {
+    border-color: rgba(107,91,138,0.22);
+  }
+  .chrome-bar .url-pill .lock {
+    color: var(--ico-web);
+    opacity: 0.75;
+    flex-shrink: 0;
+    font-size: 0.78rem;
+    line-height: 1;
+  }
+  .card.web-chrome.surface-quiz .url-pill .lock { color: var(--ico-quiz); }
+  .chrome-bar .url-pill .domain { color: var(--ink-mute); }
+  .chrome-bar .url-pill .path   { color: var(--ico-web); font-weight: 600; }
+  .card.web-chrome.surface-quiz .url-pill .path { color: var(--ico-quiz); }
+
+  .web-chrome .web-body {
+    padding: 18px 20px 20px;
+    position: relative;
+    background: #FFFFFF;
+  }
+  .web-chrome .web-body .kind { margin-bottom: 8px; }
+
+  /* Sub-card variant (stacked Results landing pages) */
+  .sub-card.web-chrome {
+    padding: 0 !important;
+    border-left: 6px solid var(--spine) !important;
+    border-color: rgba(14,107,107,0.22) !important;
+    box-shadow:
+      0 1px 4px rgba(14,107,107,0.08),
+      0 10px 24px rgba(14,107,107,0.10);
+  }
+  .sub-card.web-chrome .chrome-bar {
+    padding: 7px 10px;
+    gap: 8px;
+  }
+  .sub-card.web-chrome .chrome-bar .tdot { width: 8px; height: 8px; }
+  .sub-card.web-chrome .chrome-bar .url-pill {
+    padding: 3px 8px;
+    font-size: 0.64rem;
+  }
+  .sub-card.web-chrome .web-body {
+    padding: 10px 12px 12px;
+  }
+  .sub-card.web-chrome .web-body .kind { margin-bottom: 4px; }
+  
+  /* Sub-card badges (Step 4a, 4b) should also stick out */
+  .sub-card .step {
+    position: absolute;
+    bottom: -8px;
+    right: -8px;
+    width: 22px;
+    height: 22px;
+    background: var(--spine);
+    color: #FFFFFF;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 800;
+    border: 1.5px solid #FFFFFF;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    z-index: 10;
+  }
+
+  /* =========== EMAIL CHROME (inbox preview look) =========== */
+  .card.email-chrome {
+    --mail-accent: var(--spine);
+    --mail-border: rgba(14,107,107,0.28);
+    --mail-header-from: #FDF6E7;
+    --mail-header-to: #F6E9CC;
+    --mail-header-border: rgba(184,134,61,0.25);
+    padding: 0 !important;
+    overflow: visible !important;
+    border: 1.5px dashed var(--mail-border);
+    border-left: 6px solid var(--mail-accent);
+    background: #FFFFFF;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06), 0 12px 30px rgba(0,0,0,0.12);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+    z-index: 2;
+    animation: emailPulse 4s infinite ease-in-out;
+  }
+  @keyframes emailPulse {
+    0%, 100% { box-shadow: 0 4px 12px rgba(184,134,61,0.10), 0 0 0 rgba(184,134,61,0); }
+    50% { box-shadow: 0 12px 30px rgba(184,134,61,0.25), 0 0 25px rgba(184,134,61,0.40); }
+  }
+  .card.email-chrome.clickable:hover { 
+    border-color: var(--mail-accent);
+    transform: translateY(-5px) scale(1.01);
+    box-shadow: 0 25px 60px rgba(184,134,61,0.30), 0 0 40px rgba(184,134,61,0.45) !important;
+    animation-play-state: paused;
+  }
+  /* Notification badge style step marker for email cards (bottom right) */
+  .card.email-chrome .step {
+    top: auto;
+    left: auto;
+    bottom: -10px;
+    right: -10px;
+    width: 26px;
+    height: 26px;
+    background: var(--mail-accent);
+    color: #FFFFFF;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.78rem;
+    font-weight: 800;
+    border: 2px solid #FFFFFF;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+    z-index: 10;
+  }
+  
+  /* Hero-spine email (teal) needs its own colors but same DASHED border */
+  .card.email-chrome.hero {
+    --mail-accent: var(--spine);
+    --mail-border: rgba(14,107,107,0.35);
+  }
+
+  /* Side variant (UHA-1 always-fires — stays amber/warm) */
+  .card.email-chrome.mail-side {
+    --mail-accent: var(--side);
+    --mail-border: #E7C98B;
+    --mail-header-from: #FFF5E1;
+    --mail-header-to: #FBEBD0;
+  }
+  /* Recovery variant (UHA-3, UHA-3b — dashed to signal "conditional") */
+  .card.email-chrome.mail-recovery {
+    --mail-accent: var(--recovery);
+    --mail-border: var(--recovery);
+    --mail-header-from: #FFF9EF;
+    --mail-header-to: #F6E3B8;
+  }
+
+  .email-chrome .sender-row {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 10px 12px 9px;
+    background: linear-gradient(180deg, var(--mail-header-from) 0%, var(--mail-header-to) 100%);
+    border-bottom: 1px dashed var(--mail-header-border);
+    position: relative;
+    z-index: 2;
+    border-radius: var(--radius) var(--radius) 0 0; /* manual clipping */
+  }
+  .email-chrome .avatar {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #D19348 0%, #8A6320 100%);
+    color: #FFFFFF;
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 0.96rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  }
+  .email-chrome .sender-info {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .email-chrome .sender-name {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.15;
+  }
+  .email-chrome .sender-addr {
+    font-family: 'SF Mono', Consolas, monospace;
+    font-size: 0.64rem;
+    color: var(--ink-mute);
+    line-height: 1.2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .email-chrome .time-chip {
+    font-size: 0.64rem;
+    letter-spacing: 0.02em;
+    color: #8A6320;
+    background: rgba(255,255,255,0.65);
+    padding: 3px 8px;
+    border-radius: 10px;
+    font-weight: 700;
+    flex-shrink: 0;
+    white-space: nowrap;
+    border: 1px solid rgba(184,134,61,0.25);
+  }
+
+  .email-chrome .mail-body {
+    padding: 12px 14px 14px;
+    position: relative;
+  }
+  .email-chrome .tag-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 6px;
+  }
+  .email-chrome .tag-pill {
+    font-family: 'SF Mono', Consolas, monospace;
+    font-size: 0.62rem;
+    color: #FFFFFF;
+    background: var(--ico-mail);
+    padding: 2px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.04em;
+    font-weight: 700;
+  }
+  .card.email-chrome.mail-side    .tag-pill { background: var(--side); }
+  .card.email-chrome.mail-recovery .tag-pill { background: var(--recovery); }
+  .email-chrome .variants-pill {
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: #8A6320;
+    background: rgba(184,134,61,0.15);
+    padding: 2px 7px;
+    border-radius: 10px;
+    letter-spacing: 0.02em;
+  }
+  .email-chrome .subject-line {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 0.98rem;
+    line-height: 1.28;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .email-chrome.hero .subject-line { font-size: 1rem; }
+  .email-chrome .preview-line {
+    font-size: 0.76rem;
+    color: var(--ink-mute);
+    line-height: 1.42;
+    font-style: italic;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .email-chrome .trigger-row {
+    margin-top: auto;
+    padding-top: 10px;
+    font-size: 0.68rem;
+    color: var(--ink-mute);
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    letter-spacing: 0.01em;
+  }
+  .email-chrome .trigger-row .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--mail-accent);
+    flex-shrink: 0;
+  }
+
+  /* Satellite-sized email chrome (UHA-1, UHA-3, UHA-3b) */
+  .card.email-chrome.sat {
+    width: var(--sat-w);
+    font-size: 0.78rem;
+  }
+  .card.email-chrome.sat .sender-row {
+    padding: 7px 10px 6px;
+    gap: 7px;
+  }
+  .card.email-chrome.sat .avatar { width: 24px; height: 24px; font-size: 0.78rem; }
+  .card.email-chrome.sat .sender-name { font-size: 0.72rem; }
+  .card.email-chrome.sat .sender-addr { font-size: 0.58rem; }
+  .card.email-chrome.sat .time-chip { font-size: 0.58rem; padding: 2px 6px; }
+  .card.email-chrome.sat .mail-body { padding: 9px 12px 12px; }
+  .card.email-chrome.sat .subject-line { font-size: 0.86rem; }
+  .card.email-chrome.sat .preview-line { font-size: 0.7rem; }
+  .card.email-chrome.sat .tag-pill { font-size: 0.58rem; }
+  .card.email-chrome.sat .trigger-row { padding-top: 8px; }
+
+  /* Clickable email cards retain the hover lift */
+  .card.email-chrome.clickable:hover { transform: translateY(-4px); }
+
+  /* Clickable email cards retain the hover lift */
+  .card.email-chrome.clickable:hover { transform: translateY(-3px); }
+
+  /* =========== HERO card (spine) =========== */
+  .card.hero {
+    width: var(--hero-w);
+    padding: 18px 20px 18px 22px;
+    border: 1.5px solid rgba(14,107,107,0.24);
+    box-shadow: var(--shadow-hero);
+    animation: h-float 6s infinite ease-in-out;
+  }
+  @keyframes h-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+  .card.hero:nth-child(even) { animation-delay: -3s; }
+  .card.hero:hover { 
+    border-color: rgba(14,107,107,0.42);
+    transform: translateY(-8px) scale(1.005) !important;
+    animation-play-state: paused;
+  }
+
+  /* Notification badge style step marker for hero cards (bottom right) */
+  .card.hero .step {
+    position: absolute;
+    top: auto; 
+    left: auto;
+    bottom: -12px;
+    right: -12px;
+    width: 32px;
+    height: 32px;
+    background: var(--spine);
+    color: #FFFFFF;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.96rem;
+    font-weight: 800;
+    box-shadow: 0 4px 12px rgba(14,107,107,0.35);
+    border: 2.5px solid #FFFFFF;
+    font-family: 'Fraunces', serif;
+    z-index: 10;
+  }
+  .card.hero .kind {
+    display: inline-block;
+    font-size: 0.62rem;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    font-weight: 800;
+    color: var(--spine);
+    background: var(--spine-soft);
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+  }
+  .card.hero h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.02rem;
+    font-weight: 600;
+    line-height: 1.22;
+    margin-bottom: 4px;
+    color: var(--ink);
+    padding-right: 26px; /* avoid overlap with ico-chip */
+  }
+  .card.hero h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 600;
+    line-height: 1.24;
+    margin-bottom: 4px;
+    color: var(--ink);
+    padding-right: 26px;
+  }
+  .card.hero .detail { font-size: 0.78rem; color: var(--ink-soft); line-height: 1.45; }
+  .card.hero .tech {
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px dashed var(--border);
+    font-size: 0.72rem;
+    color: var(--ink-mute);
+  }
+  .card.hero .subj {
+    margin-top: 8px;
+    padding: 7px 10px;
+    background: var(--spine-soft);
+    border-left: 2px solid var(--spine);
+    border-radius: 5px;
+    font-size: 0.76rem;
+    color: var(--ink-soft);
+    line-height: 1.35;
+  }
+  .card.hero .subj .sub-label {
+    display: block;
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--spine);
+    font-weight: 800;
+    margin-bottom: 2px;
+  }
+  .card.hero .subj .sub-line { color: var(--ink); font-weight: 500; }
+  .card.hero .meta { font-size: 0.72rem; color: var(--ink-mute); margin-bottom: 6px; padding-right: 26px; }
+  .card.hero .variants {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: 0.66rem;
+    font-weight: 700;
+    color: var(--spine-deep);
+    background: var(--spine-soft);
+    padding: 3px 8px;
+    border-radius: 10px;
+  }
+
+  /* Hero-stacked (two results pages side-by-side vertically) */
+  .card.hero.stacked-group {
+    padding: 10px;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    width: var(--hero-w);
+  }
+  .card.hero.stacked-group .sub-card {
+    background: var(--bg-card);
+    border: 1.5px solid rgba(14,107,107,0.22);
+    border-left: 6px solid var(--spine);
+    border-radius: 12px;
+    padding: 12px 14px;
+    box-shadow:
+      0 2px 6px rgba(14,107,107,0.08),
+      0 10px 26px rgba(14,107,107,0.10);
+    margin-bottom: 14px;
+    position: relative;
+  }
+  .card.hero.stacked-group .sub-card:last-child { margin-bottom: 0; }
+  .card.hero.stacked-group .sub-card .kind {
+    display: inline-block;
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 800;
+    color: var(--spine);
+    background: var(--spine-soft);
+    padding: 2px 7px;
+    border-radius: 4px;
+    margin-bottom: 5px;
+  }
+  .card.hero.stacked-group .sub-card h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.86rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .card.hero.stacked-group .sub-card .url {
+    display: inline-block;
+    font-family: 'SF Mono', Consolas, monospace;
+    font-size: 0.68rem;
+    color: var(--spine);
+    background: var(--spine-soft);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-bottom: 6px;
+    word-break: break-all;
+  }
+  .card.hero.stacked-group .sub-card ul {
+    margin: 4px 0 0; padding-left: 14px;
+    font-size: 0.7rem; color: var(--ink-soft);
+  }
+  .card.hero.stacked-group .sub-card ul li { margin-bottom: 1px; }
+  .card.hero.stacked-group .group-label {
+    display: block;
+    text-align: center;
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 800;
+    color: var(--spine);
+    margin-bottom: 6px;
+    padding-top: 2px;
+  }
+
+  /* End card variant (still a hero, but finality tone) */
+  .card.hero.end {
+    border-left-color: var(--spine-deep);
+    background: linear-gradient(180deg, #FFFFFF 0%, var(--spine-soft) 100%);
+  }
+  .card.hero.end .step { background: var(--spine-deep); }
+  .card.hero.end.system-card {
+    border-left-color: var(--scaffold);
+    background: linear-gradient(180deg, #F8FAFB 0%, #EEF4F6 100%);
+    box-shadow:
+      0 2px 6px rgba(92,102,112,0.08),
+      0 14px 32px rgba(92,102,112,0.12);
+  }
+  .card.hero.end.system-card .sys-topbar {
+    background: linear-gradient(180deg, #EFF3F6 0%, #E1E8EC 100%);
+  }
+  .card.hero.end.system-card .kind {
+    color: var(--ico-bts);
+    background: rgba(92,102,112,0.12);
+  }
+  .card.hero.end.system-card h3 {
+    padding-right: 0;
+    margin-bottom: 5px;
+  }
+
+  /* =========== SATELLITE cards (above/below) =========== */
+  .card.sat {
+    width: var(--sat-w);
+    padding: 11px 13px;
+    font-size: 0.8rem;
+    line-height: 1.4;
+  }
+
+  /* Scaffold (BTS) satellites — grey, dashed border */
+  .card.sat.scaffold {
+    background: linear-gradient(180deg, #F7F7F5 0%, var(--scaffold-soft) 100%);
+    border: 1px dashed rgba(92,102,112,0.68);
+    border-left: 5px solid var(--scaffold);
+    box-shadow:
+      0 1px 3px rgba(92,102,112,0.06),
+      0 10px 22px rgba(92,102,112,0.08);
+    color: var(--ink-soft);
+  }
+  .card.sat.scaffold .sys-topbar {
+    background: linear-gradient(180deg, #F2F4F5 0%, #E6EAED 100%);
+    border-bottom-color: rgba(92,102,112,0.18);
+  }
+  .card.sat.scaffold .kind {
+    color: var(--scaffold);
+    background: rgba(92,102,112,0.10);
+  }
+
+  /* Decision — a special scaffold variant (the gate) */
+  .card.sat.decide {
+    background: linear-gradient(180deg, #FFFDF8 0%, #FFFFFF 100%);
+    border: 1.5px dashed var(--recovery);
+    border-left: 5px solid var(--recovery);
+    text-align: center;
+    box-shadow:
+      0 1px 3px rgba(196,122,44,0.06),
+      0 10px 24px rgba(196,122,44,0.10);
+  }
+  .card.sat.decide .sys-topbar {
+    background: linear-gradient(180deg, #FDF1D8 0%, #F6E3B8 100%);
+    border-bottom-color: rgba(196,122,44,0.20);
+  }
+  .card.sat.decide .sys-topbar .sys-chip,
+  .card.sat.decide .sys-topbar .sys-gear {
+    color: var(--recovery);
+  }
+  .card.sat.decide .sys-topbar .sys-gear {
+    background: rgba(196,122,44,0.14);
+  }
+  .card.sat.decide .sys-topbar .sys-mini {
+    border-color: rgba(196,122,44,0.18);
+  }
+  .card.sat.decide .kind {
+    color: var(--recovery);
+    background: var(--recovery-soft);
+  }
+  .card.sat.decide .question {
+    font-family: 'Fraunces', serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    line-height: 1.25;
+  }
+  .card.sat.decide .detail {
+    font-size: 0.7rem;
+    color: var(--ink-mute);
+    margin-top: 3px;
+  }
+
+  /* Side-email satellite (UHA-1 backup) — amber tone */
+  .card.sat.side-mail {
+    background: var(--side-soft);
+    border: 1px solid #EED9A8;
+  }
+  .card.sat.side-mail .kind {
+    display: inline-block;
+    font-family: 'SF Mono', Consolas, monospace;
+    font-size: 0.62rem;
+    background: var(--side);
+    color: #FFFFFF;
+    padding: 2px 7px;
+    border-radius: 4px;
+    letter-spacing: 0.05em;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .card.sat.side-mail h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.86rem;
+    font-weight: 600;
+    margin-bottom: 3px;
+    padding-right: 26px;
+  }
+  .card.sat.side-mail .meta { font-size: 0.7rem; color: var(--ink-mute); margin-bottom: 6px; padding-right: 26px; }
+  .card.sat.side-mail .subj {
+    padding: 5px 8px;
+    background: rgba(255,255,255,0.7);
+    border-left: 2px solid var(--side);
+    border-radius: 4px;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+    line-height: 1.35;
+  }
+  .card.sat.side-mail .subj .sub-label {
+    display: block;
+    font-size: 0.56rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--side);
+    font-weight: 800;
+    margin-bottom: 1px;
+  }
+  .card.sat.side-mail .subj .sub-line { color: var(--ink); font-weight: 500; }
+
+  /* Recovery satellite (UHA-3 / UHA-3b) — amber, mostly borrows side-mail */
+  .card.sat.recovery-mail {
+    background: #FFF6EA;
+    border: 1px dashed var(--recovery);
+  }
+  .card.sat.recovery-mail .kind {
+    display: inline-block;
+    font-family: 'SF Mono', Consolas, monospace;
+    font-size: 0.62rem;
+    background: var(--recovery);
+    color: #FFFFFF;
+    padding: 2px 7px;
+    border-radius: 4px;
+    letter-spacing: 0.05em;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .card.sat.recovery-mail h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.86rem;
+    font-weight: 600;
+    margin-bottom: 3px;
+    padding-right: 26px;
+  }
+  .card.sat.recovery-mail .meta { font-size: 0.7rem; color: var(--ink-mute); margin-bottom: 6px; padding-right: 26px; }
+  .card.sat.recovery-mail .subj {
+    padding: 5px 8px;
+    background: rgba(255,255,255,0.7);
+    border-left: 2px solid var(--recovery);
+    border-radius: 4px;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+    line-height: 1.35;
+  }
+  .card.sat.recovery-mail .subj .sub-label {
+    display: block;
+    font-size: 0.56rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--recovery);
+    font-weight: 800;
+    margin-bottom: 1px;
+  }
+  .card.sat.recovery-mail .subj .sub-line { color: var(--ink); font-weight: 500; }
+
+  /* =========== Floating toolbar =========== */
+  .toolbar {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 15;
+    display: flex;
+    gap: 6px;
+    background: rgba(255,255,255,0.95);
+    padding: 6px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+  }
+  .toolbar button {
+    width: 32px; height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    color: var(--ink-soft);
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.15s;
+  }
+  .toolbar button:hover { background: var(--bg); color: var(--ink); }
+  .toolbar button:active { transform: scale(0.95); }
+  .toolbar .divider { width: 1px; background: var(--border); margin: 4px 2px; }
+  .toolbar .zoom-level {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 46px;
+    padding: 0 8px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--ink-mute);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Hint overlay at the bottom */
+  .pan-hint {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 15;
+    background: rgba(255,255,255,0.95);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    pointer-events: none;
+    animation: hint-fade 6s ease-in-out;
+    opacity: 0;
+  }
+  @keyframes hint-fade {
+    0%, 100% { opacity: 0; }
+    10%, 80% { opacity: 1; }
+  }
+  .pan-hint .kbd {
+    display: inline-block;
+    font-family: 'SF Mono', Consolas, monospace;
+    font-size: 0.7rem;
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-bottom-width: 2px;
+    border-radius: 4px;
+    padding: 1px 5px;
+    color: var(--ink-soft);
+    margin: 0 2px;
+  }
+
+  /* =========== Email modal =========== */
+  .email-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(26,26,26,0.6);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 32px 16px;
+    animation: fadeIn 0.2s ease;
+  }
+  .email-modal.open { display: flex; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes slideUp {
+    from { transform: translateY(24px); opacity: 0; }
+    to   { transform: translateY(0); opacity: 1; }
+  }
+  .email-modal-card {
+    background: #FFFFFF;
+    width: 100%;
+    max-width: 680px;
+    max-height: 92vh;
+    border-radius: 16px;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.35);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: slideUp 0.25s ease;
+  }
+  .em-topbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 20px;
+    background: var(--spine);
+    color: #FFFFFF;
+    flex-shrink: 0;
+  }
+  .em-topbar .tag {
+    font-family: 'SF Mono', Consolas, monospace;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    background: rgba(255,255,255,0.22);
+    padding: 3px 10px;
+    border-radius: 4px;
+  }
+  .em-topbar .when { font-size: 0.78rem; opacity: 0.92; }
+  .em-topbar .close {
+    margin-left: auto;
+    background: transparent;
+    border: none;
+    color: #FFFFFF;
+    font-size: 1.5rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 4px 10px;
+    border-radius: 6px;
+    transition: background 0.15s;
+  }
+  .em-topbar .close:hover { background: rgba(255,255,255,0.2); }
+
+  .em-variants {
+    display: flex;
+    gap: 6px;
+    padding: 10px 20px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .em-variants[hidden] { display: none; }
+  .variant-tab {
+    font-size: 0.74rem;
+    letter-spacing: 0.04em;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: #FFFFFF;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .variant-tab:hover { border-color: var(--spine); color: var(--spine); }
+  .variant-tab.active { background: var(--spine); color: #FFFFFF; border-color: var(--spine); }
+
+  .em-headers {
+    padding: 18px 26px 14px;
+    border-bottom: 1px solid var(--border);
+    background: #FAFAF7;
+    flex-shrink: 0;
+  }
+  .em-headers .row {
+    display: grid;
+    grid-template-columns: 70px 1fr;
+    gap: 10px;
+    font-size: 0.8rem;
+    margin-bottom: 4px;
+  }
+  .em-headers .row .label {
+    color: var(--ink-mute);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+    padding-top: 2px;
+  }
+  .em-headers .row .val { color: var(--ink); }
+  .em-headers .subject {
+    font-family: 'Fraunces', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-top: 14px;
+    line-height: 1.3;
+  }
+  .em-headers .preheader {
+    font-size: 0.82rem;
+    color: var(--ink-mute);
+    font-style: italic;
+    margin-top: 6px;
+    line-height: 1.45;
+  }
+  .em-headers .cond {
+    margin-top: 10px;
+    font-size: 0.7rem;
+    color: var(--spine);
+    letter-spacing: 0.04em;
+    background: var(--spine-soft);
+    padding: 4px 10px;
+    border-radius: 10px;
+    display: inline-block;
+    font-weight: 600;
+  }
+  .em-headers .cond[hidden] { display: none; }
+
+  .em-body {
+    padding: 24px 30px 30px;
+    overflow-y: auto;
+    font-size: 0.94rem;
+    line-height: 1.65;
+    color: var(--ink);
+    white-space: pre-wrap;
+    flex: 1 1 auto;
+  }
+  .em-body::-webkit-scrollbar { width: 10px; }
+  .em-body::-webkit-scrollbar-track { background: var(--bg); }
+  .em-body::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 5px; }
+  .em-body .tok, .em-headers .tok {
+    background: var(--recovery-soft);
+    color: var(--recovery);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-family: 'SF Mono', Consolas, monospace;
+    font-size: 0.88em;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 900px) {
+    header.hero { flex-wrap: wrap; gap: 14px; }
+    header.hero .legend { order: 3; width: 100%; margin-left: 0; }
+    .help-hint { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="title-block">
+    <div class="eyebrow">Dr. P Program Automation · Shared Pattern</div>
+    <h1>GHL → Zapier → Kajabi — Enrollment Flow</h1>
+    <div class="sub">Canonical integration for every Kajabi-delivered course · follow the teal spine from checkout to downstream cadence · error path in amber</div>
+  </div>
+  <div class="legend">
+    <div class="legend-group">
+      <div class="legend-label">Flow</div>
+      <div class="legend-item"><span class="legend-swatch swatch-spine"></span>Happy path</div>
+      <div class="legend-item"><span class="legend-swatch swatch-recovery"></span>Error / alert</div>
+      <div class="legend-item"><span class="legend-swatch swatch-scaffold"></span>Behind scenes</div>
+    </div>
+    <div class="legend-group">
+      <div class="legend-label">System</div>
+      <div class="legend-item"><span class="legend-dot surf-web"></span>GHL</div>
+      <div class="legend-item"><span class="legend-dot surf-quiz"></span>Zapier</div>
+      <div class="legend-item"><span class="legend-dot surf-mail"></span>Kajabi</div>
+      <div class="legend-item"><span class="legend-dot surf-bts"></span>System / BTS</div>
+    </div>
+  </div>
+  <div class="help-hint">
+    <span>Drag to pan</span><span>·</span><span><span class="kbd">Ctrl</span>+scroll to zoom</span>
+  </div>
+</header>
+
+<div class="viewport" id="viewport">
+
+  <div class="toolbar">
+    <button id="btn-zoom-out" title="Zoom out (−)" aria-label="Zoom out">−</button>
+    <span class="zoom-level" id="zoom-level">100%</span>
+    <button id="btn-zoom-in" title="Zoom in (+)" aria-label="Zoom in">+</button>
+    <span class="divider"></span>
+    <button id="btn-fit" title="Fit to screen" aria-label="Fit to screen">⛶</button>
+    <button id="btn-reset" title="Reset view (0)" aria-label="Reset view">⟲</button>
+  </div>
+
+  <div class="pan-hint">
+    <span>🖱️ Drag empty space to pan</span>
+    <span><span class="kbd">Ctrl</span>+scroll to zoom</span>
+    <span>Course-specific values live in each course's production-automation-map</span>
+  </div>
+
+  <div class="canvas" id="canvas">
+    <svg class="connectors" id="connectors" xmlns="http://www.w3.org/2000/svg"></svg>
+
+    <div class="flow">
+
+            <div class="spine-band"></div>
+
+      <!-- ==================== row-sat-top ==================== -->
+
+      <div class="cell row-sat-top" style="grid-column: 1;">
+        <div class="card sat scaffold system-card surface-bts kind-tinted" id="n-tags">
+          <div class="sys-topbar">
+            <span class="sys-chip"><span class="sys-gear">&#9881;</span>GHL</span>
+            <span class="sys-mini">Tags</span>
+          </div>
+          <div class="sys-body">
+            <span class="kind">Purchase Tags</span>
+            <div>On order: <code>customer</code> + <code>purchased_&lt;course&gt;</code></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cell row-sat-top" style="grid-column: 3;">
+        <div class="card sat scaffold system-card surface-bts kind-tinted" id="n-payload">
+          <div class="sys-topbar">
+            <span class="sys-chip"><span class="sys-gear">&#9881;</span>Webhook</span>
+            <span class="sys-mini">POST JSON</span>
+          </div>
+          <div class="sys-body">
+            <span class="kind">Payload</span>
+            <div><code>contact</code>, <code>order</code>, <code>tag</code>, <code>course_key</code>, <code>course_offer_id</code></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cell row-sat-top" style="grid-column: 4;">
+        <div class="card sat decide system-card" id="n-decision">
+          <div class="sys-topbar">
+            <span class="sys-chip"><span class="sys-gear">&#9670;</span>Decision</span>
+            <span class="sys-mini">Find Person</span>
+          </div>
+          <div class="sys-body">
+            <span class="kind">Gate</span>
+            <div class="question">Does the person exist in Kajabi?</div>
+            <div class="detail">null &rarr; <strong>Path A</strong> · found &rarr; <strong>Path B</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cell row-sat-top" style="grid-column: 6;">
+        <div class="card sat scaffold system-card surface-bts kind-tinted" id="n-monitor">
+          <div class="sys-topbar">
+            <span class="sys-chip"><span class="sys-gear">&#9881;</span>Monitor</span>
+            <span class="sys-mini">GHL tags</span>
+          </div>
+          <div class="sys-body">
+            <span class="kind">Observability</span>
+            <div><code>kajabi_enrollment_ok</code> on success &middot; <code>enrollment_pending</code> / <code>enrollment_failed</code> alert ops</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== row-spine ==================== -->
+
+      <div class="cell row-spine" style="grid-column: 1;">
+        <div class="card hero web-chrome surface-web kind-tinted" id="n-checkout">
+          <span class="step">1</span>
+          <div class="chrome-bar">
+            <div class="tdots">
+              <span class="tdot r"></span>
+              <span class="tdot y"></span>
+              <span class="tdot g"></span>
+            </div>
+            <div class="url-pill" title="GHL embedded checkout">
+              <span class="lock">&#128274;</span>
+              <span class="domain">callmedoctorp.com</span><span class="path">/checkout</span>
+            </div>
+          </div>
+          <div class="web-body">
+            <span class="kind">GHL &middot; Checkout</span>
+            <h2>Buyer completes purchase</h2>
+            <div class="detail">Embedded GHL order form. Payment captured. Contact created/updated.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cell row-spine" style="grid-column: 2;">
+        <div class="card hero web-chrome surface-web kind-tinted" id="n-confirmation">
+          <span class="step">2</span>
+          <div class="chrome-bar">
+            <div class="tdots">
+              <span class="tdot r"></span>
+              <span class="tdot y"></span>
+              <span class="tdot g"></span>
+            </div>
+            <div class="url-pill" title="GHL confirmation page">
+              <span class="lock">&#128274;</span>
+              <span class="domain">callmedoctorp.com</span><span class="path">/confirmed</span>
+            </div>
+          </div>
+          <div class="web-body">
+            <span class="kind">GHL &middot; Confirmation</span>
+            <h2>Access instructions shown</h2>
+            <div class="detail">Primary onboarding moment. Explains Kajabi access path and sets expectations while enrollment runs in the background.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cell row-spine" style="grid-column: 3;">
+        <div class="card hero web-chrome surface-web kind-tinted" id="n-ghl-fire">
+          <span class="step">3</span>
+          <div class="chrome-bar">
+            <div class="tdots">
+              <span class="tdot r"></span>
+              <span class="tdot y"></span>
+              <span class="tdot g"></span>
+            </div>
+            <div class="url-pill" title="GHL workflow">
+              <span class="lock">&#128274;</span>
+              <span class="domain">app.gohighlevel.com</span><span class="path">/workflows/kajabi-enrollment</span>
+            </div>
+          </div>
+          <div class="web-body">
+            <span class="kind">GHL &middot; Workflow</span>
+            <h2>Workflow fires outbound webhook</h2>
+            <div class="detail"><code>Kajabi Enrollment &mdash; &lt;Course&gt;</code> runs on purchased tag. 30s settle, then POST to Zapier Catch Hook URL.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cell row-spine" style="grid-column: 4;">
+        <div class="card hero web-chrome surface-web kind-tinted" id="n-zap">
+          <span class="step">4</span>
+          <div class="chrome-bar">
+            <div class="tdots">
+              <span class="tdot r"></span>
+              <span class="tdot y"></span>
+              <span class="tdot g"></span>
+            </div>
+            <div class="url-pill" title="Zapier zap">
+              <span class="lock">&#128274;</span>
+              <span class="domain">zapier.com</span><span class="path">/zaps/enroll-kajabi</span>
+            </div>
+          </div>
+          <div class="web-body">
+            <span class="kind">Zapier &middot; Zap</span>
+            <h2>Catch &rarr; Filter &rarr; Find &rarr; Grant</h2>
+            <div class="detail">Catch Hook &rarr; Filter on <code>purchased_&lt;course&gt;</code> &rarr; Kajabi Find Person &rarr; Path A or B &rarr; Grant Offer &rarr; callback POST to GHL.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cell row-spine" style="grid-column: 5;">
+        <div class="card hero web-chrome surface-web kind-tinted" id="n-kajabi">
+          <span class="step">5</span>
+          <div class="chrome-bar">
+            <div class="tdots">
+              <span class="tdot r"></span>
+              <span class="tdot y"></span>
+              <span class="tdot g"></span>
+            </div>
+            <div class="url-pill" title="Kajabi admin">
+              <span class="lock">&#128274;</span>
+              <span class="domain">kajabi.com</span><span class="path">/admin/offers/&lt;course&gt;</span>
+            </div>
+          </div>
+          <div class="web-body">
+            <span class="kind">Kajabi &middot; Access</span>
+            <h2>Offer granted to contact</h2>
+            <div class="detail"><code>Grant Offer</code> is idempotent. New users also get the Kajabi welcome / password-setup email.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cell row-spine" style="grid-column: 6;">
+        <div class="card hero web-chrome surface-web kind-tinted" id="n-callback">
+          <span class="step">6</span>
+          <div class="chrome-bar">
+            <div class="tdots">
+              <span class="tdot r"></span>
+              <span class="tdot y"></span>
+              <span class="tdot g"></span>
+            </div>
+            <div class="url-pill" title="GHL inbound webhook">
+              <span class="lock">&#128274;</span>
+              <span class="domain">app.gohighlevel.com</span><span class="path">/webhooks/enrollment-success</span>
+            </div>
+          </div>
+          <div class="web-body">
+            <span class="kind">GHL &middot; Callback</span>
+            <h2>Enrollment marked successful</h2>
+            <div class="detail">Zapier POSTs back. GHL sets <code>kajabi_enrolled&nbsp;=&nbsp;true</code> + tag <code>kajabi_enrollment_ok</code>.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cell row-spine" style="grid-column: 7;">
+        <div class="card hero web-chrome surface-web kind-tinted" id="n-cadence">
+          <span class="step">7</span>
+          <div class="chrome-bar">
+            <div class="tdots">
+              <span class="tdot r"></span>
+              <span class="tdot y"></span>
+              <span class="tdot g"></span>
+            </div>
+            <div class="url-pill" title="GHL downstream cadence">
+              <span class="lock">&#128274;</span>
+              <span class="domain">app.gohighlevel.com</span><span class="path">/workflows/&lt;course&gt;-cadence</span>
+            </div>
+          </div>
+          <div class="web-body">
+            <span class="kind">GHL &middot; Downstream</span>
+            <h2>Course email sequence begins</h2>
+            <div class="detail">Course-specific cadence (CH-1, MEM-1, HWN-1, UHA-1, &hellip;) runs per the course's production-automation-map.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== row-sat-bottom ==================== -->
+
+      <div class="cell row-sat-bottom" style="grid-column: 3;">
+        <div class="card sat scaffold system-card surface-bts kind-tinted" id="n-path-new">
+          <div class="sys-topbar">
+            <span class="sys-chip"><span class="sys-gear">&#9881;</span>Path A</span>
+            <span class="sys-mini">New user</span>
+          </div>
+          <div class="sys-body">
+            <span class="kind">Create + Grant</span>
+            <div>Kajabi <code>Create Person</code> with <code>send_welcome_email&nbsp;=&nbsp;true</code>, then <code>Grant Offer</code>.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cell row-sat-bottom" style="grid-column: 4;">
+        <div class="card sat scaffold system-card surface-bts kind-tinted" id="n-path-existing">
+          <div class="sys-topbar">
+            <span class="sys-chip"><span class="sys-gear">&#9881;</span>Path B</span>
+            <span class="sys-mini">Returning</span>
+          </div>
+          <div class="sys-body">
+            <span class="kind">Grant Only</span>
+            <div>Kajabi <code>Grant Offer</code> only. No second welcome email &mdash; user already has a login.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cell row-sat-bottom" style="grid-column: 5;">
+        <div class="card sat scaffold system-card surface-bts kind-tinted" id="n-welcome">
+          <div class="sys-topbar">
+            <span class="sys-chip"><span class="sys-gear">&#9881;</span>Kajabi</span>
+            <span class="sys-mini">Welcome email</span>
+          </div>
+          <div class="sys-body">
+            <span class="kind">Welcome / Password Setup</span>
+            <div>Kajabi sends the separate account setup email to Path A users only. Not triggered for Path B.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cell row-sat-bottom" style="grid-column: 6;">
+        <div class="card sat scaffold system-card surface-bts kind-tinted" id="n-error">
+          <div class="sys-topbar">
+            <span class="sys-chip"><span class="sys-gear">&#9888;</span>Error</span>
+            <span class="sys-mini">Alert path</span>
+          </div>
+          <div class="sys-body">
+            <span class="kind">Failure Handling</span>
+            <div>Any Zap step error &rarr; POST to GHL failure webhook &rarr; tag <code>enrollment_failed</code> &rarr; ops alert &rarr; manual rescue.</div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+<!-- ============ Email modal ============ -->
+<div class="email-modal" id="emailModal" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="email-modal-card">
+    <div class="em-topbar">
+      <span class="tag" id="emTag">CH-1</span>
+      <span class="when" id="emWhen">Immediately</span>
+      <button class="close" id="emClose" aria-label="Close">×</button>
+    </div>
+    <div class="em-variants" id="emVariants" hidden></div>
+    <div class="em-headers">
+      <div class="row"><div class="label">From</div><div class="val">Dr. P Team &lt;info@callmedoctorp.com&gt;</div></div>
+      <div class="row"><div class="label">To</div><div class="val"><span class="tok">[First Name]</span></div></div>
+      <div class="subject" id="emSubject"></div>
+      <div class="preheader" id="emPre"></div>
+      <div class="cond" id="emCond" hidden></div>
+    </div>
+    <div class="em-body" id="emBody"></div>
+  </div>
+</div>
+
+<script>
+/* =========================================================
+   CONNECTOR DRAWING — SVG paths between card anchors
+   ========================================================= */
+const edges = [
+  { from: 'n-checkout',     to: 'n-confirmation', fromSide: 'R', toSide: 'L', cls: 'spine', label: 'redirect' },
+  { from: 'n-confirmation', to: 'n-ghl-fire',     fromSide: 'R', toSide: 'L', cls: 'spine', label: 'trigger workflow' },
+  { from: 'n-ghl-fire',     to: 'n-zap',          fromSide: 'R', toSide: 'L', cls: 'spine', label: 'POST webhook' },
+  { from: 'n-zap',          to: 'n-kajabi',       fromSide: 'R', toSide: 'L', cls: 'spine', label: 'Grant Offer' },
+  { from: 'n-kajabi',       to: 'n-callback',     fromSide: 'R', toSide: 'L', cls: 'spine', label: 'success' },
+  { from: 'n-callback',     to: 'n-cadence',      fromSide: 'R', toSide: 'L', cls: 'spine', label: 'kajabi_enrolled = true' },
+
+  { from: 'n-checkout',     to: 'n-tags',         fromSide: 'T', toSide: 'B', cls: 'scaffold', label: 'apply tags' },
+  { from: 'n-ghl-fire',     to: 'n-payload',      fromSide: 'T', toSide: 'B', cls: 'scaffold', label: 'payload shape' },
+  { from: 'n-zap',          to: 'n-decision',     fromSide: 'T', toSide: 'B', cls: 'scaffold', label: 'Find Person result' },
+  { from: 'n-callback',     to: 'n-monitor',      fromSide: 'T', toSide: 'B', cls: 'scaffold', label: 'monitor tags' },
+
+  { from: 'n-zap',          to: 'n-path-new',      fromSide: 'B', toSide: 'T', cls: 'scaffold', label: 'new &rarr; Path A' },
+  { from: 'n-zap',          to: 'n-path-existing', fromSide: 'B', toSide: 'T', cls: 'scaffold', label: 'found &rarr; Path B' },
+  { from: 'n-kajabi',       to: 'n-welcome',       fromSide: 'B', toSide: 'T', cls: 'scaffold', label: 'new users only' },
+
+  { from: 'n-zap',          to: 'n-error',         fromSide: 'B', toSide: 'T', cls: 'recovery', label: 'on failure' },
+];
+
+const STYLES = {
+  spine:    { color: '#0E6B6B', dash: '',     width: 5.0 },
+  scaffold: { color: '#8A8A8A', dash: '4,4',  width: 1.5 },
+  recovery: { color: '#C47A2C', dash: '7,4',  width: 2.5 },
+};
+
+const SVG_NS = 'http://www.w3.org/2000/svg';
+const svg    = document.getElementById('connectors');
+const canvas = document.getElementById('canvas');
+const flow   = canvas.querySelector('.flow');
+
+function getCanvasContentSize() {
+  const cs = getComputedStyle(canvas);
+  const padX = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
+  const padY = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
+  return {
+    width: flow.offsetWidth + padX,
+    height: flow.offsetHeight + padY,
+  };
+}
+
+function ensureDefs() {
+  const defs = document.createElementNS(SVG_NS, 'defs');
+  Object.keys(STYLES).forEach(k => {
+    const m = document.createElementNS(SVG_NS, 'marker');
+    m.setAttribute('id', 'arrow-' + k);
+    m.setAttribute('viewBox', '0 0 10 10');
+    m.setAttribute('refX', '8');
+    m.setAttribute('refY', '5');
+    m.setAttribute('markerWidth', k === 'spine' ? '6' : '7');
+    m.setAttribute('markerHeight', k === 'spine' ? '6' : '7');
+    m.setAttribute('orient', 'auto-start-reverse');
+    const p = document.createElementNS(SVG_NS, 'path');
+    p.setAttribute('d', 'M 0 0 L 10 5 L 0 10 z');
+    p.setAttribute('fill', STYLES[k].color);
+    m.appendChild(p);
+    defs.appendChild(m);
+  });
+  svg.appendChild(defs);
+}
+
+function pathD(a, b, fromSide, toSide) {
+  // If perfectly level (horizontal or vertical), return a simple straight line
+  if (Math.abs(a.x - b.x) < 1 || Math.abs(a.y - b.y) < 1) {
+    return `M ${a.x},${a.y} L ${b.x},${b.y}`;
+  }
+
+  // Otherwise, restore the smooth Cubic Bezier curve for a visual 'fluid' feel
+  const dx = b.x - a.x;
+  const dy = b.y - a.y;
+  const pushH = Math.max(92, Math.abs(dx) * 0.52);
+  const pushV = Math.max(88, Math.abs(dy) * 0.62);
+  let c1x = a.x, c1y = a.y, c2x = b.x, c2y = b.y;
+  if (fromSide === 'R') c1x = a.x + pushH;
+  if (fromSide === 'L') c1x = a.x - pushH;
+  if (fromSide === 'T') c1y = a.y - pushV;
+  if (fromSide === 'B') c1y = a.y + pushV;
+  if (toSide === 'R') c2x = b.x + pushH;
+  if (toSide === 'L') c2x = b.x - pushH;
+  if (toSide === 'T') c2y = b.y - pushV;
+  if (toSide === 'B') c2y = b.y + pushV;
+  return `M ${a.x},${a.y} C ${c1x},${c1y} ${c2x},${c2y} ${b.x},${b.y}`;
+}
+
+function drawConnectors() {
+  while (svg.firstChild) svg.removeChild(svg.firstChild);
+  ensureDefs();
+
+  const { width: w, height: h } = getCanvasContentSize();
+  svg.setAttribute('width', w);
+  svg.setAttribute('height', h);
+  svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+
+  const canvasRect = canvas.getBoundingClientRect();
+  const s = state.scale || 1;
+
+  // Draw in order: spine last so it sits on top visually
+  const order = ['scaffold', 'side', 'recovery', 'spine'];
+  const sorted = [...edges].sort((e1, e2) => order.indexOf(e1.cls) - order.indexOf(e2.cls));
+
+  const labelLayer = [];
+
+  sorted.forEach(edge => {
+    const fromEl = document.getElementById(edge.from);
+    const toEl   = document.getElementById(edge.to);
+    if (!fromEl || !toEl) return;
+
+    const fr = fromEl.getBoundingClientRect();
+    const tr = toEl.getBoundingClientRect();
+
+    const a = anchorFromRect(fr, edge.fromSide, canvasRect, s);
+    const b = anchorFromRect(tr, edge.toSide,   canvasRect, s);
+    const st = STYLES[edge.cls];
+
+    const p = document.createElementNS(SVG_NS, 'path');
+    p.setAttribute('d', pathD(a, b, edge.fromSide, edge.toSide));
+    p.setAttribute('stroke', st.color);
+    p.setAttribute('stroke-width', st.width);
+    if (st.dash) p.setAttribute('stroke-dasharray', st.dash);
+    p.setAttribute('fill', 'none');
+    p.setAttribute('stroke-linecap', 'round');
+    p.setAttribute('marker-end', `url(#arrow-${edge.cls})`);
+    svg.appendChild(p);
+
+    if (edge.label) labelLayer.push({ edge, a, b, st });
+  });
+
+    labelLayer.forEach(({ edge, a, b, st }) => {
+      let midX, midY;
+      if (Math.abs(a.x - b.x) < 1 || Math.abs(a.y - b.y) < 1) {
+        midX = (a.x + b.x) / 2;
+        midY = (a.y + b.y) / 2;
+      } else {
+        // Cubic Bezier Midpoint Calculation (t=0.5)
+        const dx = b.x - a.x;
+        const dy = b.y - a.y;
+        const pushH = Math.max(92, Math.abs(dx) * 0.52);
+        const pushV = Math.max(88, Math.abs(dy) * 0.62);
+        let c1x = a.x, c1y = a.y, c2x = b.x, c2y = b.y;
+        if (edge.fromSide === 'R') c1x = a.x + pushH;
+        if (edge.fromSide === 'L') c1x = a.x - pushH;
+        if (edge.fromSide === 'T') c1y = a.y - pushV;
+        if (edge.fromSide === 'B') c1y = a.y + pushV;
+        if (edge.toSide === 'R') c2x = b.x + pushH;
+        if (edge.toSide === 'L') c2x = b.x - pushH;
+        if (edge.toSide === 'T') c2y = b.y - pushV;
+        if (edge.toSide === 'B') c2y = b.y + pushV;
+
+        midX = 0.125 * a.x + 0.375 * c1x + 0.375 * c2x + 0.125 * b.x;
+        midY = 0.125 * a.y + 0.375 * c1y + 0.375 * c2y + 0.125 * b.y;
+      }
+
+      const text = document.createElementNS(SVG_NS, 'text');
+      text.textContent = edge.label;
+      text.setAttribute('x', midX);
+      text.setAttribute('y', midY);
+      text.setAttribute('text-anchor', 'middle');
+      text.setAttribute('dominant-baseline', 'middle');
+      text.setAttribute('font-family', 'Inter, sans-serif');
+      text.setAttribute('font-size', edge.cls === 'spine' ? '11.5' : '10.5');
+      text.setAttribute('font-weight', edge.cls === 'spine' ? '700' : '600');
+      text.setAttribute('fill', st.color);
+      svg.appendChild(text);
+      const bb = text.getBBox();
+      const rect = document.createElementNS(SVG_NS, 'rect');
+      rect.setAttribute('x', bb.x - 10);
+      rect.setAttribute('y', bb.y - 4);
+      rect.setAttribute('width', bb.width + 20);
+      rect.setAttribute('height', bb.height + 8);
+      rect.setAttribute('rx', 8);
+      rect.setAttribute('fill', '#FFFFFF');
+      rect.setAttribute('stroke', st.color);
+      rect.setAttribute('stroke-width', '1');
+      rect.setAttribute('opacity', '1');
+      svg.insertBefore(rect, text);
+    });
+}
+
+function anchorFromRect(r, side, canvasRect, s) {
+  const x0 = (r.left - canvasRect.left) / s;
+  const y0 = (r.top - canvasRect.top) / s;
+  const w = r.width / s;
+  const h = r.height / s;
+  const gap = 16;
+  switch (side) {
+    case 'L': return { x: x0 - gap,     y: y0 + h / 2 };
+    case 'R': return { x: x0 + w + gap, y: y0 + h / 2 };
+    case 'T': return { x: x0 + w / 2,   y: y0 - gap };
+    case 'B': return { x: x0 + w / 2,   y: y0 + h + gap };
+  }
+}
+
+/* =========================================================
+   CANVAS PAN + ZOOM
+   ========================================================= */
+const viewport = document.getElementById('viewport');
+const zoomLabel = document.getElementById('zoom-level');
+
+const state = {
+  x: 40,
+  y: 40,
+  scale: 1,
+  isPanning: false,
+  startX: 0,
+  startY: 0,
+  originX: 0,
+  originY: 0,
+  pointerId: null,
+};
+
+const MIN_SCALE = 0.3;
+const MAX_SCALE = 2.0;
+
+function applyTransform() {
+  canvas.style.transform = `translate(${state.x}px, ${state.y}px) scale(${state.scale})`;
+  zoomLabel.textContent = Math.round(state.scale * 100) + '%';
+  drawConnectors();
+}
+
+function clampScale(s) {
+  return Math.min(MAX_SCALE, Math.max(MIN_SCALE, s));
+}
+
+function zoomAt(clientX, clientY, targetScale) {
+  const rect = viewport.getBoundingClientRect();
+  const cx = clientX - rect.left;
+  const cy = clientY - rect.top;
+  const newScale = clampScale(targetScale);
+  state.x = cx - (cx - state.x) * (newScale / state.scale);
+  state.y = cy - (cy - state.y) * (newScale / state.scale);
+  state.scale = newScale;
+  applyTransform();
+}
+
+// === Pan with pointer drag ===
+viewport.addEventListener('pointerdown', (e) => {
+  // Don't start a pan if the user pressed inside the toolbar or on a clickable
+  // card (clickable cards open the email modal on tap).
+  if (e.target.closest('.toolbar, .card.clickable')) return;
+  e.preventDefault();
+  state.isPanning = true;
+  state.startX = e.clientX;
+  state.startY = e.clientY;
+  state.originX = state.x;
+  state.originY = state.y;
+  state.pointerId = e.pointerId;
+  viewport.classList.add('panning');
+  viewport.setPointerCapture(e.pointerId);
+});
+
+viewport.addEventListener('pointermove', (e) => {
+  if (!state.isPanning) return;
+  e.preventDefault();
+  state.x = state.originX + (e.clientX - state.startX);
+  state.y = state.originY + (e.clientY - state.startY);
+  applyTransform();
+});
+
+viewport.addEventListener('dragstart', (e) => {
+  e.preventDefault();
+});
+
+viewport.addEventListener('selectstart', (e) => {
+  e.preventDefault();
+});
+
+function endPan(e) {
+  if (!state.isPanning) return;
+  state.isPanning = false;
+  viewport.classList.remove('panning');
+  try { viewport.releasePointerCapture(state.pointerId); } catch (_) {}
+}
+viewport.addEventListener('pointerup', endPan);
+viewport.addEventListener('pointercancel', endPan);
+viewport.addEventListener('pointerleave', endPan);
+
+// === Wheel: Ctrl/Cmd+wheel = zoom, plain wheel = pan ===
+viewport.addEventListener('wheel', (e) => {
+  e.preventDefault();
+  if (e.ctrlKey || e.metaKey) {
+    const delta = -e.deltaY * 0.0022;
+    zoomAt(e.clientX, e.clientY, state.scale * (1 + delta));
+  } else {
+    state.x -= e.deltaX;
+    state.y -= e.deltaY;
+    applyTransform();
+  }
+}, { passive: false });
+
+viewport.addEventListener('dblclick', (e) => {
+  if (e.target.closest('[data-email], .toolbar, .card.clickable')) return;
+  fitToScreen();
+});
+
+document.getElementById('btn-zoom-in').addEventListener('click', () => {
+  const rect = viewport.getBoundingClientRect();
+  zoomAt(rect.left + rect.width / 2, rect.top + rect.height / 2, state.scale * 1.2);
+});
+document.getElementById('btn-zoom-out').addEventListener('click', () => {
+  const rect = viewport.getBoundingClientRect();
+  zoomAt(rect.left + rect.width / 2, rect.top + rect.height / 2, state.scale / 1.2);
+});
+document.getElementById('btn-reset').addEventListener('click', () => {
+  state.x = 40; state.y = 40; state.scale = 1;
+  applyTransform();
+});
+document.getElementById('btn-fit').addEventListener('click', fitToScreen);
+
+function fitToScreen() {
+  const vpRect = viewport.getBoundingClientRect();
+  const { width: cw, height: ch } = getCanvasContentSize();
+  const padding = 40;
+  const sx = (vpRect.width - padding * 2) / cw;
+  const sy = (vpRect.height - padding * 2) / ch;
+  const newScale = clampScale(Math.min(sx, sy));
+  state.scale = newScale;
+  state.x = (vpRect.width - cw * newScale) / 2;
+  state.y = (vpRect.height - ch * newScale) / 2;
+  applyTransform();
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.target.closest('input, textarea, [contenteditable]')) return;
+  if ((e.ctrlKey || e.metaKey) && (e.key === '=' || e.key === '+')) {
+    e.preventDefault();
+    const rect = viewport.getBoundingClientRect();
+    zoomAt(rect.left + rect.width / 2, rect.top + rect.height / 2, state.scale * 1.2);
+  } else if ((e.ctrlKey || e.metaKey) && e.key === '-') {
+    e.preventDefault();
+    const rect = viewport.getBoundingClientRect();
+    zoomAt(rect.left + rect.width / 2, rect.top + rect.height / 2, state.scale / 1.2);
+  } else if ((e.ctrlKey || e.metaKey) && e.key === '0') {
+    e.preventDefault();
+    state.x = 40; state.y = 40; state.scale = 1;
+    applyTransform();
+  } else if (e.key === 'f' || e.key === 'F') {
+    if (!document.querySelector('.email-modal.open')) fitToScreen();
+  }
+});
+
+function init() {
+  applyTransform();
+  // Default: fit to screen on load so the spine is visible end-to-end
+  requestAnimationFrame(() => fitToScreen());
+}
+window.addEventListener('load', init);
+window.addEventListener('resize', () => { drawConnectors(); });
+if (document.fonts && document.fonts.ready) {
+  document.fonts.ready.then(() => { drawConnectors(); });
+}
+
+/* =========================================================
+   EMAIL DATA + MODAL
+   ========================================================= */
+const emails = {
+  'ch-1': {
+    tag: 'CH-1',
+    when: '⏱ Immediately on purchase · New or returning Kajabi user',
+    variants: [
+      {
+        label: 'New Kajabi User',
+        subject: 'Your Challenge starts now — here\'s your login',
+        preheader: "Day 1 is unlocked. Here's how to get in.",
+        cond: 'Sent when kajabi_account_created tag was just applied',
+        body: `[First Name],
+
+You're in the 7-Day Hormone Reset & Recharge Challenge. Let's go.
+
+FIRST: SET UP YOUR LOGIN
+
+You'll receive a separate email from our course platform (Kajabi) in the next few minutes. It might land in your spam folder — check there if you don't see it within 5 minutes.
+
+That email will have a link to set your password. Click it, create your password, and you're in.
+
+Once you're logged in, go here to start Day 1:
+👉 [KAJABI CHALLENGE COURSE URL]
+
+
+WHAT TO EXPECT:
+
+→ 7 days, 7 modules
+→ A new module unlocks every morning
+→ Each one takes about 15 minutes
+→ Day 1 is unlocked right now: Goal Setting
+
+Day 1 is the foundation for everything that follows. Don't skip it.
+
+
+YOUR BONUSES (all inside the course):
+
+✓ Hormone-friendly meal plan
+✓ Grocery shopping list
+✓ Training program lite
+✓ Recipe guide
+✓ [Additional bonuses]
+
+These are in the bonus section of the course — grab them when you're ready, but focus on Day 1 first.
+
+
+ONE MORE THING:
+
+Hit reply and tell me: what's the #1 thing you want to change about how you feel in the next 7 days?
+
+I read every response. It helps me understand what you need, and it'll help you stay focused this week.
+
+Let's do this,
+Dr. P
+
+———
+Order summary:
+7-Day Hormone Reset & Recharge Challenge — $47
+[Order details / receipt]`
+      },
+      {
+        label: 'Returning Kajabi User',
+        subject: 'Your Challenge starts now — Day 1 is live',
+        preheader: 'Log in and start. Day 1 is waiting.',
+        cond: 'Sent when kajabi_account_created already existed',
+        body: `[First Name],
+
+You're in the 7-Day Hormone Reset & Recharge Challenge. Let's go.
+
+Use this login link to get into Day 1.
+
+If you already set up your Kajabi account, log in now.
+
+If you already had a Kajabi account from before, use your existing password.
+
+👉 Start Day 1 Now → [KAJABI CHALLENGE COURSE URL]
+
+
+WHAT TO EXPECT:
+
+→ 7 days, 7 modules
+→ A new module unlocks every morning
+→ Each one takes about 15 minutes
+→ Day 1 is unlocked right now: Goal Setting
+
+
+YOUR BONUSES (all inside the course):
+
+✓ Hormone-friendly meal plan
+✓ Grocery shopping list
+✓ Training program lite
+✓ Recipe guide
+✓ [Additional bonuses]
+
+
+ONE MORE THING:
+
+Hit reply and tell me: what's the #1 thing you want to change about how you feel in the next 7 days?
+
+I read every response.
+
+Let's do this,
+Dr. P
+
+———
+Order summary:
+7-Day Hormone Reset & Recharge Challenge — $47
+[Order details / receipt]`
+      }
+    ]
+  },
+
+  'ch-2': {
+    tag: 'CH-2',
+    when: '⏱ Day 2, 8am · Everyone',
+    variants: [{
+      label: null,
+      subject: 'Did you finish Day 1? (Be honest)',
+      preheader: "Today is nutrition day — but first, let's make sure you started.",
+      cond: null,
+      body: `[First Name],
+
+Quick check-in: did you finish Day 1?
+
+If yes — amazing. You set your intention. You know what you're working toward this week. That matters more than you think.
+
+If not — that's okay. Go do it now. It takes 15 minutes, and everything this week builds on it.
+
+👉 Day 1: Goal Setting → [KAJABI COURSE URL]
+
+
+NOW — DAY 2:
+
+Today we talk about nutrition. And I'm going to tell you something that goes against almost everything you've heard about "eating healthy."
+
+Most hormone advice about food is backwards. It focuses on what to cut instead of what to add. That ends today.
+
+👉 Day 2: Nutrition → [KAJABI COURSE URL]
+
+15 minutes. That's all I need from you today.
+
+— Dr. P`
+    }]
+  },
+
+  'ch-3': {
+    tag: 'CH-3',
+    when: '⏱ Day 4, 8am · Branches on Kajabi login activity',
+    variants: [
+      {
+        label: 'Active',
+        subject: "You're almost halfway — don't stop now",
+        preheader: 'Days 1-3 laid the groundwork. Days 4-7 is where it clicks.',
+        cond: 'Sent when last_kajabi_login exists since purchase',
+        body: `[First Name],
+
+You're showing up. I see it. And I want you to know that what you're doing matters — even if it doesn't feel dramatic yet.
+
+Days 1-3 built the foundation:
+→ You set your intention
+→ You rethought nutrition
+→ You moved your body in a way that supports your hormones
+
+Now comes the part where things start to click.
+
+Days 4-7:
+→ Day 4: Hydration & the hormone connection (it's not just "drink more water")
+→ Day 5: Stress and sleep — the two hormones NOBODY talks about
+→ Day 6: Fiber, fats, and hormone fuel
+→ Day 7: Integration — pulling it all together into YOUR system
+
+By Day 7, you won't just know what to do. You'll be doing it.
+
+👉 Day 4 is live → [KAJABI COURSE URL]
+
+Don't slow down now.
+
+— Dr. P`
+      },
+      {
+        label: 'Inactive',
+        subject: "Hey [First Name] — you haven't logged in yet",
+        preheader: 'No judgment. But Day 1 is still waiting for you.',
+        cond: 'Sent when no Kajabi login has been recorded',
+        body: `[First Name],
+
+I noticed you haven't logged into the Challenge yet.
+
+No judgment — life happens. But you signed up for a reason. Something about the way you're feeling right now made you say "I need to do something different." That reason is still there.
+
+Here's the thing: you don't need to "catch up." You don't need to do 4 days in one sitting. You just need to do Day 1.
+
+👉 Start Day 1 → [KAJABI COURSE URL]
+
+15 minutes. One module. That's the only thing I'm asking for today.
+
+You already made the decision. You already paid for it. Now just show up.
+
+If you're having trouble logging in, reply to this email and I'll help you get sorted.
+
+— Dr. P`
+      }
+    ]
+  },
+
+  'ch-4': {
+    tag: 'CH-4',
+    when: '⏱ Day 7, 8am · Everyone',
+    variants: [{
+      label: null,
+      subject: "LAST DAY. Let's bring it home.",
+      preheader: 'Day 7 is where everything comes together.',
+      cond: null,
+      body: `[First Name],
+
+This is it. Day 7.
+
+Six days ago you started this Challenge. You've worked through goal-setting, nutrition, movement, hydration, stress, sleep, and hormone fuel. Each day built on the last.
+
+Today's module — Integration — is where it all comes together.
+
+This isn't a "wrap-up" video. It's the day where you take everything you've learned and turn it into a system you can actually sustain. Not a 7-day thing. A daily thing.
+
+👉 Day 7: Integration → [KAJABI COURSE URL]
+
+Finish this today. Don't let it sit.
+
+Tomorrow, I have something to say to you about what you just accomplished. But first — finish Day 7.
+
+Let's go.
+
+— Dr. P`
+    }]
+  },
+
+  'ch-5': {
+    tag: 'CH-5',
+    when: '⏱ Day 8, 9am · Everyone · No upsell',
+    variants: [{
+      label: null,
+      subject: '7 days. Look at what you just did.',
+      preheader: "This email isn't selling you anything. Just read it.",
+      cond: 'Celebration only. No upsell.',
+      body: `[First Name],
+
+Seven days.
+
+You showed up for yourself for 7 days. I know that sounds simple — but it's not. Most people don't. Most people buy the course, watch Day 1, and disappear by Day 3. You didn't.
+
+Let me remind you what you did this week:
+
+Day 1: You got clear on what you actually want to change — not some vague "feel better," but a real intention.
+
+Day 2: You learned how to eat FOR your hormones instead of just eating less.
+
+Day 3: You discovered that movement isn't about burning calories — it's about signaling your endocrine system.
+
+Day 4: You understood that hydration does more for your hormones than most supplements on the market.
+
+Day 5: You confronted the stress-sleep-cortisol cycle — the silent driver behind most of what you've been feeling.
+
+Day 6: You added the building blocks — fiber and healthy fats — that actually fuel hormone production.
+
+Day 7: You turned all of it into a system. YOUR system.
+
+You're not the same person who started this Challenge 7 days ago. You know more, you've done more, and you have a foundation that didn't exist a week ago.
+
+I'm proud of you. Genuinely.
+
+Hit reply and tell me: what was your biggest win this week? What shifted? I read every single response, and your answer might help another woman who's on Day 1 right now.
+
+Take a breath. You earned it.
+
+— Dr. P`
+    }]
+  },
+
+  'ch-6': {
+    tag: 'CH-6',
+    when: '⏱ Day 11, 9am · Skip if purchased_mem',
+    variants: [{
+      label: null,
+      subject: 'The truth about 7-day challenges',
+      preheader: "Something I've been wanting to tell you.",
+      cond: 'SKIP if purchased_mem tag exists',
+      body: `[First Name],
+
+I need to be straight with you about something.
+
+The 7-Day Challenge you just finished? It works. The science is sound. The daily actions are real. Women who complete it feel different by Day 7 — and I know you did too.
+
+But here's the truth about any 7-day program: it gives you the spark. It doesn't give you the fire.
+
+I've been doing this for 16 years. I've seen thousands of women go through hormone resets, challenges, detoxes, and cleanses. The ones who actually transform — who fix their hormones for good, not for a week — they all have one thing in common:
+
+They went deeper.
+
+Not deeper into Google. Not deeper into supplements. Deeper into the root causes. Deeper into the daily systems that maintain hormone balance through stress, through aging, through life changes.
+
+A 7-day reset shows you what's possible. But it takes longer than 7 days to rewire 7 years of patterns.
+
+That's all I wanted to say for now. No link. Nothing to buy. Just something I wanted you to sit with.
+
+Talk soon,
+Dr. P`
+    }]
+  },
+
+  'ch-7': {
+    tag: 'CH-7',
+    when: '⏱ Day 14, 9am · Skip if purchased_mem',
+    variants: [{
+      label: null,
+      subject: 'She started exactly where you are',
+      preheader: 'A woman who was in your shoes 6 months ago.',
+      cond: 'SKIP if purchased_mem tag exists',
+      body: `[First Name],
+
+I want to tell you about [Testimonial Name].
+
+When she signed up for the 7-Day Challenge, she was exhausted. Brain fog every afternoon. Bloating that wouldn't quit. Sleep that didn't feel like sleep. She'd been to her doctor twice — "Your labs are normal." She'd tried supplements, elimination diets, and every hormone "hack" on Instagram. Nothing stuck.
+
+She finished the Challenge and felt better. More energy. Less bloating. Clearer head. Same as you.
+
+And then she asked me: "What's next?"
+
+She joined my Madame Estrogen Mastermind — a 12-week program where we go module by module through rejuvenation, nutrition, movement, hormones, toxins, gut health, stress management, sleep, liver support, supplements, digestion, and integration.
+
+Here's what happened over 12 weeks:
+
+→ Her brain fog disappeared completely by Week 4
+→ She lost 12 pounds without dieting — her body stopped holding onto weight once her estrogen metabolism improved
+→ Her sleep went from 5-6 hours of broken rest to 7-8 hours of actual restoration
+→ Her period regulated for the first time in 3 years
+→ She told me on our final call: "I feel like myself again. I forgot what that felt like."
+
+The Challenge gave her the spark. The Mastermind gave her the transformation.
+
+I'm not sending you a link or asking you to buy anything. I just wanted you to know what's possible when you keep going.
+
+— Dr. P`
+    }]
+  },
+
+  'ch-8': {
+    tag: 'CH-8',
+    when: '⏱ Day 17, 9am · Skip if purchased_mem',
+    variants: [{
+      label: null,
+      subject: 'What 12 weeks with me actually looks like',
+      preheader: 'The Mastermind — everything you need to know.',
+      cond: 'SKIP if purchased_mem tag exists',
+      body: `[First Name],
+
+You've heard me mention it. You've read [Testimonial Name]'s story. Now let me show you what the Madame Estrogen Mastermind actually is.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+THE MADAME ESTROGEN MASTERMIND
+12 weeks. 12 modules. Real transformation.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+WHAT YOU GET:
+
+12 Weekly Modules:
+Week 1: Rejuvenation — resetting your baseline
+Week 2: Nutrition — eating for YOUR hormones
+Week 3: Movement — exercise that helps, not hurts
+Week 4: Hormones — the deep dive you've been needing
+Week 5: Toxins — what's disrupting your system
+Week 6: Gut Health — the estrobolome and beyond
+Week 7: Stress Management — cortisol, adrenals, and your nervous system
+Week 8: Sleep Optimization — real restoration
+Week 9: Liver Support — your detox powerhouse
+Week 10: Supplements — what works, what doesn't, what's a waste of money
+Week 11: Digestion — the foundation of everything
+Week 12: Integration — your personalized long-term system
+
+Weekly Accountability Calls:
+Live calls with me and my team every week. You ask questions. I answer them. These calls are recorded if you can't make it live — but the women who show up live get the most out of this.
+
+Private Community:
+The Empowered Sister Community — women going through the same journey, supporting each other, sharing wins, asking questions between calls. You won't do this alone.
+
+BONUS — 3 Months of the Hormone Wellness Network:
+Full access to my ongoing membership — ongoing support, member resources, and continued community support. Included free with your Mastermind enrollment.
+
+
+THE INVESTMENT:
+
+I'm not going to pretend $1,997 is nothing. It's a real investment. So let me give you the options:
+
+→ Pay in full: $1,997
+→ 3 monthly payments of $667
+
+Here's how I think about it: what's it costing you to keep feeling the way you feel? In lost productivity, in supplements that don't work, in doctor visits that end with "your labs are normal," in the mental energy of trying to figure this out alone?
+
+The Challenge showed you what's possible in 7 days. The Mastermind gives you 12 weeks to make it permanent.
+
+If you're ready: [MEM CHECKOUT URL]
+
+If you have questions first, reply to this email. I'll answer personally.
+
+— Dr. P`
+    }]
+  },
+
+  'ch-9': {
+    tag: 'CH-9',
+    when: '⏱ Day 20, 9am · Final MEM bridge email',
+    variants: [{
+      label: null,
+      subject: 'The 3 things women ask me before they join',
+      preheader: 'Real questions. Honest answers.',
+      cond: 'SKIP if purchased_mem tag exists. Then cool down MEM pitches.',
+      body: `[First Name],
+
+Before women join the Mastermind, they almost always have the same 3 questions. I want to answer them directly:
+
+
+"IS IT REALLY WORTH $2,000?"
+
+Here's what I'd ask back: how much have you already spent on supplements, books, online programs, and doctor visits trying to fix your hormones? For most women I talk to, the answer is well over $2,000 — spread across things that didn't work or only worked temporarily.
+
+The Mastermind is 12 weeks of structured, deep work with a board-certified OB-GYN (me), weekly live calls, and a community of women doing it alongside you. It's not another course you watch alone and forget.
+
+And if $1,997 upfront isn't feasible, the 3-pay option is $667 per month. That's less than most women spend monthly on supplements that aren't doing what they think.
+
+
+"WHAT IF I DON'T FOLLOW THROUGH?"
+
+This is the most honest question women ask me, and I respect it.
+
+Here's why the Mastermind is different from doing it on your own: accountability. Weekly calls with me where I check in on your progress. A community of women who notice when you go quiet. A structured cadence — one module per week — that keeps you moving without overwhelming you.
+
+The women who don't follow through are usually the ones who try to do it alone. You won't be alone in this.
+
+
+"CAN'T I JUST DO THIS ON MY OWN?"
+
+You can try. But let me ask you honestly: you've been trying. How's that going?
+
+If Googling, supplementing, and guessing were going to fix your hormones, they would have by now. What's missing isn't more information — it's the right information, in the right order, with the right support.
+
+That's what the Mastermind provides. 12 weeks. A proven system. A doctor who specializes in exactly this. And women who get it.
+
+If you're in: [MEM CHECKOUT URL]
+
+If you're not, I understand. This email is the last one I'll send about the Mastermind for a while. You'll still hear from me — just about other things.
+
+Either way, I'm glad you did the Challenge. That took guts.
+
+Take care,
+Dr. P`
+    }]
+  }
+};
+
+// Modal logic
+const modal        = document.getElementById('emailModal');
+const emTag        = document.getElementById('emTag');
+const emWhen       = document.getElementById('emWhen');
+const emVariantsEl = document.getElementById('emVariants');
+const emSubject    = document.getElementById('emSubject');
+const emPre        = document.getElementById('emPre');
+const emCond       = document.getElementById('emCond');
+const emBody       = document.getElementById('emBody');
+const emClose      = document.getElementById('emClose');
+let lastTrigger = null;
+
+function renderWithTokens(text) {
+  const esc = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  return esc.replace(/\[([^\]]+)\]/g, '<span class="tok">[$1]</span>');
+}
+
+function renderVariant(emailId, variantIndex) {
+  const e = emails[emailId];
+  const v = e.variants[variantIndex];
+  emSubject.innerHTML = renderWithTokens(v.subject);
+  emPre.textContent   = v.preheader;
+  if (v.cond) { emCond.textContent = v.cond; emCond.hidden = false; }
+  else        { emCond.hidden = true; }
+  emBody.innerHTML = renderWithTokens(v.body);
+  emVariantsEl.querySelectorAll('.variant-tab').forEach((btn, i) => {
+    btn.classList.toggle('active', i === variantIndex);
+  });
+  emBody.scrollTop = 0;
+}
+
+function openEmail(emailId, triggerEl, initialVariant = 0) {
+  const e = emails[emailId];
+  if (!e) return;
+  lastTrigger = triggerEl || null;
+  emTag.textContent  = e.tag;
+  emWhen.textContent = e.when;
+  emVariantsEl.innerHTML = '';
+  if (e.variants.length > 1) {
+    e.variants.forEach((v, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'variant-tab';
+      btn.textContent = v.label || ('Variant ' + (i + 1));
+      btn.addEventListener('click', () => renderVariant(emailId, i));
+      emVariantsEl.appendChild(btn);
+    });
+    emVariantsEl.hidden = false;
+  } else {
+    emVariantsEl.hidden = true;
+  }
+  const safeVariant = Math.max(0, Math.min(Number(initialVariant) || 0, e.variants.length - 1));
+  renderVariant(emailId, safeVariant);
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  emClose.focus();
+}
+
+function closeEmail() {
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+  if (lastTrigger) lastTrigger.focus();
+}
+
+document.querySelectorAll('[data-email]').forEach(card => {
+  card.addEventListener('click', () => openEmail(card.dataset.email, card, card.dataset.variant));
+  card.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      openEmail(card.dataset.email, card, card.dataset.variant);
+    }
+  });
+});
+
+emClose.addEventListener('click', closeEmail);
+modal.addEventListener('click', (e) => { if (e.target === modal) closeEmail(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeEmail(); });
+</script>
+
+</body>
+</html>
