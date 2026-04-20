@@ -32,7 +32,7 @@ This email is just here in case life interrupted you or that page got closed.
 
 If that happened, here is your link:
 
-👉 Take Your Assessment Now → [QUIZ URL]
+👉 Take Your Assessment Now → https://callmedoctorp.com/the-ultimate-hormone-assessment-quiz/
 
 It takes about 10 minutes.
 
@@ -45,7 +45,7 @@ Dr. P
 
 ---
 Order summary:
-Ultimate Hormone Assessment — $47
+Ultimate Hormone Assessment — $27
 [Order details / receipt]
 ```
 
@@ -103,7 +103,7 @@ These do not have to be complicated. Begin with this:
 
 These are starting points, not the whole plan. But if you do these three things consistently for 7 days, you may be surprised by what shifts.
 
-Your full results are also saved here: [RESULTS PAGE URL]
+Your full results are also saved here: https://callmedoctorp.com/hormone-assessment-result/
 
 
 This is what your hormones are telling you right now. The next question is what you want to do with that information.
@@ -169,7 +169,7 @@ You're balanced. Now protect it:
 3. Reduce environmental hormone disruptors — switch to clean personal care products and avoid heating food in plastic. This isn't about perfection — it's about reducing the load so your body can stay where it is.
 
 
-Your full results are also saved here: [RESULTS PAGE URL]
+Your full results are also saved here: https://callmedoctorp.com/hormone-assessment-result/
 
 
 You're in a good place. The smart move is making sure you stay there.
@@ -200,7 +200,7 @@ Just circling back because your assessment is still waiting for you.
 
 No pressure. I just do not want you to pay for insight and then never get it.
 
-👉 Take Your Assessment Now → [QUIZ URL]
+👉 Take Your Assessment Now → https://callmedoctorp.com/the-ultimate-hormone-assessment-quiz/
 
 It is quick, it is personal, and your results show up right away.
 
@@ -230,7 +230,7 @@ Just checking in because you still have not taken your Hormone Assessment.
 
 I know life gets busy. But you signed up for this because something felt off, or because you wanted to know where you stand. That part has not changed.
 
-Here is your link: [QUIZ URL]
+Here is your link: https://callmedoctorp.com/the-ultimate-hormone-assessment-quiz/
 
 10 minutes. That's it. Your results appear the moment you finish, and most women tell me they learn something important right away.
 
@@ -352,11 +352,11 @@ That's why I built the 7-Day Hormone Reset & Recharge Challenge.
 
 7 days. One focused module each morning. Nutrition, movement, hydration, stress, sleep — each one targeted at what your hormones actually need. Plus a meal plan, grocery list, and training program so you're not figuring it out alone.
 
-It's $47. It takes 15 minutes a day. And by Day 7, you'll feel the difference.
+It's $37. It takes 15 minutes a day. And by Day 7, you'll feel the difference.
 
 I built this for women who already know something needs to change — they just need the structure to make it happen.
 
-If that's you: [CHALLENGE CHECKOUT URL]
+If that's you: https://callmedoctorp.com/7-day-challenge/
 
 If it's not — no pressure. Your assessment results are yours to keep, and everything I sent you still applies.
 
@@ -394,9 +394,9 @@ If nothing changes in the next 30 days, will you be okay with that?
 
 If the answer is yes — great. Truly. Keep your results, use the tips I gave you, and take care of yourself.
 
-If the answer is no — here's the link: [CHALLENGE CHECKOUT URL]
+If the answer is no — here's the link: https://callmedoctorp.com/7-day-challenge/
 
-7 days. 15 minutes a day. $47. And a real plan for what to do with what you now know.
+7 days. 15 minutes a day. $37. And a real plan for what to do with what you now know.
 
 Either way, I'm glad you took the assessment. Knowledge is never wasted.
 
