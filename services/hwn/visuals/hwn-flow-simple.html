@@ -128,10 +128,25 @@
     color: var(--ink-mute);
     align-self: center;
   }
-  .legend-item { display: flex; align-items: center; gap: 5px; color: var(--ink-soft); }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+  .legend-code {
+    font-family: 'SF Mono', Consolas, monospace;
+    font-size: 0.61rem;
+    letter-spacing: 0.02em;
+    color: var(--ink-mute);
+  }
   .legend-swatch {
     width: 24px; height: 4px; border-radius: 2px;
     display: inline-block;
+    flex: 0 0 auto;
+    min-width: 24px;
+    box-shadow: inset 0 0 0 1px rgba(26,26,26,0.08);
   }
   .swatch-spine    { background: var(--spine); height: 5px; }
   .swatch-recovery { background: repeating-linear-gradient(90deg, var(--recovery), var(--recovery) 5px, transparent 5px, transparent 9px); }
@@ -140,6 +155,9 @@
   .legend-dot {
     width: 10px; height: 10px; border-radius: 50%;
     display: inline-block;
+    flex: 0 0 auto;
+    min-width: 10px;
+    box-shadow: inset 0 0 0 1px rgba(26,26,26,0.12);
   }
   .legend-dot.surf-web  { background: var(--ico-web); }
   .legend-dot.surf-quiz { background: var(--ico-quiz); }
@@ -564,22 +582,26 @@
     animation-play-state: paused;
   }
   .card.email-chrome .step {
+    position: absolute;
     top: auto;
     left: auto;
     bottom: -10px;
     right: -10px;
-    width: 26px;
-    height: 26px;
+    min-width: 32px;
+    height: 32px;
+    padding: 0 14px;
     background: var(--mail-accent);
     color: #FFFFFF;
-    border-radius: 50%;
+    border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.78rem;
+    white-space: nowrap;
+    font-size: 0.8rem;
     font-weight: 800;
-    border: 2px solid #FFFFFF;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+    border: 2.5px solid #FFFFFF;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    letter-spacing: 0.02em;
     z-index: 10;
   }
 
@@ -772,19 +794,22 @@
     left: auto;
     bottom: -12px;
     right: -12px;
-    width: 32px;
+    min-width: 32px;
     height: 32px;
+    padding: 0 14px;
     background: var(--spine);
     color: #FFFFFF;
-    border-radius: 50%;
+    border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.96rem;
+    white-space: nowrap;
+    font-size: 0.8rem;
     font-weight: 800;
     box-shadow: 0 4px 12px rgba(14,107,107,0.35);
     border: 2.5px solid #FFFFFF;
-    font-family: 'Fraunces', serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    letter-spacing: 0.02em;
     z-index: 10;
   }
   .card.hero .kind {
@@ -842,6 +867,53 @@
   .card.hero.end.system-card h3 {
     padding-right: 0;
     margin-bottom: 5px;
+  }
+
+  .card.hero.stacked-group {
+    gap: 12px;
+    padding-top: 28px;
+  }
+  .card.hero.stacked-group .group-label {
+    position: absolute;
+    top: -12px;
+    left: 16px;
+    display: inline-flex;
+    align-items: center;
+    min-height: 28px;
+    padding: 0 12px;
+    border-radius: 999px;
+    background: #FFFFFF;
+    border: 1.5px solid rgba(14,107,107,0.22);
+    color: var(--spine);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    box-shadow: 0 4px 12px rgba(14,107,107,0.08);
+    z-index: 5;
+  }
+  .card.hero.stacked-group .sub-card {
+    position: relative;
+  }
+  .sub-card .step {
+    position: absolute;
+    bottom: -8px;
+    right: -8px;
+    min-width: 32px;
+    height: 28px;
+    padding: 0 10px;
+    background: var(--spine);
+    color: #FFFFFF;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    font-size: 0.72rem;
+    font-weight: 800;
+    border: 2px solid #FFFFFF;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    letter-spacing: 0.02em;
+    z-index: 10;
   }
 
   /* =========== SATELLITE cards =========== */
@@ -1155,6 +1227,17 @@
     font-weight: 600;
     white-space: nowrap;
   }
+  .em-body a, .em-headers a {
+    color: #0E6B6B;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    word-break: break-word;
+  }
+  .em-body a:hover, .em-headers a:hover {
+    color: #0a4f4f;
+    text-decoration-thickness: 2px;
+  }
 
   @media (max-width: 900px) {
     header.hero { flex-wrap: wrap; gap: 14px; }
@@ -1343,6 +1426,24 @@
     .impl-panel { width: 86vw; }
     .impl-tab { padding: 12px 6px; font-size: 0.62rem; }
   }
+
+  /* ===== Prominent CTA on every website card ===== */
+  .web-cta {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-top: 12px; padding: 9px 16px;
+    background: #0e6b6b; color: #fff !important;
+    border-radius: 999px; font-weight: 700; font-size: 13px; letter-spacing: .2px;
+    text-decoration: none; box-shadow: 0 2px 8px rgba(14,107,107,.22);
+    transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+    cursor: pointer; align-self: flex-start;
+  }
+  .web-cta:hover, .web-cta:focus-visible {
+    background: #0a5555; transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(14,107,107,.3); outline: none;
+  }
+  .web-cta .arrow { transition: transform .15s ease; display: inline-block; }
+  .web-cta:hover .arrow { transform: translateX(3px); }
+  .sub-card .web-cta { margin-top: 8px; padding: 7px 12px; font-size: 12px; }
 </style>
 </head>
 <body>
@@ -1356,15 +1457,15 @@
   <div class="legend">
     <div class="legend-group">
       <div class="legend-label">Flow</div>
-      <div class="legend-item"><span class="legend-swatch swatch-spine"></span>Happy path</div>
-      <div class="legend-item"><span class="legend-swatch swatch-scaffold"></span>Behind scenes</div>
+      <div class="legend-item"><span class="legend-swatch swatch-spine"></span>Happy path <span class="legend-code">#0E6B6B</span></div>
+      <div class="legend-item"><span class="legend-swatch swatch-scaffold"></span>Behind scenes <span class="legend-code">#8A8A8A</span></div>
     </div>
     <div class="legend-group">
       <div class="legend-label">Surface</div>
-      <div class="legend-item"><span class="legend-dot surf-web"></span>Website</div>
-      <div class="legend-item"><span class="legend-dot surf-quiz"></span>Kajabi</div>
-      <div class="legend-item"><span class="legend-dot surf-mail"></span>Email</div>
-      <div class="legend-item"><span class="legend-dot surf-bts"></span>System</div>
+      <div class="legend-item"><span class="legend-dot surf-web"></span>Website <span class="legend-code">#2E6FAE</span></div>
+      <div class="legend-item"><span class="legend-dot surf-quiz"></span>Kajabi <span class="legend-code">#6B5B8A</span></div>
+      <div class="legend-item"><span class="legend-dot surf-mail"></span>Email <span class="legend-code">#B8863D</span></div>
+      <div class="legend-item"><span class="legend-dot surf-bts"></span>System <span class="legend-code">#5C6670</span></div>
     </div>
   </div>
   <div class="help-hint">
@@ -1396,7 +1497,7 @@
           <dt>Workflow</dt>
           <dd><code>HWN | Onboarding (partial) → Monthly Cycle (not yet modeled)</code></dd>
           <dt>Trigger</dt>
-          <dd>GHL checkout at <code>callmedoctorp.com/hwn-checkout</code> → confirmation page at <code>callmedoctorp.com/hwn-confirmed</code> → tag <code>hwn_active</code>; Kajabi grants access; password branch on <code>kajabi_account_created</code>.</dd>
+          <dd>GHL checkout at <code>/hormone-wellness-network-checkout</code> (monthly $47) or <code>/hormone-wellness-network-checkout-annual</code> ($470/yr) → confirmation at <code>/hormone-wellness-network-membership-thank-you-reg</code> → tag <code>hwn_active</code>; Kajabi grants access; password branch on <code>kajabi_account_created</code>.</dd>
           <dt>Entry</dt>
           <dd>Contact has <code>hwn_active</code> AND NOT <code>hwn_2_sent</code>.</dd>
           <dt>Delivery</dt>
@@ -1421,7 +1522,7 @@
       <section class="impl-section">
         <div class="sec-label"><span class="num">3</span> Decision Gates</div>
         <ul class="impl-list gates">
-          <li><strong>Steps 1-2 (Checkout + Confirmation)</strong> — GHL checkout at <code>/hwn-checkout</code>; on success → <code>/hwn-confirmed</code>; tag <code>hwn_active</code> applied; Kajabi access granted in parallel.</li>
+          <li><strong>Steps 1-2 (Checkout + Confirmation)</strong> — GHL checkout at <code>/hormone-wellness-network-checkout</code> or <code>/hormone-wellness-network-checkout-annual</code>; on success → <code>/hormone-wellness-network-membership-thank-you-reg</code>; tag <code>hwn_active</code> applied; Kajabi access granted in parallel.</li>
           <li><strong>HWN-1 Welcome (Now)</strong> — primary onboarding email; password-setup branch on <code>kajabi_account_created</code> (new vs returning).</li>
           <li><strong>HWN-2 Rhythm (Day 2 · 9am)</strong> — how-to-get-the-most + community nudge.</li>
           <li><strong>Kajabi System (+ minutes)</strong> — side/system card: Kajabi creates user, fires setup-password email for new users (we don't author this send; Kajabi owns it).</li>
@@ -1534,52 +1635,75 @@
 
       <!-- Spine row: happy path -->
       <div class="cell row-spine" style="grid-column: 1;">
-        <div class="card hero web-chrome surface-web kind-tinted" id="n-checkout">
-          <span class="step">1</span>
-          <div class="chrome-bar">
-            <div class="tdots">
-              <span class="tdot r"></span>
-              <span class="tdot y"></span>
-              <span class="tdot g"></span>
+        <div class="card hero stacked-group surface-web" id="n-checkout">
+          <span class="group-label">Step 1 · Checkout (2 offers)</span>
+          <div class="sub-card web-chrome" id="n-checkout-monthly">
+            <span class="step">Step 1</span>
+            <div class="chrome-bar">
+              <div class="tdots">
+                <span class="tdot r"></span>
+                <span class="tdot y"></span>
+                <span class="tdot g"></span>
+              </div>
+              <div class="url-pill" title="callmedoctorp.com/hormone-wellness-network-checkout">
+                <span class="lock">🔒</span>
+                <span class="path">/hormone-wellness-network-checkout</span>
+              </div>
             </div>
-            <div class="url-pill" title="callmedoctorp.com/hwn-checkout">
-              <span class="lock">🔒</span>
-              <span class="domain">callmedoctorp.com</span><span class="path">/hwn-checkout</span>
+            <div class="web-body">
+              <span class="kind">Monthly</span>
+              <h3>$47/mo</h3>
+              <a class="web-cta" href="https://callmedoctorp.com/hormone-wellness-network-checkout/" target="_blank" rel="noopener noreferrer">Open checkout <span class="arrow">→</span></a>
             </div>
           </div>
-          <div class="web-body">
-            <span class="kind">Checkout Page</span>
-            <h2>User buys HWN</h2>
-            <div class="detail">GHL checkout form — $47/month or $470/year subscription. Payment processor runs downstream of GHL.</div>
+          <div class="sub-card web-chrome" id="n-checkout-annual">
+            <span class="step">Step 1</span>
+            <div class="chrome-bar">
+              <div class="tdots">
+                <span class="tdot r"></span>
+                <span class="tdot y"></span>
+                <span class="tdot g"></span>
+              </div>
+              <div class="url-pill" title="callmedoctorp.com/hormone-wellness-network-checkout-annual">
+                <span class="lock">🔒</span>
+                <span class="path">/hormone-wellness-network-checkout-annual</span>
+              </div>
+            </div>
+            <div class="web-body">
+              <span class="kind">Annual</span>
+              <h3>$470/yr</h3>
+              <a class="web-cta" href="https://callmedoctorp.com/hormone-wellness-network-checkout-annual/" target="_blank" rel="noopener noreferrer">Open checkout <span class="arrow">→</span></a>
+            </div>
           </div>
         </div>
       </div>
 
       <div class="cell row-spine" style="grid-column: 2;">
         <div class="card hero web-chrome surface-web kind-tinted" id="n-confirmation">
-          <span class="step">2</span>
+          <span class="step">Step 2</span>
           <div class="chrome-bar">
             <div class="tdots">
               <span class="tdot r"></span>
               <span class="tdot y"></span>
               <span class="tdot g"></span>
             </div>
-            <div class="url-pill" title="callmedoctorp.com/hwn-confirmed">
+            <div class="url-pill" title="callmedoctorp.com/hormone-wellness-network-membership-thank-you-reg">
               <span class="lock">🔒</span>
-              <span class="domain">callmedoctorp.com</span><span class="path">/hwn-confirmed</span>
+              <span class="domain">callmedoctorp.com</span><span class="path">/hormone-wellness-network-membership-thank-you-reg</span>
             </div>
           </div>
           <div class="web-body">
             <span class="kind">Confirmation Page</span>
             <h2>Membership active — login + community</h2>
             <div class="detail">Shows Kajabi login path, Empowered Sister Community button, and an at-a-glance orientation for what to do first.</div>
+            <a class="web-cta" href="https://callmedoctorp.com/hormone-wellness-network-membership-thank-you-reg/" target="_blank" rel="noopener noreferrer">Open page <span class="arrow">→</span></a>
           </div>
         </div>
       </div>
 
       <div class="cell row-spine" style="grid-column: 3;">
         <div class="card hero email-chrome surface-mail clickable" id="n-h1" data-email="hwn-1" data-variant="0" role="button" tabindex="0" aria-label="Open HWN-1 welcome email">
-          <span class="step">3</span>
+          <span class="step">Step 3</span>
           <div class="sender-row">
             <div class="avatar">P</div>
             <div class="sender-info">
@@ -1602,7 +1726,7 @@
 
       <div class="cell row-spine" style="grid-column: 4;">
         <div class="card hero email-chrome surface-mail clickable" id="n-h2" data-email="hwn-2" role="button" tabindex="0" aria-label="Open HWN-2 rhythm email">
-          <span class="step">4</span>
+          <span class="step">Step 4</span>
           <div class="sender-row">
             <div class="avatar">P</div>
             <div class="sender-info">
@@ -1624,7 +1748,7 @@
 
       <div class="cell row-spine" style="grid-column: 5;">
         <div class="card hero end system-card surface-bts kind-tinted" id="n-end">
-          <span class="step">5</span>
+          <span class="step">Step 5</span>
           <div class="sys-topbar">
             <span class="sys-chip"><span class="sys-gear">⚙</span>System</span>
             <span class="sys-mini">Handoff</span>
@@ -1971,7 +2095,7 @@ function resetToFirstHappyPathCard() {
 }
 
 viewport.addEventListener('pointerdown', (e) => {
-  if (e.target.closest('.toolbar, .card.clickable')) return;
+  if (e.target.closest('.toolbar, .card.clickable, .web-cta')) return;
   e.preventDefault();
   state.isPanning = true;
   state.startX = e.clientX;
@@ -2017,7 +2141,7 @@ viewport.addEventListener('wheel', (e) => {
 }, { passive: false });
 
 viewport.addEventListener('dblclick', (e) => {
-  if (e.target.closest('[data-email], .toolbar, .card.clickable')) return;
+  if (e.target.closest('[data-email], .toolbar, .card.clickable, .web-cta')) return;
   fitToScreen();
 });
 
@@ -2063,26 +2187,38 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-function init() {
-  applyTransform();
+let fitPassTimer = null;
+function scheduleFitPasses() {
+  clearTimeout(fitPassTimer);
   requestAnimationFrame(() => {
     fitToScreen();
     requestAnimationFrame(() => {
       try { drawConnectors(); } catch (_) {}
     });
   });
+  // First paint inside the shell iframe can still be settling after the
+  // initial frame; run one delayed pass so HWN opens in its fitted view
+  // without needing a manual refresh.
+  fitPassTimer = setTimeout(() => {
+    requestAnimationFrame(() => {
+      fitToScreen();
+      try { drawConnectors(); } catch (_) {}
+    });
+  }, 180);
+}
+
+function init() {
+  applyTransform();
+  scheduleFitPasses();
 }
 window.addEventListener('load', init);
-window.addEventListener('drp:refit', () => fitToScreen());
+window.addEventListener('drp:refit', scheduleFitPasses);
 window.addEventListener('resize', () => {
   try { drawConnectors(); } catch (_) {}
 });
 if (document.fonts && document.fonts.ready) {
   document.fonts.ready.then(() => {
-    requestAnimationFrame(() => {
-      fitToScreen();
-      try { drawConnectors(); } catch (_) {}
-    });
+    scheduleFitPasses();
   });
 }
 
@@ -2323,7 +2459,8 @@ let lastTrigger = null;
 
 function renderWithTokens(text) {
   const esc = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  return esc.replace(/\[([^\]]+)\]/g, '<span class="tok">[$1]</span>');
+  const withTokens = esc.replace(/\[([^\]]+)\]/g, '<span class="tok">[$1]</span>');
+  return withTokens.replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
 }
 
 function renderVariant(emailId, variantIndex) {

@@ -129,10 +129,25 @@
     color: var(--ink-mute);
     align-self: center;
   }
-  .legend-item { display: flex; align-items: center; gap: 5px; color: var(--ink-soft); }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+  .legend-code {
+    font-family: 'SF Mono', Consolas, monospace;
+    font-size: 0.61rem;
+    letter-spacing: 0.02em;
+    color: var(--ink-mute);
+  }
   .legend-swatch {
     width: 24px; height: 4px; border-radius: 2px;
     display: inline-block;
+    flex: 0 0 auto;
+    min-width: 24px;
+    box-shadow: inset 0 0 0 1px rgba(26,26,26,0.08);
   }
   .swatch-spine    { background: var(--spine); height: 5px; }
   .swatch-recovery { background: repeating-linear-gradient(90deg, var(--recovery), var(--recovery) 5px, transparent 5px, transparent 9px); }
@@ -141,6 +156,9 @@
   .legend-dot {
     width: 10px; height: 10px; border-radius: 50%;
     display: inline-block;
+    flex: 0 0 auto;
+    min-width: 10px;
+    box-shadow: inset 0 0 0 1px rgba(26,26,26,0.12);
   }
   .legend-dot.surf-web  { background: var(--ico-web); }
   .legend-dot.surf-quiz { background: var(--ico-quiz); }
@@ -1403,6 +1421,17 @@
     font-weight: 600;
     white-space: nowrap;
   }
+  .em-body a, .em-headers a {
+    color: #0E6B6B;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    word-break: break-word;
+  }
+  .em-body a:hover, .em-headers a:hover {
+    color: #0a4f4f;
+    text-decoration-thickness: 2px;
+  }
 
   @media (max-width: 900px) {
     header.hero { flex-wrap: wrap; gap: 14px; }
@@ -1782,6 +1811,36 @@
     .impl-panel { width: 86vw; }
     .impl-tab { padding: 12px 6px; font-size: 0.62rem; }
   }
+
+  /* ===== Prominent CTA on every website card — opens the real page in a new tab ===== */
+  .web-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 12px;
+    padding: 9px 16px;
+    background: #0e6b6b;
+    color: #fff !important;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: .2px;
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(14,107,107,.22);
+    transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+    cursor: pointer;
+    align-self: flex-start;
+  }
+  .web-cta:hover,
+  .web-cta:focus-visible {
+    background: #0a5555;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(14,107,107,.3);
+    outline: none;
+  }
+  .web-cta .arrow { transition: transform .15s ease; display: inline-block; }
+  .web-cta:hover .arrow { transform: translateX(3px); }
+  .sub-card .web-cta { margin-top: 8px; padding: 7px 12px; font-size: 12px; }
 </style>
 </head>
 <body>
@@ -1795,17 +1854,17 @@
   <div class="legend">
     <div class="legend-group">
       <div class="legend-label">Flow</div>
-      <div class="legend-item"><span class="legend-swatch swatch-spine"></span>Happy path</div>
-      <div class="legend-item"><span class="legend-swatch swatch-recovery"></span>Recovery</div>
-      <div class="legend-item"><span class="legend-swatch swatch-side"></span>Always fires</div>
-      <div class="legend-item"><span class="legend-swatch swatch-scaffold"></span>Behind scenes</div>
+      <div class="legend-item"><span class="legend-swatch swatch-spine"></span>Happy path <span class="legend-code">#0E6B6B</span></div>
+      <div class="legend-item"><span class="legend-swatch swatch-recovery"></span>Recovery <span class="legend-code">#0E6B6B</span></div>
+      <div class="legend-item"><span class="legend-swatch swatch-side"></span>Always fires <span class="legend-code">#0E6B6B</span></div>
+      <div class="legend-item"><span class="legend-swatch swatch-scaffold"></span>Behind scenes <span class="legend-code">#8A8A8A</span></div>
     </div>
     <div class="legend-group">
       <div class="legend-label">Surface</div>
-      <div class="legend-item"><span class="legend-dot surf-web"></span>Website</div>
-      <div class="legend-item"><span class="legend-dot surf-quiz"></span>Quiz</div>
-      <div class="legend-item"><span class="legend-dot surf-mail"></span>Email</div>
-      <div class="legend-item"><span class="legend-dot surf-bts"></span>System</div>
+      <div class="legend-item"><span class="legend-dot surf-web"></span>Website <span class="legend-code">#2E6FAE</span></div>
+      <div class="legend-item"><span class="legend-dot surf-quiz"></span>Quiz <span class="legend-code">#6B5B8A</span></div>
+      <div class="legend-item"><span class="legend-dot surf-mail"></span>Email <span class="legend-code">#0E6B6B</span></div>
+      <div class="legend-item"><span class="legend-dot surf-bts"></span>System <span class="legend-code">#5C6670</span></div>
     </div>
   </div>
   <div class="help-hint">
@@ -1837,13 +1896,13 @@
           <dt>Workflow</dt>
           <dd><code>UHA | Post-Purchase Nurture → Challenge Upsell</code></dd>
           <dt>Trigger</dt>
-          <dd>GHL checkout at <code>callmedoctorp.com/uha</code> captures email/first-name/payment → tag <code>uha_purchased</code>.</dd>
+          <dd>GHL checkout at <code>callmedoctorp.com/ultimate-hormone-assessment-checkout</code> captures email/first-name/payment → tag <code>uha_purchased</code>.</dd>
           <dt>Entry</dt>
           <dd>Contact has <code>uha_purchased</code> AND NOT <code>uha_pitch2_sent</code> (prevents re-entry after full sequence).</dd>
           <dt>Delivery</dt>
-          <dd>Interact quiz (<code>tryinteract.com/uha-quiz</code>, 48Q ≈ 10 min) + GHL email sequence. <strong>No Kajabi course</strong> — no password setup. Quiz completion webhook fires back to GHL.</dd>
+          <dd>Interact quiz embedded at <code>callmedoctorp.com/the-ultimate-hormone-assessment-quiz</code> (48Q ≈ 10 min) + GHL email sequence. <strong>No Kajabi course</strong> — no password setup. Quiz completion webhook fires back to GHL. <em>Note: the Interact quiz will need to be duplicated to match the new automation flow.</em></dd>
           <dt>Purpose</dt>
-          <dd>Deliver hormone results + 10-day nurture that pitches the 7-Day Challenge twice (Day 6, Day 10). Two result LPs at <code>/uha-results-estrogen-dominant</code> and <code>/uha-results-balanced</code>, both with soft Challenge CTAs.</dd>
+          <dd>Deliver hormone results + 10-day nurture that pitches the 7-Day Challenge twice (Day 6, Day 10). Both result variants currently point to <code>/hormone-assessment-result</code> (placeholder — separate ED and Balanced pages pending), each with a soft Challenge CTA.</dd>
         </dl>
       </section>
 
@@ -1905,7 +1964,7 @@
     </div>
     <div class="impl-foot">
       <span>Press <span class="kbd">i</span> to toggle · <span class="kbd">Esc</span> to close</span>
-      <span>UHA · $47</span>
+      <span>UHA · $27</span>
     </div>
   </div>
 </aside>
@@ -2041,15 +2100,16 @@
               <span class="tdot y"></span>
               <span class="tdot g"></span>
             </div>
-            <div class="url-pill" title="callmedoctorp.com/uha">
+            <div class="url-pill" title="callmedoctorp.com/ultimate-hormone-assessment-checkout">
               <span class="lock">🔒</span>
-              <span class="domain">callmedoctorp.com</span><span class="path">/uha</span>
+              <span class="domain">callmedoctorp.com</span><span class="path">/ultimate-hormone-assessment-checkout</span>
             </div>
           </div>
           <div class="web-body">
             <span class="kind">Checkout Page</span>
-            <h2>User pays $47</h2>
+            <h2>User pays $27 (+ optional $14 PDF bump)</h2>
             <div class="detail">GHL checkout captures email, first name, payment.</div>
+            <a class="web-cta" href="https://callmedoctorp.com/ultimate-hormone-assessment-checkout/" target="_blank" rel="noopener noreferrer">Open checkout <span class="arrow">→</span></a>
           </div>
         </div>
       </div>
@@ -2064,15 +2124,16 @@
               <span class="tdot y"></span>
               <span class="tdot g"></span>
             </div>
-            <div class="url-pill" title="tryinteract.com/uha-quiz">
+            <div class="url-pill" title="callmedoctorp.com/the-ultimate-hormone-assessment-quiz">
               <span class="lock">🧪</span>
-              <span class="domain">tryinteract.com</span><span class="path">/uha-quiz</span>
+              <span class="domain">callmedoctorp.com</span><span class="path">/the-ultimate-hormone-assessment-quiz</span>
             </div>
           </div>
           <div class="web-body">
             <span class="kind">Interact Assessment</span>
             <h2>48-question hormone quiz</h2>
             <div class="detail">≈10 min. Redirect immediately after checkout. Completion fires a webhook back to GHL.</div>
+            <a class="web-cta" href="https://callmedoctorp.com/the-ultimate-hormone-assessment-quiz/" target="_blank" rel="noopener noreferrer">Open quiz <span class="arrow">→</span></a>
           </div>
         </div>
       </div>
@@ -2113,13 +2174,13 @@
                 <span class="tdot y"></span>
                 <span class="tdot g"></span>
               </div>
-              <div class="url-pill" title="callmedoctorp.com/uha-results-estrogen-dominant">
+              <div class="url-pill" title="callmedoctorp.com/hormone-assessment-result">
                 <span class="lock">🔒</span>
-                <span class="path">/uha-results-estrogen-dominant</span>
+                <span class="path">/hormone-assessment-result</span>
               </div>
             </div>
             <div class="web-body">
-              <span class="kind">ED Variant</span>
+              <span class="kind">ED Variant <em style="opacity:.65;font-style:normal;">· placeholder, separate page TBD</em></span>
               <h3>Estrogen Dominant</h3>
               <ul>
                 <li>Result headline + 2-3 para explanation</li>
@@ -2127,6 +2188,7 @@
                 <li>3 actions this week</li>
                 <li>Soft Challenge CTA</li>
               </ul>
+              <a class="web-cta" href="https://callmedoctorp.com/hormone-assessment-result/" target="_blank" rel="noopener noreferrer">Open page <span class="arrow">→</span></a>
             </div>
           </div>
           <div class="sub-card web-chrome" id="n-results-bal">
@@ -2137,13 +2199,13 @@
                 <span class="tdot y"></span>
                 <span class="tdot g"></span>
               </div>
-              <div class="url-pill" title="callmedoctorp.com/uha-results-balanced">
+              <div class="url-pill" title="callmedoctorp.com/hormone-assessment-result">
                 <span class="lock">🔒</span>
-                <span class="path">/uha-results-balanced</span>
+                <span class="path">/hormone-assessment-result</span>
               </div>
             </div>
             <div class="web-body">
-              <span class="kind">Balanced Variant</span>
+              <span class="kind">Balanced Variant <em style="opacity:.65;font-style:normal;">· placeholder, separate page TBD</em></span>
               <h3>Hormonally Balanced</h3>
               <ul>
                 <li>Result headline + 2-3 para explanation</li>
@@ -2151,6 +2213,7 @@
                 <li>3 optimization moves</li>
                 <li>Soft Challenge CTA</li>
               </ul>
+              <a class="web-cta" href="https://callmedoctorp.com/hormone-assessment-result/" target="_blank" rel="noopener noreferrer">Open page <span class="arrow">→</span></a>
             </div>
           </div>
         </div>
@@ -2596,7 +2659,7 @@ function resetToFirstHappyPathCard() {
 viewport.addEventListener('pointerdown', (e) => {
   // Don't start a pan if the user pressed inside the toolbar or on a clickable
   // card (clickable cards open the email modal on tap).
-  if (e.target.closest('.toolbar, .card.clickable')) return;
+  if (e.target.closest('.toolbar, .card.clickable, .web-cta')) return;
   e.preventDefault();
   state.isPanning = true;
   state.startX = e.clientX;
@@ -2648,7 +2711,7 @@ viewport.addEventListener('wheel', (e) => {
 }, { passive: false });
 
 viewport.addEventListener('dblclick', (e) => {
-  if (e.target.closest('[data-email], .toolbar, .card.clickable')) return;
+  if (e.target.closest('[data-email], .toolbar, .card.clickable, .web-cta')) return;
   fitToScreen();
 });
 
@@ -2726,7 +2789,7 @@ If you already started right after checkout, perfect. Keep going, sis.
 
 If life pulled you away, no problem. Here is your link:
 
-👉 Take Your Assessment Now → [QUIZ URL]
+👉 Take Your Assessment Now → https://callmedoctorp.com/the-ultimate-hormone-assessment-quiz/
 
 Set aside about 10 minutes, answer each question honestly, and submit it when you are done.
 
@@ -2736,7 +2799,7 @@ Talk soon,
 Dr. P
 
 Order summary:
-Ultimate Hormone Assessment, $47
+Ultimate Hormone Assessment, $27
 [Order details / receipt]`
     }]
   },
@@ -2777,7 +2840,7 @@ Start here this week:
 
 These are simple shifts, but they matter.
 
-👉 View Your Full Results → [RESULTS PAGE URL]
+👉 View Your Full Results → https://callmedoctorp.com/hormone-assessment-result/
 
 Take a breath, sis. You have clarity now, and clarity is powerful.
 
@@ -2815,7 +2878,7 @@ Here is how to stay ahead of future shifts:
 2. Track your cycle, mood, and energy so you notice changes early
 3. Reduce hormone disruptors where you can, especially heated plastic and harsh personal care products
 
-👉 View Your Full Results → [RESULTS PAGE URL]
+👉 View Your Full Results → https://callmedoctorp.com/hormone-assessment-result/
 
 You are in a good place, sis. Now let us help you stay there.
 
@@ -2840,7 +2903,7 @@ You purchased your Ultimate Hormone Assessment a few hours ago, but it looks lik
 
 No pressure, sis. I just do not want you to miss the part you paid for.
 
-👉 Take Your Assessment Now → [QUIZ URL]
+👉 Take Your Assessment Now → https://callmedoctorp.com/the-ultimate-hormone-assessment-quiz/
 
 It is 48 questions, takes about 10 minutes, and your results show up right away.
 
@@ -2867,7 +2930,7 @@ You signed up for a reason. Maybe something feels off. Maybe you want answers be
 That reason still matters.
 
 Here is your link:
-👉 [QUIZ URL]
+👉 https://callmedoctorp.com/the-ultimate-hormone-assessment-quiz/
 
 Ten minutes now can save you a lot of confusion later.
 
@@ -2980,10 +3043,10 @@ Sleep
 
 Plus you get a meal plan, grocery list, and support materials so you are not trying to piece it all together by yourself.
 
-It is $47, takes about 15 minutes a day, and helps you move from knowing to doing.
+It is $37, takes about 15 minutes a day, and helps you move from knowing to doing.
 
 If that sounds like the support you need, here is the link:
-👉 [CHALLENGE CHECKOUT URL]
+👉 https://callmedoctorp.com/7-day-challenge-checkout/
 
 If not, no pressure. Your assessment results still matter, and I want you to use them well.
 
@@ -3014,7 +3077,7 @@ If nothing changes over the next 30 days, am I okay with that?
 If the answer is yes, hold onto your results and keep applying what I shared.
 
 If the answer is no, and you want a simple plan with real support, here is where to go next:
-👉 [CHALLENGE CHECKOUT URL]
+👉 https://callmedoctorp.com/7-day-challenge-checkout/
 
 Seven days. Fifteen minutes a day. A clear next step.
 
@@ -3040,7 +3103,8 @@ let lastTrigger = null;
 
 function renderWithTokens(text) {
   const esc = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  return esc.replace(/\[([^\]]+)\]/g, '<span class="tok">[$1]</span>');
+  const withTokens = esc.replace(/\[([^\]]+)\]/g, '<span class="tok">[$1]</span>');
+  return withTokens.replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
 }
 
 function renderVariant(emailId, variantIndex) {

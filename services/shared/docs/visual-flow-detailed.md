@@ -617,7 +617,7 @@ STEP    CHANNEL                  WHAT HAPPENS                              WHO S
 
         [CHECKOUT PAGE]          CTA links to: HWN checkout page           Customer
         GHL Funnel               (same as Flow 4, Step 1)
-        URL: /hwn-checkout
+        URL: /hormone-wellness-network-checkout
 
 30      [EMAIL]                  Email MEM-12: HWN Expiry Notice           Customer inbox
         GHL Workflow             "Your HWN access ends [date]"
@@ -703,7 +703,7 @@ STEP    CHANNEL                  WHAT HAPPENS                              WHO S
 
 1       [CHECKOUT PAGE]          GHL order form: HWN membership            Customer
         GHL Funnel
-        URL: /hwn-checkout
+        URL: /hormone-wellness-network-checkout
                                  - Name, email, payment info
                                  - Plan selection:
                                    ○ Monthly: $47/mo
@@ -726,7 +726,7 @@ STEP    CHANNEL                  WHAT HAPPENS                              WHO S
 
 4       [CONFIRMATION PAGE]      Community-first welcome page              Customer
         GHL Funnel Page
-        URL: /hwn-confirmed
+        URL: /hormone-wellness-network-membership-thank-you-reg
                                  PAGE CONTENT:
                                  ┌────────────────────────────────────┐
                                  │ "You're part of the Network now."  │
@@ -932,18 +932,18 @@ STEP    CHANNEL                  WHAT HAPPENS                              WHO S
 
 27      [EMAIL]                  Email HWN-W1: "What's been happening"     Customer inbox
         GHL Workflow             Value update, not guilt
-        Sent: Day 14 post-churn  CTA → /hwn-checkout
+        Sent: Day 14 post-churn  CTA → /hormone-wellness-network-checkout
         (conditional — skip
          if re-subscribed)
 
 28      [EMAIL]                  Email HWN-W2: "Can I ask you something?"  Customer inbox
         GHL Workflow             Personalized to exit reason
         Sent: Day 30 post-churn  IF "too expensive": offer annual plan
-        (conditional)            CTA → /hwn-checkout
+        (conditional)            CTA → /hormone-wellness-network-checkout
 
 29      [EMAIL]                  Email HWN-W3: Social proof                Customer inbox
         GHL Workflow             Returning member testimonial
-        Sent: Day 45 post-churn  CTA → /hwn-checkout
+        Sent: Day 45 post-churn  CTA → /hormone-wellness-network-checkout
         (conditional)
 
 30      [EMAIL]                  Email HWN-W4: "One last thing"            Customer inbox
@@ -1003,8 +1003,8 @@ HWN PAGES/ASSETS NEEDED:
 | 6 | Challenge Confirmation | Thank-you + Kajabi setup | /challenge-confirmed | Challenge |
 | 7 | MEM Checkout | Order form + payment plans | /mem-checkout | MEM |
 | 8 | MEM Confirmation | Premium thank-you + setup | /mem-confirmed | MEM |
-| 9 | HWN Checkout | Order form + plan toggle | /hwn-checkout | HWN |
-| 10 | HWN Confirmation | Community welcome | /hwn-confirmed | HWN |
+| 9 | HWN Checkout | Order form + plan toggle | /hormone-wellness-network-checkout | HWN |
+| 10 | HWN Confirmation | Community welcome | /hormone-wellness-network-membership-thank-you-reg | HWN |
 
 ## Forms to Build (GHL Forms)
 

@@ -16,6 +16,13 @@
     --border:   #E8E0D4;
     --spine:    #0E6B6B;
     --spine-soft: #E2F0EF;
+    --recovery: #C47A2C;
+    --side:     #C47A2C;
+    --scaffold: #8A8A8A;
+    --ico-web:  #2E6FAE;
+    --ico-quiz: #6B5B8A;
+    --ico-mail: #B8863D;
+    --ico-bts:  #5C6670;
     --accent:   #FFFFFF;
     --radius:   10px;
   }
@@ -57,6 +64,13 @@
     font-weight: 700;
   }
   .brand h1 { font-size: 1rem; margin-top: 2px; }
+  .brand .updated {
+    font-size: 0.6rem;
+    color: var(--ink-mute);
+    margin-top: 3px;
+    letter-spacing: 0.04em;
+  }
+  .brand .updated strong { color: var(--spine); font-weight: 700; }
 
   /* ===== Tabs ===== */
   .tabs {
@@ -145,44 +159,235 @@
   }
   .stage iframe { position: relative; z-index: 1; background: var(--bg); }
 
-  /* ===== Kajabi note bar (Challenge, MEM, HWN) ===== */
-  .kajabi-note {
+  /* ===== Active offer banner ===== */
+  .offer-banner {
     flex: 0 0 auto;
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    padding: 8px 18px;
-    background: #F5EEFA;
-    border-bottom: 1px solid #DCC9EC;
-    font-size: 0.76rem;
-    color: #4A3A62;
-    line-height: 1.45;
+    position: relative;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1.4fr) minmax(300px, 360px) 220px;
+    align-items: center;
+    gap: 22px;
+    padding: 16px 18px;
+    background:
+      radial-gradient(circle at top left, rgba(107,63,160,0.08), transparent 32%),
+      linear-gradient(135deg, rgba(14,107,107,0.06), rgba(14,107,107,0.01)),
+      #fff;
+    border-bottom: 1px solid var(--border);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.8),
+      0 8px 24px rgba(26,26,26,0.04);
   }
-  .kajabi-note .badge {
+  .offer-banner .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    align-self: flex-start;
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #fff;
+    background: var(--spine);
+    padding: 7px 12px;
+    border-radius: 999px;
+  }
+  .offer-banner-main {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .offer-banner-label {
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--spine);
+    margin-bottom: 6px;
+  }
+  .offer-banner-title {
+    margin: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: clamp(1.8rem, 2.7vw, 3rem);
+    line-height: 0.98;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: var(--ink);
+    max-width: none;
+  }
+  .offer-banner-subtitle {
+    margin: 0;
+    font-size: 0.86rem;
+    line-height: 1.45;
+    color: var(--ink-soft);
+    max-width: 58ch;
+  }
+  .offer-products {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-top: 0;
+  }
+  .offer-banner .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin: 0;
+    align-self: center;
+    align-items: center;
+  }
+  .offer-banner .legend-group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    padding: 0 14px 0 0;
+    border-right: 1px solid var(--border);
+    background: transparent;
+    box-shadow: none;
+  }
+  .offer-banner .legend-group:last-child { border-right: none; padding-right: 0; }
+  .offer-banner .legend-label {
+    font-size: 0.64rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 800;
+    color: var(--ink-mute);
+  }
+  .offer-banner .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--ink);
+    font-size: 0.84rem;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+  .offer-banner .legend-swatch {
+    width: 24px;
+    height: 4px;
+    border-radius: 999px;
+    display: inline-block;
     flex: 0 0 auto;
-    font-size: 0.6rem;
+    min-width: 24px;
+    box-shadow: inset 0 0 0 1px rgba(26,26,26,0.08);
+  }
+  .offer-banner .swatch-spine { background: var(--spine); height: 5px; }
+  .offer-banner .swatch-recovery { background: repeating-linear-gradient(90deg, var(--recovery), var(--recovery) 5px, transparent 5px, transparent 9px); }
+  .offer-banner .swatch-side { background: var(--side); }
+  .offer-banner .swatch-scaffold { background: repeating-linear-gradient(90deg, var(--scaffold), var(--scaffold) 3px, transparent 3px, transparent 7px); }
+  .offer-banner .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    flex: 0 0 auto;
+    min-width: 10px;
+    box-shadow: inset 0 0 0 1px rgba(26,26,26,0.14);
+  }
+  .offer-banner .legend-dot.surf-web  { background: var(--ico-web); }
+  .offer-banner .legend-dot.surf-quiz { background: var(--ico-quiz); }
+  .offer-banner .legend-dot.surf-mail { background: var(--ico-mail); }
+  .offer-banner .legend-dot.surf-bts  { background: var(--ico-bts); }
+  .offer-pill {
+    display: inline-flex;
+    align-items: center;
+    min-height: 32px;
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: #fff;
+    border: 1px solid var(--border);
+    color: var(--ink);
+    font-size: 0.78rem;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(26,26,26,0.04);
+  }
+  .offer-banner-side {
+    align-self: stretch;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    background: rgba(255,255,255,0.92);
+    box-shadow: 0 10px 24px rgba(26,26,26,0.05);
+  }
+  .offer-banner-side-label {
+    font-size: 0.68rem;
     font-weight: 800;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: #fff;
-    background: #6B3FA0;
-    padding: 3px 8px;
-    border-radius: 999px;
-    margin-top: 1px;
+    color: var(--ink-mute);
+    margin-bottom: 6px;
   }
-  .kajabi-note strong { color: #2E1A4A; font-weight: 600; }
-  .kajabi-note .sep { color: #C4AED9; margin: 0 6px; }
-  .kajabi-note[hidden] { display: none; }
+  .offer-banner-price {
+    font-size: clamp(1.35rem, 1.5vw, 1.8rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: var(--spine);
+    line-height: 1.05;
+    margin-bottom: 6px;
+    word-break: break-word;
+  }
+  .offer-banner-side-note {
+    font-size: 0.78rem;
+    line-height: 1.4;
+    color: var(--ink-soft);
+  }
+  @media (max-width: 1380px) {
+    .offer-banner {
+      grid-template-columns: auto minmax(0, 1fr) 220px;
+      align-items: start;
+    }
+    .offer-banner .legend {
+      grid-column: 2 / 4;
+      grid-template-columns: repeat(2, minmax(220px, 1fr));
+      align-self: start;
+    }
+  }
+  .offer-banner.kajabi {
+    background:
+      linear-gradient(135deg, rgba(107,63,160,0.08), rgba(14,107,107,0.03)),
+      #fff;
+  }
+  .offer-banner.kajabi .eyebrow {
+    background: #6B3FA0;
+  }
+  .offer-banner.kajabi .offer-banner-price {
+    color: #6B3FA0;
+  }
+  .offer-banner.non-kajabi .offer-banner-side {
+    background: #fcfaf6;
+  }
+  .offer-banner .sr-note {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border: 0;
+  }
 
   @media (max-width: 720px) {
     .topbar { flex-wrap: wrap; gap: 10px; padding: 10px 12px; }
     .tabs { margin-left: 0; order: 3; width: 100%; justify-content: space-between; }
     .hint { display: none; }
     .tab { padding: 6px 10px; font-size: 0.74rem; }
-    .kajabi-note { padding: 8px 12px; font-size: 0.72rem; }
-    .kajabi-note .sep { display: none; }
-    .kajabi-note .entries { display: block; }
-    .kajabi-note .entries > span { display: block; margin-top: 2px; }
+    .offer-banner {
+      grid-template-columns: 1fr;
+      gap: 12px;
+      padding: 12px;
+    }
+    .offer-banner .legend {
+      width: 100%;
+      grid-template-columns: 1fr;
+      grid-column: auto;
+    }
+    .offer-banner-title { font-size: 1.5rem; }
+    .offer-banner-subtitle { font-size: 0.78rem; }
+    .offer-banner-side { width: 100%; }
+    .offer-pill { width: 100%; justify-content: flex-start; border-radius: 12px; }
   }
 
   /* ===== Rotate-to-landscape overlay (phones/small tablets in portrait) ===== */
@@ -240,7 +445,7 @@
     .rotate-overlay { display: flex; }
     /* Hide the canvas UI underneath so the overlay is the only surface */
     body > .topbar,
-    body > .kajabi-note,
+    body > .offer-banner,
     body > .stage { visibility: hidden; }
   }
 
@@ -252,7 +457,42 @@
     .tabs { margin-left: 0; width: 100%; justify-content: space-between; padding: 3px; }
     .tab { padding: 5px 10px; font-size: 0.72rem; gap: 4px; }
     .tab .price { display: none; }
-    .kajabi-note { display: none; }
+    .offer-banner { display: none; }
+  }
+
+  /* ===== Prominent CTA on every website card — opens the real page in a new tab ===== */
+  .web-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 12px;
+    padding: 9px 16px;
+    background: #0e6b6b;
+    color: #fff !important;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: .2px;
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(14,107,107,.22);
+    transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+    cursor: pointer;
+    align-self: flex-start;
+  }
+  .web-cta:hover,
+  .web-cta:focus-visible {
+    background: #0a5555;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(14,107,107,.3);
+    outline: none;
+  }
+  .web-cta .arrow { transition: transform .15s ease; display: inline-block; }
+  .web-cta:hover .arrow { transform: translateX(3px); }
+  /* Compact variant for stacked sub-cards */
+  .sub-card .web-cta {
+    margin-top: 8px;
+    padding: 7px 12px;
+    font-size: 12px;
   }
 </style>
 </head>
@@ -276,6 +516,7 @@
   <div class="brand">
     <span class="eyebrow">Dr. P Program Automation</span>
     <h1>Post-Purchase Flows</h1>
+    <span class="updated"><strong>Pricing updated</strong> · 2026-04-21</span>
   </div>
 
   <div class="hint">
@@ -286,28 +527,35 @@
 
   <div class="tabs" role="tablist" aria-label="Program flows">
     <button class="tab active" id="tab-uha" data-target="uha" role="tab" aria-selected="true" aria-controls="frame-uha" tabindex="0">
-      UHA <span class="price">$47</span>
+      UHA <span class="price">$27</span>
     </button>
     <button class="tab" id="tab-challenge" data-target="challenge" role="tab" aria-selected="false" aria-controls="frame-challenge" tabindex="-1">
-      Challenge <span class="price">$47</span>
+      7-Day Challenge <span class="price">$37</span>
     </button>
     <button class="tab" id="tab-mem" data-target="mem" role="tab" aria-selected="false" aria-controls="frame-mem" tabindex="-1">
-      MEM <span class="price">$1,997</span>
+      Madame Estrogen <span class="price">$1,497</span>
     </button>
     <button class="tab" id="tab-hwn" data-target="hwn" role="tab" aria-selected="false" aria-controls="frame-hwn" tabindex="-1">
-      HWN <span class="price">$47/mo</span>
+      Hormone Network <span class="price">$47/mo</span>
     </button>
   </div>
 </div>
 
-<div class="kajabi-note" id="kajabiNote" role="note">
-  <span class="badge">Kajabi</span>
-  <div>
-    <strong>General rule — applies to every Kajabi course (Challenge, MEM, HWN):</strong> Kajabi sends one "Set Up Your Account" email automatically to brand-new users when access is granted. We do not write that email. Our emails simply point her back to the right login link, and once her password is set she can get in from 3 places:
-    <span class="entries">
-      <span>the Kajabi setup email</span><span class="sep">·</span><span>the Login button on callmedoctorp.com</span><span class="sep">·</span><span>any link in our emails</span>
-    </span>
+<div class="offer-banner non-kajabi" id="offerBanner" role="note" aria-live="polite">
+  <span class="eyebrow" id="offerBannerEyebrow">Non-Kajabi</span>
+  <div class="offer-banner-main">
+    <div class="offer-banner-label">Kajabi Offer</div>
+    <h2 class="offer-banner-title" id="offerTitle">No Kajabi offer is granted on UHA.</h2>
+    <p class="offer-banner-subtitle" id="offerSubtitle">UHA is the front-end purchase and nurture flow. Kajabi access starts later only if she buys a Kajabi-based program such as the 7-Day Challenge, Madame Estrogen, or Hormone Network.</p>
+    <div class="offer-products" id="offerProducts"></div>
   </div>
+  <div class="legend" id="offerLegend" aria-label="Flow legend"></div>
+  <div class="offer-banner-side">
+    <div class="offer-banner-side-label">At-a-Glance</div>
+    <div class="offer-banner-price" id="offerPrice">No Kajabi grant here</div>
+    <div class="offer-banner-side-note" id="offerSideNote">When a Kajabi offer is granted, make sure the exact offer name and included products match Kajabi so the specialist cannot confuse the setup.</div>
+  </div>
+  <span class="sr-note" id="offerSrNote"></span>
 </div>
 
 <div class="stage">
@@ -318,26 +566,85 @@
     loading="eager"></iframe>
   <iframe id="frame-challenge"
     role="tabpanel"
-    aria-labelledby="tab-challenge" title="Challenge Flow"
+    aria-labelledby="tab-challenge" title="7-Day Challenge Flow"
     loading="lazy"></iframe>
   <iframe id="frame-mem"
     role="tabpanel"
-    aria-labelledby="tab-mem" title="MEM Flow"
+    aria-labelledby="tab-mem" title="Madame Estrogen Flow"
     loading="lazy"></iframe>
   <iframe id="frame-hwn"
     role="tabpanel"
-    aria-labelledby="tab-hwn" title="HWN Flow"
+    aria-labelledby="tab-hwn" title="Hormone Network Flow"
     loading="lazy"></iframe>
 </div>
 
 <script>
   (function () {
     const ORDER = ['uha', 'challenge', 'mem', 'hwn'];
-    const KAJABI = new Set(['challenge', 'mem', 'hwn']);
     const tabs = Array.from(document.querySelectorAll('.tab'));
     const frames = document.querySelectorAll('.stage iframe');
-    const kajabiNote = document.getElementById('kajabiNote');
+    const offerBanner = document.getElementById('offerBanner');
+    const offerBannerEyebrow = document.getElementById('offerBannerEyebrow');
+    const offerTitle = document.getElementById('offerTitle');
+    const offerSubtitle = document.getElementById('offerSubtitle');
+    const offerProducts = document.getElementById('offerProducts');
+    const offerPrice = document.getElementById('offerPrice');
+    const offerSideNote = document.getElementById('offerSideNote');
+    const offerSrNote = document.getElementById('offerSrNote');
+    const offerLegend = document.getElementById('offerLegend');
     const loaded = new Set();
+
+    const OFFER_DETAILS = {
+      uha: {
+        eyebrow: 'Non-Kajabi',
+        kind: 'non-kajabi',
+        title: 'No Kajabi offer is granted on UHA.',
+        subtitle: 'UHA is the $27 front-end purchase and nurture flow (with an optional +$14 PDF order bump at checkout). Kajabi access starts later only if she buys a Kajabi-based program such as the 7-Day Challenge, Madame Estrogen, or Hormone Network.',
+        products: [],
+        price: '$27 + $14 bump',
+        sideNote: 'Use this flow to explain the nurture and upsell path, not Kajabi fulfillment. UHA itself is delivered via quiz + email — no Kajabi grant fires here.',
+        sr: 'UHA is priced at $27 with a $14 order bump and does not grant a Kajabi offer.'
+      },
+      challenge: {
+        eyebrow: 'Kajabi Offer',
+        kind: 'kajabi',
+        title: 'The Hormone Reset & Recharge 7-Day Challenge',
+        subtitle: 'Grant this exact Kajabi offer for the 7-Day Challenge flow. The buyer should receive both of these included products when the offer is granted.',
+        products: [
+          'The Hormone Reset & Recharge 7 Day Challenge - Access group',
+          'The Hormone Reset & Recharge 7-Day Challenge'
+        ],
+        price: '$37',
+        sideNote: 'This offer includes the 7-day course plus the access group. Price updated from legacy $47.',
+        sr: 'Challenge Kajabi offer is $37 and includes the access group and the 7-Day Challenge product.'
+      },
+      mem: {
+        eyebrow: 'Kajabi Offer',
+        kind: 'kajabi',
+        title: 'The Madame Estrogen Mastermind',
+        subtitle: 'Three pricing offers are sold for MEM (pay-in-full + payment plans). Every offer variant grants the same two Kajabi products below, so the specialist should confirm plan name but never change the product bundle.',
+        products: [
+          'Madame Estrogen Mastermind',
+          'Madame Estrogen Members - Access group'
+        ],
+        price: '$1,497',
+        sideNote: 'Headline price $1,497 (with DOCTORP500). Legacy plans: $667×3 or $497 + $150×10. Includes 3-month HWN bonus.',
+        sr: 'Madame Estrogen has three pricing offers headlined at $1,497, all granting the Mastermind product and access group.'
+      },
+      hwn: {
+        eyebrow: 'Kajabi Offer',
+        kind: 'kajabi',
+        title: 'The Hormone Wellness Network',
+        subtitle: 'Two price plans are sold for HWN (monthly vs. annual). Both grant the same Kajabi membership product and access group — the price plan chosen at checkout drives billing, not the offer contents.',
+        products: [
+          'The Hormone Wellness Network',
+          'Hormone Wellness Network - Access group'
+        ],
+        price: '$47/mo or $470/yr',
+        sideNote: 'Annual saves ~17% vs. monthly. Both plans include the membership plus the access group.',
+        sr: 'Hormone Network Kajabi offer is $47 per month or $470 per year and includes the membership and access group.'
+      }
+    };
 
     const SOURCES = {
       uha: '../services/uha/visuals/uha-flow-simple.html',
@@ -346,15 +653,86 @@
       hwn: '../services/hwn/visuals/hwn-flow-simple.html',
     };
 
-    // CSS injected into each sub-flow iframe so phone landscape hides the
-    // sub-flow's own hero header, giving the canvas every available pixel.
-    // Also reclaims the kajabi-style note and help-hint bars inside sub-flows.
+    const LEGEND_DETAILS = {
+      uha: {
+        flow: ['Happy path', 'Recovery', 'Always fires', 'Behind scenes'],
+        surface: ['Website', 'Quiz', 'Email', 'System']
+      },
+      challenge: {
+        flow: ['Happy path', 'Recovery', 'Always fires', 'Behind scenes'],
+        surface: ['Website', 'Kajabi', 'Email', 'System']
+      },
+      mem: {
+        flow: ['Happy path', 'Recovery', 'Always fires', 'Behind scenes'],
+        surface: ['Website', 'Kajabi', 'Email', 'System']
+      },
+      hwn: {
+        flow: ['Happy path', 'Behind scenes'],
+        surface: ['Website', 'Kajabi', 'Email', 'System']
+      }
+    };
+
+    // CSS injected into each sub-flow iframe so the shell owns the single
+    // header layer. This removes the duplicate flow title/legend row inside
+    // the iframe and reclaims that space for the canvas.
     const MOBILE_SUBFLOW_CSS = `
+      header.hero { display: none !important; }
       @media (orientation: landscape) and (max-height: 500px) {
-        header.hero { display: none !important; }
         .pan-hint { display: none !important; }
       }
     `;
+
+    function renderLegendGroup(label, items, kind) {
+      const group = document.createElement('div');
+      group.className = 'legend-group';
+
+      const legendLabel = document.createElement('div');
+      legendLabel.className = 'legend-label';
+      legendLabel.textContent = label;
+      group.appendChild(legendLabel);
+
+      items.forEach((item) => {
+        const legendItem = document.createElement('div');
+        legendItem.className = 'legend-item';
+
+        const marker = document.createElement('span');
+        if (kind === 'flow') {
+          marker.className =
+            'legend-swatch ' +
+            ({
+              'Happy path': 'swatch-spine',
+              'Recovery': 'swatch-recovery',
+              'Always fires': 'swatch-side',
+              'Behind scenes': 'swatch-scaffold'
+            }[item] || 'swatch-spine');
+        } else {
+          marker.className =
+            'legend-dot ' +
+            ({
+              Website: 'surf-web',
+              Quiz: 'surf-quiz',
+              Kajabi: 'surf-quiz',
+              Email: 'surf-mail',
+              System: 'surf-bts'
+            }[item] || 'surf-bts');
+        }
+
+        legendItem.appendChild(marker);
+        legendItem.appendChild(document.createTextNode(item));
+        group.appendChild(legendItem);
+      });
+
+      return group;
+    }
+
+    function renderLegend(target) {
+      if (!offerLegend) return;
+      const data = LEGEND_DETAILS[target] || LEGEND_DETAILS.uha;
+      offerLegend.replaceChildren(
+        renderLegendGroup('Flow', data.flow, 'flow'),
+        renderLegendGroup('Surface', data.surface, 'surface')
+      );
+    }
 
     function injectMobileCSS(frame) {
       try {
@@ -365,6 +743,8 @@
         style.id = 'drp-mobile-css';
         style.textContent = MOBILE_SUBFLOW_CSS;
         doc.head.appendChild(style);
+        const innerHeader = doc.querySelector('header.hero');
+        if (innerHeader) innerHeader.remove();
       } catch (_) { /* cross-origin or not ready */ }
     }
 
@@ -373,14 +753,54 @@
       try { frame.contentWindow.dispatchEvent(new Event('drp:refit')); } catch (_) {}
     }
 
+    function forceFitFrame(frame) {
+      if (!frame) return;
+      try {
+        const doc = frame.contentDocument;
+        const btn = doc && doc.getElementById('btn-fit');
+        if (btn) btn.click();
+      } catch (_) { /* iframe not ready */ }
+    }
+
+    function refreshFrame(frame) {
+      if (!frame) return;
+      const delays = [0, 120, 280, 420];
+      delays.forEach((delay) => {
+        window.setTimeout(() => {
+          injectMobileCSS(frame);
+          refitFrame(frame);
+          forceFitFrame(frame);
+        }, delay);
+      });
+    }
+
+    function renderOfferBanner(target) {
+      if (!offerBanner) return;
+      const data = OFFER_DETAILS[target] || OFFER_DETAILS.uha;
+      offerBanner.classList.toggle('kajabi', data.kind === 'kajabi');
+      offerBanner.classList.toggle('non-kajabi', data.kind !== 'kajabi');
+      offerBannerEyebrow.textContent = data.eyebrow;
+      offerTitle.textContent = data.title;
+      offerSubtitle.textContent = data.subtitle;
+      offerPrice.textContent = data.price;
+      offerSideNote.textContent = data.sideNote;
+      offerSrNote.textContent = data.sr;
+      renderLegend(target);
+      offerProducts.replaceChildren();
+      data.products.forEach((product) => {
+        const pill = document.createElement('span');
+        pill.className = 'offer-pill';
+        pill.textContent = product;
+        offerProducts.appendChild(pill);
+      });
+    }
+
     function loadFrame(frame) {
       if (!frame || loaded.has(frame.id)) return;
       const key = frame.id.replace(/^frame-/, '');
 
       frame.addEventListener('load', () => {
-        injectMobileCSS(frame);
-        // Give the sub-doc a tick to compute layout, then fit.
-        requestAnimationFrame(() => refitFrame(frame));
+        refreshFrame(frame);
       }, { once: true });
 
       const tmpl = document.getElementById('tmpl-' + key);
@@ -394,17 +814,15 @@
       loaded.add(frame.id);
     }
 
-    // Eager-load the first active frame — deferred until DOM is parsed so the
-    // inline templates below this script block are already in the document.
-    function eagerLoadActive() {
-      frames.forEach(f => {
-        if (f.classList.contains('active')) loadFrame(f);
-      });
+    // Preload all flows once the templates exist so tab switches land on an
+    // already-initialized iframe. Hidden flows are re-fit again on activation.
+    function eagerLoadFrames() {
+      frames.forEach((f) => loadFrame(f));
     }
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', eagerLoadActive);
+      document.addEventListener('DOMContentLoaded', eagerLoadFrames);
     } else {
-      eagerLoadActive();
+      eagerLoadFrames();
     }
 
     function activate(target, opts) {
@@ -421,19 +839,10 @@
         f.classList.toggle('active', on);
         if (on) {
           loadFrame(f);
-          // Reset view to fit-to-screen on every tab activation.
-          // First-load: the sub-doc's own 'load' handler runs init→fitToScreen, so skip.
-          // Return visits: dispatch 'drp:refit' into the iframe so it re-fits and
-          // refreshes any stale layout/drag state from being display:none.
-          const doc = f.contentDocument;
-          if (doc && doc.readyState === 'complete') {
-            requestAnimationFrame(() => {
-              try { f.contentWindow.dispatchEvent(new Event('drp:refit')); } catch (_) {}
-            });
-          }
+          refreshFrame(f);
         }
       });
-      if (kajabiNote) kajabiNote.hidden = !KAJABI.has(target);
+      renderOfferBanner(target);
       try {
         history.replaceState(null, '', '#' + target);
       } catch (_) { /* ignore */ }
@@ -466,7 +875,7 @@
     // Honor #hash on load, else sync note to default active tab
     const initial = (location.hash || '').replace('#', '');
     if (ORDER.includes(initial)) activate(initial);
-    else if (kajabiNote) kajabiNote.hidden = !KAJABI.has('uha');
+    else renderOfferBanner('uha');
 
     // Refit the active flow when the device rotates or the window resizes.
     // iOS needs a settle delay after orientationchange — visualViewport resize
@@ -1892,6 +2301,17 @@
     font-weight: 600;
     white-space: nowrap;
   }
+  .em-body a, .em-headers a {
+    color: #0E6B6B;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    word-break: break-word;
+  }
+  .em-body a:hover, .em-headers a:hover {
+    color: #0a4f4f;
+    text-decoration-thickness: 2px;
+  }
 
   @media (max-width: 900px) {
     header.hero { flex-wrap: wrap; gap: 14px; }
@@ -1931,6 +2351,44 @@
     --mail-border: var(--recovery);
     --mail-header-from: #FFF9EF;
     --mail-header-to: #F6E3B8;
+  }
+
+  .web-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 12px;
+    padding: 9px 16px;
+    background: #0E6B6B;
+    color: #FFFFFF;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.2px;
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(14,107,107,0.22);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    cursor: pointer;
+    align-self: flex-start;
+  }
+  .web-cta:visited {
+    color: #FFFFFF;
+  }
+  .web-cta:hover,
+  .web-cta:focus-visible {
+    background: #0A5555;
+    color: #FFFFFF;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(14,107,107,0.3);
+    outline: none;
+  }
+  .web-cta .arrow {
+    display: inline-block;
+    transition: transform 0.15s ease;
+  }
+  .web-cta:hover .arrow,
+  .web-cta:focus-visible .arrow {
+    transform: translateX(3px);
   }
 
   /* =========== Setup guide link (on system card) =========== */
@@ -2279,7 +2737,7 @@
   <div class="title-block">
     <div class="eyebrow">Dr. P Program Automation</div>
     <h1>UHA Post-Purchase Flow</h1>
-    <div class="sub">Main path from checkout to quiz results, follow-up emails, and the Challenge handoff.</div>
+    <div class="sub">Main path from checkout to quiz results, follow-up emails, and the 7-Day Challenge handoff.</div>
   </div>
   <div class="legend">
     <div class="legend-group">
@@ -2324,15 +2782,15 @@
         <div class="sec-label"><span class="num">1</span> Workflow Context</div>
         <dl class="impl-kv">
           <dt>Workflow</dt>
-          <dd><code>UHA | Post-Purchase Nurture → Challenge Upsell</code></dd>
+          <dd><code>UHA | Post-Purchase Nurture → 7-Day Challenge Upsell</code></dd>
           <dt>Trigger</dt>
-          <dd>GHL checkout at <code>callmedoctorp.com/uha</code> captures email/first-name/payment → tag <code>uha_purchased</code>.</dd>
+          <dd>GHL checkout at <code>callmedoctorp.com/ultimate-hormone-assessment-checkout</code> captures email/first-name/payment → tag <code>uha_purchased</code>.</dd>
           <dt>Entry</dt>
           <dd>Contact has <code>uha_purchased</code> AND NOT <code>uha_pitch2_sent</code> (prevents re-entry after full sequence).</dd>
           <dt>Delivery</dt>
-          <dd>Interact quiz (<code>tryinteract.com/uha-quiz</code>, 48Q ≈ 10 min) + GHL email sequence. <strong>No Kajabi course</strong> — no password setup. Quiz completion webhook fires back to GHL.</dd>
+          <dd>Interact quiz embedded at <code>callmedoctorp.com/the-ultimate-hormone-assessment-quiz</code> (48Q ≈ 10 min) + GHL email sequence. <strong>No Kajabi course</strong> — no password setup. Quiz completion webhook fires back to GHL. <em>Note: the Interact quiz will need to be duplicated to match the new automation flow.</em></dd>
           <dt>Purpose</dt>
-          <dd>Deliver hormone results + 10-day nurture that pitches the 7-Day Challenge twice (Day 6, Day 10). Two result LPs at <code>/uha-results-estrogen-dominant</code> and <code>/uha-results-balanced</code>, both with soft Challenge CTAs.</dd>
+          <dd>Deliver hormone results + 10-day nurture that pitches the 7-Day Challenge twice (Day 6, Day 10). Two result LPs at <code>/uha-results-estrogen-dominant</code> and <code>/uha-results-balanced</code>, both with soft 7-Day Challenge CTAs.</dd>
         </dl>
       </section>
 
@@ -2344,7 +2802,7 @@
           <li><code>uha_quiz_done</code> — on quiz submit; gates UHA-2 Results email.</li>
           <li><code>uha_result_estrogen_dominant</code> / <code>uha_result_balanced</code> — routes UHA-2 variant + LP link.</li>
           <li><code>uha_backup_sent</code> (UHA-1), <code>uha_results_sent</code> (UHA-2), <code>uha_nudge1_sent</code> / <code>uha_nudge2_sent</code> (UHA-3 / UHA-3b), <code>uha_nowwhat_sent</code> (UHA-4), <code>uha_pitch1_sent</code> (UHA-5), <code>uha_pitch2_sent</code> (UHA-6) — per-email send flags for idempotency.</li>
-          <li><code>challenge_pitch_clicked</code> — set on Challenge-CTA click in any pitch email; may suppress further pitches.</li>
+          <li><code>challenge_pitch_clicked</code> — set on 7-Day Challenge-CTA click in any pitch email; may suppress further pitches.</li>
           <li><code>challenge_purchased</code> — if present, suppress UHA-5 and UHA-6 (they've already bought).</li>
           <li><code>uha_quiz_abandoned</code> — terminal; halts nudges after max retries.</li>
         </ul>
@@ -2357,9 +2815,9 @@
           <li><strong>UHA-2 Results (Step 3, +few min)</strong> — fires on <code>uha_quiz_done</code> → 2 variants branched on result tag; links to matching LP.</li>
           <li><strong>UHA-3 Nudge #1 (+4h)</strong> — IF NOT <code>uha_quiz_done</code> → send catch-up + tag <code>uha_nudge1_sent</code>.</li>
           <li><strong>UHA-3b Nudge #2 (Day 2 · 9am)</strong> — IF NOT <code>uha_quiz_done</code> AND <code>uha_nudge1_sent</code> → send second catch-up + tag <code>uha_nudge2_sent</code>.</li>
-          <li><strong>UHA-4 Now-What (Day 3 · 9am)</strong> — conditional content by result tag; soft Challenge reference.</li>
-          <li><strong>UHA-5 Pitch #1 (Day 6 · 9am)</strong> — Challenge upsell. SUPPRESS if <code>challenge_purchased</code>.</li>
-          <li><strong>UHA-6 Pitch #2 (Day 10 · 9am)</strong> — final Challenge upsell. SUPPRESS if <code>challenge_purchased</code>.</li>
+          <li><strong>UHA-4 Now-What (Day 3 · 9am)</strong> — conditional content by result tag; soft 7-Day Challenge reference.</li>
+          <li><strong>UHA-5 Pitch #1 (Day 6 · 9am)</strong> — 7-Day Challenge upsell. SUPPRESS if <code>challenge_purchased</code>.</li>
+          <li><strong>UHA-6 Pitch #2 (Day 10 · 9am)</strong> — final 7-Day Challenge upsell. SUPPRESS if <code>challenge_purchased</code>.</li>
           <li><strong>Nudge cap</strong> — max 2 quiz nudges; after Day 2 with no completion → apply <code>uha_quiz_abandoned</code>, but Now-What + Pitches still fire (generic content).</li>
         </ul>
       </section>
@@ -2368,7 +2826,7 @@
         <div class="sec-label"><span class="num">4</span> Exits &amp; Errors</div>
         <ul class="impl-list exits">
           <li><strong>Refund</strong> — Stripe refund webhook → remove <code>uha_purchased</code>, add <code>uha_refunded</code>, halt workflow.</li>
-          <li><strong>Challenge purchased mid-flow</strong> — on <code>challenge_purchased</code>, suppress UHA-5 and UHA-6 (don't pitch what they've bought).</li>
+          <li><strong>7-Day Challenge purchased mid-flow</strong> — on <code>challenge_purchased</code>, suppress UHA-5 and UHA-6 (don't pitch what they've bought).</li>
           <li><strong>Unsubscribe</strong> — GHL suppression handles delivery; workflow continues silently.</li>
           <li><strong>Quiz abandoned</strong> — terminal tag <code>uha_quiz_abandoned</code> after Day 2 + 2 nudges; Now-What/Pitches use generic (non-result) content.</li>
           <li><strong>Re-purchase</strong> — if contact re-enters with stale tags, clear <code>uha_*_sent</code> flags in the entry step before proceeding.</li>
@@ -2383,7 +2841,7 @@
         </div>
         <div class="impl-open-q">
           <strong>Refund / cancel exits — pattern not yet canonical.</strong><br>
-          Need a shared convention across UHA / Challenge / MEM / HWN. Current proposal: Stripe refund webhook → remove entry tag + add <code>*_refunded</code> + halt.
+          Need a shared convention across UHA / 7-Day Challenge / Madame Estrogen / Hormone Network. Current proposal: Stripe refund webhook → remove entry tag + add <code>*_refunded</code> + halt.
         </div>
         <div class="impl-open-q">
           <strong>Quiz-abandoned fallback content.</strong><br>
@@ -2394,7 +2852,7 @@
     </div>
     <div class="impl-foot">
       <span>Press <span class="kbd">i</span> to toggle · <span class="kbd">Esc</span> to close</span>
-      <span>UHA · $47</span>
+      <span>UHA · $27</span>
     </div>
   </div>
 </aside>
@@ -2530,15 +2988,16 @@
               <span class="tdot y"></span>
               <span class="tdot g"></span>
             </div>
-            <div class="url-pill" title="callmedoctorp.com/uha">
+            <div class="url-pill" title="callmedoctorp.com/ultimate-hormone-assessment-checkout">
               <span class="lock">🔒</span>
-              <span class="domain">callmedoctorp.com</span><span class="path">/uha</span>
+              <span class="domain">callmedoctorp.com</span><span class="path">/ultimate-hormone-assessment-checkout</span>
             </div>
           </div>
           <div class="web-body">
             <span class="kind">Checkout Page</span>
-            <h2>User pays $47</h2>
+            <h2>User pays $27 (+ optional $14 PDF bump)</h2>
             <div class="detail">GHL checkout captures email, first name, payment.</div>
+            <a class="web-cta" href="https://callmedoctorp.com/ultimate-hormone-assessment-checkout/" target="_blank" rel="noopener noreferrer">Open checkout <span class="arrow">→</span></a>
           </div>
         </div>
       </div>
@@ -2553,15 +3012,16 @@
               <span class="tdot y"></span>
               <span class="tdot g"></span>
             </div>
-            <div class="url-pill" title="tryinteract.com/uha-quiz">
+            <div class="url-pill" title="callmedoctorp.com/the-ultimate-hormone-assessment-quiz">
               <span class="lock">🧪</span>
-              <span class="domain">tryinteract.com</span><span class="path">/uha-quiz</span>
+              <span class="domain">callmedoctorp.com</span><span class="path">/the-ultimate-hormone-assessment-quiz</span>
             </div>
           </div>
           <div class="web-body">
             <span class="kind">Interact Assessment</span>
             <h2>48-question hormone quiz</h2>
             <div class="detail">≈10 min. Redirect immediately after checkout. Completion fires a webhook back to GHL.</div>
+            <a class="web-cta" href="https://callmedoctorp.com/the-ultimate-hormone-assessment-quiz/" target="_blank" rel="noopener noreferrer">Open quiz <span class="arrow">→</span></a>
           </div>
         </div>
       </div>
@@ -2595,51 +3055,53 @@
         <div class="card hero stacked-group surface-web" id="n-results-group">
           <span class="group-label">Step 4 · Landing Pages</span>
           <div class="sub-card web-chrome" id="n-results-ed">
-            <span class="step">Step 4a</span>
+            <span class="step">Step 4</span>
             <div class="chrome-bar">
               <div class="tdots">
                 <span class="tdot r"></span>
                 <span class="tdot y"></span>
                 <span class="tdot g"></span>
               </div>
-              <div class="url-pill" title="callmedoctorp.com/uha-results-estrogen-dominant">
+              <div class="url-pill" title="callmedoctorp.com/hormone-assessment-result">
                 <span class="lock">🔒</span>
-                <span class="path">/uha-results-estrogen-dominant</span>
+                <span class="path">/hormone-assessment-result</span>
               </div>
             </div>
             <div class="web-body">
-              <span class="kind">ED Variant</span>
+              <span class="kind">ED Variant <em style="opacity:.65;font-style:normal;">· placeholder, separate page TBD</em></span>
               <h3>Estrogen Dominant</h3>
               <ul>
                 <li>Result headline + 2-3 para explanation</li>
                 <li>Top 3 contributing factors</li>
                 <li>3 actions this week</li>
-                <li>Soft Challenge CTA</li>
+                <li>Soft 7-Day Challenge CTA</li>
               </ul>
+              <a class="web-cta" href="https://callmedoctorp.com/hormone-assessment-result/" target="_blank" rel="noopener noreferrer">Open page <span class="arrow">→</span></a>
             </div>
           </div>
           <div class="sub-card web-chrome" id="n-results-bal">
-            <span class="step">Step 4b</span>
+            <span class="step">Step 4</span>
             <div class="chrome-bar">
               <div class="tdots">
                 <span class="tdot r"></span>
                 <span class="tdot y"></span>
                 <span class="tdot g"></span>
               </div>
-              <div class="url-pill" title="callmedoctorp.com/uha-results-balanced">
+              <div class="url-pill" title="callmedoctorp.com/hormone-assessment-result">
                 <span class="lock">🔒</span>
-                <span class="path">/uha-results-balanced</span>
+                <span class="path">/hormone-assessment-result</span>
               </div>
             </div>
             <div class="web-body">
-              <span class="kind">Balanced Variant</span>
+              <span class="kind">Balanced Variant <em style="opacity:.65;font-style:normal;">· placeholder, separate page TBD</em></span>
               <h3>Hormonally Balanced</h3>
               <ul>
                 <li>Result headline + 2-3 para explanation</li>
                 <li>Top 3 strengths to maintain</li>
                 <li>3 optimization moves</li>
-                <li>Soft Challenge CTA</li>
+                <li>Soft 7-Day Challenge CTA</li>
               </ul>
+              <a class="web-cta" href="https://callmedoctorp.com/hormone-assessment-result/" target="_blank" rel="noopener noreferrer">Open page <span class="arrow">→</span></a>
             </div>
           </div>
         </div>
@@ -2669,9 +3131,9 @@
         </div>
       </div>
 
-      <!-- 6. UHA-5 Challenge pitch #1 (email-client chrome) -->
+      <!-- 6. UHA-5 7-Day Challenge pitch #1 (email-client chrome) -->
       <div class="cell row-spine" style="grid-column: 6;">
-        <div class="card hero email-chrome surface-mail clickable" id="n-uha5" data-email="uha-5" role="button" tabindex="0" aria-label="Open UHA-5 Challenge pitch 1">
+        <div class="card hero email-chrome surface-mail clickable" id="n-uha5" data-email="uha-5" role="button" tabindex="0" aria-label="Open UHA-5 7-Day Challenge pitch 1">
           <span class="step">Step 6</span>
           <div class="sender-row">
             <div class="avatar">P</div>
@@ -2692,9 +3154,9 @@
         </div>
       </div>
 
-      <!-- 7. UHA-6 Challenge pitch #2 (email-client chrome) -->
+      <!-- 7. UHA-6 7-Day Challenge pitch #2 (email-client chrome) -->
       <div class="cell row-spine" style="grid-column: 7;">
-        <div class="card hero email-chrome surface-mail clickable" id="n-uha6" data-email="uha-6" role="button" tabindex="0" aria-label="Open UHA-6 Challenge pitch 2">
+        <div class="card hero email-chrome surface-mail clickable" id="n-uha6" data-email="uha-6" role="button" tabindex="0" aria-label="Open UHA-6 7-Day Challenge pitch 2">
           <span class="step">Step 7</span>
           <div class="sender-row">
             <div class="avatar">P</div>
@@ -3092,7 +3554,7 @@ function resetToFirstHappyPathCard() {
 viewport.addEventListener('pointerdown', (e) => {
   // Don't start a pan if the user pressed inside the toolbar or on a clickable
   // card (clickable cards open the email modal on tap).
-  if (e.target.closest('.toolbar, .card.clickable')) return;
+  if (e.target.closest('.toolbar, .card.clickable, .web-cta')) return;
   e.preventDefault();
   state.isPanning = true;
   state.startX = e.clientX;
@@ -3192,7 +3654,7 @@ viewport.addEventListener('pointercancel', _endPinch, true);
 // view anchored at the tap point. Useful on touch where pinch is the only
 // other zoom affordance.
 viewport.addEventListener('dblclick', (e) => {
-  if (e.target.closest('[data-email], .toolbar, .card.clickable')) return;
+  if (e.target.closest('[data-email], .toolbar, .card.clickable, .web-cta')) return;
   const vpRect = viewport.getBoundingClientRect();
   const { width: cw, height: ch } = getCanvasContentSize();
   const fitScale = Math.min((vpRect.width - 80) / cw, (vpRect.height - 80) / ch);
@@ -3277,7 +3739,7 @@ If you already started right after checkout, perfect. Keep going, sis.
 
 If life pulled you away, no problem. Here is your link:
 
-👉 Take Your Assessment Now → [QUIZ URL]
+👉 Take Your Assessment Now → https://callmedoctorp.com/the-ultimate-hormone-assessment-quiz/
 
 Set aside about 10 minutes, answer each question honestly, and submit it when you are done.
 
@@ -3287,7 +3749,7 @@ Talk soon,
 Dr. P
 
 Order summary:
-Ultimate Hormone Assessment, $47
+Ultimate Hormone Assessment, $27
 [Order details / receipt]`
     }]
   },
@@ -3328,7 +3790,7 @@ Start here this week:
 
 These are simple shifts, but they matter.
 
-👉 View Your Full Results → [RESULTS PAGE URL]
+👉 View Your Full Results → https://callmedoctorp.com/hormone-assessment-result/
 
 Take a breath, sis. You have clarity now, and clarity is powerful.
 
@@ -3366,7 +3828,7 @@ Here is how to stay ahead of future shifts:
 2. Track your cycle, mood, and energy so you notice changes early
 3. Reduce hormone disruptors where you can, especially heated plastic and harsh personal care products
 
-👉 View Your Full Results → [RESULTS PAGE URL]
+👉 View Your Full Results → https://callmedoctorp.com/hormone-assessment-result/
 
 You are in a good place, sis. Now let us help you stay there.
 
@@ -3391,7 +3853,7 @@ You purchased your Ultimate Hormone Assessment a few hours ago, but it looks lik
 
 No pressure, sis. I just do not want you to miss the part you paid for.
 
-👉 Take Your Assessment Now → [QUIZ URL]
+👉 Take Your Assessment Now → https://callmedoctorp.com/the-ultimate-hormone-assessment-quiz/
 
 It is 48 questions, takes about 10 minutes, and your results show up right away.
 
@@ -3418,7 +3880,7 @@ You signed up for a reason. Maybe something feels off. Maybe you want answers be
 That reason still matters.
 
 Here is your link:
-👉 [QUIZ URL]
+👉 https://callmedoctorp.com/the-ultimate-hormone-assessment-quiz/
 
 Ten minutes now can save you a lot of confusion later.
 
@@ -3503,7 +3965,7 @@ Dr. P`
 
   'uha-5': {
     tag: 'UHA-5',
-    when: '⏱ Day 6, 9am · All (unless bought Challenge)',
+    when: '⏱ Day 6, 9am · All (unless bought 7-Day Challenge)',
     variants: [{
       label: null,
       subject: 'Can I tell you what keeps most women stuck?',
@@ -3531,10 +3993,10 @@ Sleep
 
 Plus you get a meal plan, grocery list, and support materials so you are not trying to piece it all together by yourself.
 
-It is $47, takes about 15 minutes a day, and helps you move from knowing to doing.
+It is $37, takes about 15 minutes a day, and helps you move from knowing to doing.
 
 If that sounds like the support you need, here is the link:
-👉 [CHALLENGE CHECKOUT URL]
+👉 https://callmedoctorp.com/7-day-challenge-checkout/
 
 If not, no pressure. Your assessment results still matter, and I want you to use them well.
 
@@ -3544,7 +4006,7 @@ Dr. P`
 
   'uha-6': {
     tag: 'UHA-6',
-    when: '⏱ Day 10, 9am · All (unless bought Challenge) · last UHA email',
+    when: '⏱ Day 10, 9am · All (unless bought 7-Day Challenge) · last UHA email',
     variants: [{
       label: null,
       subject: 'One last note about your results',
@@ -3565,7 +4027,7 @@ If nothing changes over the next 30 days, am I okay with that?
 If the answer is yes, hold onto your results and keep applying what I shared.
 
 If the answer is no, and you want a simple plan with real support, here is where to go next:
-👉 [CHALLENGE CHECKOUT URL]
+👉 https://callmedoctorp.com/7-day-challenge-checkout/
 
 Seven days. Fifteen minutes a day. A clear next step.
 
@@ -3591,7 +4053,8 @@ let lastTrigger = null;
 
 function renderWithTokens(text) {
   const esc = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  return esc.replace(/\[([^\]]+)\]/g, '<span class="tok">[$1]</span>');
+  const withTokens = esc.replace(/\[([^\]]+)\]/g, '<span class="tok">[$1]</span>');
+  return withTokens.replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
 }
 
 function renderVariant(emailId, variantIndex) {
@@ -4353,18 +4816,21 @@ if (suClose && setupModal) {
     position: absolute;
     bottom: -8px;
     right: -8px;
-    width: 22px;
-    height: 22px;
+    min-width: 32px;
+    height: 28px;
+    padding: 0 10px;
     background: var(--spine);
     color: #FFFFFF;
-    border-radius: 50%;
+    border-radius: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.7rem;
+    white-space: nowrap;
+    font-size: 0.72rem;
     font-weight: 800;
-    border: 1.5px solid #FFFFFF;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    border: 2px solid #FFFFFF;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    letter-spacing: 0.02em;
     z-index: 10;
   }
 
@@ -4397,22 +4863,26 @@ if (suClose && setupModal) {
   }
   /* Notification badge style step marker for email cards (bottom right) */
   .card.email-chrome .step {
+    position: absolute;
     top: auto;
     left: auto;
     bottom: -10px;
     right: -10px;
-    width: 26px;
-    height: 26px;
+    min-width: 32px;
+    height: 32px;
+    padding: 0 14px;
     background: var(--mail-accent);
     color: #FFFFFF;
-    border-radius: 50%;
+    border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.78rem;
+    white-space: nowrap;
+    font-size: 0.8rem;
     font-weight: 800;
-    border: 2px solid #FFFFFF;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+    border: 2.5px solid #FFFFFF;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    letter-spacing: 0.02em;
     z-index: 10;
   }
   
@@ -4609,23 +5079,26 @@ if (suClose && setupModal) {
   /* Notification badge style step marker for hero cards (bottom right) */
   .card.hero .step {
     position: absolute;
-    top: auto; 
+    top: auto;
     left: auto;
     bottom: -12px;
     right: -12px;
-    width: 32px;
+    min-width: 32px;
     height: 32px;
+    padding: 0 14px;
     background: var(--spine);
     color: #FFFFFF;
-    border-radius: 50%;
+    border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.96rem;
+    white-space: nowrap;
+    font-size: 0.8rem;
     font-weight: 800;
     box-shadow: 0 4px 12px rgba(14,107,107,0.35);
     border: 2.5px solid #FFFFFF;
-    font-family: 'Fraunces', serif;
+    font-family: var(--font-main);
+    letter-spacing: 0.02em;
     z-index: 10;
   }
   .card.hero .kind {
@@ -5193,6 +5666,17 @@ if (suClose && setupModal) {
     font-weight: 600;
     white-space: nowrap;
   }
+  .em-body a, .em-headers a {
+    color: #0E6B6B;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    word-break: break-word;
+  }
+  .em-body a:hover, .em-headers a:hover {
+    color: #0a4f4f;
+    text-decoration-thickness: 2px;
+  }
 
   /* =========== Setup guide link (on system card) =========== */
   .setup-link {
@@ -5400,6 +5884,44 @@ if (suClose && setupModal) {
     color: #fff;
   }
 
+  .web-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 12px;
+    padding: 9px 16px;
+    background: #0E6B6B;
+    color: #FFFFFF;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.2px;
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(14,107,107,0.22);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    cursor: pointer;
+    align-self: flex-start;
+  }
+  .web-cta:visited {
+    color: #FFFFFF;
+  }
+  .web-cta:hover,
+  .web-cta:focus-visible {
+    background: #0A5555;
+    color: #FFFFFF;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(14,107,107,0.3);
+    outline: none;
+  }
+  .web-cta .arrow {
+    display: inline-block;
+    transition: transform 0.15s ease;
+  }
+  .web-cta:hover .arrow,
+  .web-cta:focus-visible .arrow {
+    transform: translateX(3px);
+  }
+
   /* =========== Automation Notes (right-edge drawer) =========== */
   .impl-notes {
     position: fixed;
@@ -5520,8 +6042,8 @@ if (suClose && setupModal) {
 <header class="hero">
   <div class="title-block">
     <div class="eyebrow">Dr. P Program Automation</div>
-    <h1>Challenge Post-Purchase Flow</h1>
-    <div class="sub">Main path from purchase through completion, with login recovery and the MEM bridge after the Challenge.</div>
+    <h1>7-Day Challenge Post-Purchase Flow</h1>
+    <div class="sub">Main path from purchase through completion, with login recovery and the Madame Estrogen bridge after the 7-Day Challenge.</div>
   </div>
   <div class="legend">
     <div class="legend-group">
@@ -5556,7 +6078,7 @@ if (suClose && setupModal) {
     <div class="impl-head">
       <div>
         <div class="t-eyebrow">GHL Build Spec</div>
-        <h2 id="implTitle">Challenge — Automation Notes</h2>
+        <h2 id="implTitle">7-Day Challenge — Automation Notes</h2>
       </div>
       <button class="impl-close" id="implClose" type="button" aria-label="Close notes">×</button>
     </div>
@@ -5566,7 +6088,7 @@ if (suClose && setupModal) {
         <div class="sec-label"><span class="num">1</span> Workflow Context</div>
         <dl class="impl-kv">
           <dt>Workflow</dt>
-          <dd><code>Challenge | 7-Day Course + 13-Day Upsell (20-day total)</code></dd>
+          <dd><code>7-Day Challenge | 7-Day Course + 13-Day Upsell (20-day total)</code></dd>
           <dt>Trigger</dt>
           <dd>Kajabi <em>Offer Granted</em> (7-Day Challenge) → tag <code>challenge_purchased</code>; if first Kajabi product, Kajabi creates user and sends its own setup-password email.</dd>
           <dt>Entry</dt>
@@ -5574,12 +6096,24 @@ if (suClose && setupModal) {
           <dt>Delivery</dt>
           <dd>Kajabi course drip (Days 1-7) + GHL email sequence. Password branch on <code>kajabi_account_created</code>.</dd>
           <dt>Purpose</dt>
-          <dd>Deliver the 7-day Challenge (CH-1 → CH-4) then pivot into a 13-day nurture+upsell (CH-5 → CH-9) that sets up the next step (MEM or HWN).</dd>
+          <dd>Deliver the 7-Day Challenge (CH-1 → CH-4) then pivot into a 13-day nurture+upsell (CH-5 → CH-9) that sets up the next step (Madame Estrogen or Hormone Network).</dd>
         </dl>
       </section>
 
       <section class="impl-section">
-        <div class="sec-label"><span class="num">2</span> Key GHL Tags</div>
+        <div class="sec-label"><span class="num">2</span> Kajabi Offer Mapping</div>
+        <dl class="impl-kv">
+          <dt>Offer</dt>
+          <dd><strong>The Hormone Reset &amp; Recharge 7-Day Challenge</strong></dd>
+          <dt>Includes</dt>
+          <dd>The Hormone Reset &amp; Recharge 7 Day Challenge - Access Group + The Hormone Reset &amp; Recharge 7-Day Challenge.</dd>
+          <dt>Page Relevance</dt>
+          <dd>This page documents the post-purchase automation and access flow for that Kajabi offer.</dd>
+        </dl>
+      </section>
+
+      <section class="impl-section">
+        <div class="sec-label"><span class="num">3</span> Key GHL Tags</div>
         <ul class="impl-list tags">
           <li><code>challenge_purchased</code> — primary entry flag.</li>
           <li><code>kajabi_account_created</code> — persistent across all Kajabi products; drives password-setup vs direct-login branch.</li>
@@ -5594,7 +6128,7 @@ if (suClose && setupModal) {
       </section>
 
       <section class="impl-section">
-        <div class="sec-label"><span class="num">3</span> Decision Gates</div>
+        <div class="sec-label"><span class="num">4</span> Decision Gates</div>
         <ul class="impl-list gates">
           <li><strong>Steps 1-2 (Purchase + Access)</strong> — checkout fires <code>challenge_purchased</code>; Kajabi grants course access. Password-setup branch on <code>kajabi_account_created</code>.</li>
           <li><strong>CH-1 Welcome (Day 1, "Now")</strong> — primary onboarding; Kajabi login path + Day 1 expectations + bonus preview.</li>
@@ -5610,7 +6144,7 @@ if (suClose && setupModal) {
       </section>
 
       <section class="impl-section">
-        <div class="sec-label"><span class="num">4</span> Exits &amp; Errors</div>
+        <div class="sec-label"><span class="num">5</span> Exits &amp; Errors</div>
         <ul class="impl-list exits">
           <li><strong>Refund</strong> — Stripe refund webhook → remove <code>challenge_purchased</code>, add <code>challenge_refunded</code>, halt workflow.</li>
           <li><strong>Upsell converted mid-flow</strong> — on <code>mem_purchased</code> or <code>hwn_active</code>, suppress CH-7 / CH-8 / CH-9 (don't pitch what they've bought).</li>
@@ -5621,10 +6155,10 @@ if (suClose && setupModal) {
       </section>
 
       <section class="impl-section">
-        <div class="sec-label"><span class="num">5</span> Open Questions</div>
+        <div class="sec-label"><span class="num">6</span> Open Questions</div>
         <div class="impl-open-q">
-          <strong>Upsell target — MEM or HWN?</strong><br>
-          CH-5 → CH-9 are framed generically as "the next step". Confirm whether the pitch sequence targets MEM ($1,997), HWN ($47/mo), or split by segment (e.g., high-intent → MEM, low-intent → HWN).
+          <strong>Upsell target — Madame Estrogen or Hormone Network?</strong><br>
+          CH-5 → CH-9 are framed generically as "the next step". Confirm whether the pitch sequence targets Madame Estrogen ($1,497 headline), Hormone Network ($47/mo or $470/yr), or split by segment (e.g., high-intent → Madame Estrogen, low-intent → Hormone Network).
         </div>
         <div class="impl-open-q">
           <strong>Kajabi → GHL activity heartbeat.</strong><br>
@@ -5632,7 +6166,7 @@ if (suClose && setupModal) {
         </div>
         <div class="impl-open-q">
           <strong>Refund / cancel exits — pattern not yet canonical.</strong><br>
-          Need shared convention across UHA / Challenge / MEM / HWN. Current proposal: Stripe refund → remove entry tag + add <code>*_refunded</code> + halt.
+          Need shared convention across UHA / 7-Day Challenge / Madame Estrogen / Hormone Network. Current proposal: Stripe refund → remove entry tag + add <code>*_refunded</code> + halt.
         </div>
         <div class="impl-open-q">
           <strong>9-step go/no-go test — pending from prior sessions.</strong><br>
@@ -5643,7 +6177,7 @@ if (suClose && setupModal) {
     </div>
     <div class="impl-foot">
       <span>Press <span class="kbd">i</span> to toggle · <span class="kbd">Esc</span> to close</span>
-      <span>Challenge · $47</span>
+      <span>7-Day Challenge · $37</span>
     </div>
   </div>
 </aside>
@@ -5693,7 +6227,7 @@ if (suClose && setupModal) {
           </div>
           <div class="sys-body">
             <span class="kind">Grant Offer</span>
-            <div>Zapier receives the GHL webhook, creates/updates the Kajabi contact, and grants the Challenge offer. New users get invite email. Returning users keep existing login.</div>
+            <div>Zapier receives the GHL webhook, creates/updates the Kajabi contact, and grants the 7-Day Challenge offer. New users get invite email. Returning users keep existing login.</div>
             <div class="setup-link">Setup guide →</div>
           </div>
         </div>
@@ -5741,7 +6275,7 @@ if (suClose && setupModal) {
             <span class="sys-mini">Suppression</span>
           </div>
           <div class="sys-body">
-            <span class="kind">MEM Check</span>
+            <span class="kind">Madame Estrogen Check</span>
             <div>Bridge emails stop if <code>purchased_mem</code> exists.</div>
           </div>
         </div>
@@ -5749,51 +6283,53 @@ if (suClose && setupModal) {
 
       <div class="cell row-spine" style="grid-column: 1;">
         <div class="card hero web-chrome surface-web kind-tinted" id="n-checkout">
-          <span class="step">1</span>
+          <span class="step">Step 1</span>
           <div class="chrome-bar">
             <div class="tdots">
               <span class="tdot r"></span>
               <span class="tdot y"></span>
               <span class="tdot g"></span>
             </div>
-            <div class="url-pill" title="callmedoctorp.com/challenge-checkout">
+            <div class="url-pill" title="callmedoctorp.com/7-day-challenge-checkout">
               <span class="lock">🔒</span>
-              <span class="domain">callmedoctorp.com</span><span class="path">/challenge-checkout</span>
+              <span class="domain">callmedoctorp.com</span><span class="path">/7-day-challenge-checkout</span>
             </div>
           </div>
           <div class="web-body">
             <span class="kind">Checkout Page</span>
             <h2>User buys the 7-Day Challenge</h2>
             <div class="detail">GHL captures contact + payment, then redirects into onboarding.</div>
+            <a class="web-cta" href="https://callmedoctorp.com/7-day-challenge-checkout/" target="_blank" rel="noopener noreferrer">Open checkout <span class="arrow">→</span></a>
           </div>
         </div>
       </div>
 
       <div class="cell row-spine" style="grid-column: 2;">
         <div class="card hero web-chrome surface-web kind-tinted" id="n-confirmation">
-          <span class="step">2</span>
+          <span class="step">Step 2</span>
           <div class="chrome-bar">
             <div class="tdots">
               <span class="tdot r"></span>
               <span class="tdot y"></span>
               <span class="tdot g"></span>
             </div>
-            <div class="url-pill" title="callmedoctorp.com/challenge-confirmed">
+            <div class="url-pill" title="callmedoctorp.com/7-day-challenge-thank-you-reg">
               <span class="lock">🔒</span>
-              <span class="domain">callmedoctorp.com</span><span class="path">/challenge-confirmed</span>
+              <span class="domain">callmedoctorp.com</span><span class="path">/7-day-challenge-thank-you-reg</span>
             </div>
           </div>
           <div class="web-body">
             <span class="kind">Confirmation Page · Primary Onboarding</span>
             <h2>Day 1 access starts here</h2>
             <div class="detail">Primary onboarding moment. Shows Kajabi login path, Day 1 expectations, and bonus preview. Email is backup.</div>
+            <a class="web-cta" href="https://callmedoctorp.com/7-day-challenge-thank-you-reg/" target="_blank" rel="noopener noreferrer">Open page <span class="arrow">→</span></a>
           </div>
         </div>
       </div>
 
       <div class="cell row-spine" style="grid-column: 3;">
         <div class="card hero email-chrome surface-mail clickable" id="n-ch1" data-email="ch-1" data-variant="0" role="button" tabindex="0" aria-label="Open CH-1 welcome email">
-          <span class="step">3</span>
+          <span class="step">Step 3</span>
           <div class="sender-row">
             <div class="avatar">P</div>
             <div class="sender-info">
@@ -5807,7 +6343,7 @@ if (suClose && setupModal) {
               <span class="tag-pill">CH-1 · Welcome</span>
               <span class="variants-pill">2 variants</span>
             </div>
-            <div class="subject-line">Your Challenge starts now, here is how to log in</div>
+            <div class="subject-line">Your 7-Day Challenge starts now, here is how to log in</div>
             <div class="preview-line">Immediate access + orientation. New vs returning Kajabi user.</div>
             <div class="trigger-row"><span class="dot"></span>Sends immediately on purchase</div>
           </div>
@@ -5816,7 +6352,7 @@ if (suClose && setupModal) {
 
       <div class="cell row-spine" style="grid-column: 4;">
         <div class="card hero email-chrome surface-mail clickable" id="n-ch2" data-email="ch-2" role="button" tabindex="0" aria-label="Open CH-2 day 2 check-in">
-          <span class="step">4</span>
+          <span class="step">Step 4</span>
           <div class="sender-row">
             <div class="avatar">P</div>
             <div class="sender-info">
@@ -5838,7 +6374,7 @@ if (suClose && setupModal) {
 
       <div class="cell row-spine" style="grid-column: 5;">
         <div class="card hero email-chrome surface-mail clickable" id="n-ch3" data-email="ch-3" data-variant="0" role="button" tabindex="0" aria-label="Open CH-3 midpoint momentum email">
-          <span class="step">5</span>
+          <span class="step">Step 5</span>
           <div class="sender-row">
             <div class="avatar">P</div>
             <div class="sender-info">
@@ -5861,7 +6397,7 @@ if (suClose && setupModal) {
 
       <div class="cell row-spine" style="grid-column: 6;">
         <div class="card hero email-chrome surface-mail clickable" id="n-ch4" data-email="ch-4" role="button" tabindex="0" aria-label="Open CH-4 final day email">
-          <span class="step">6</span>
+          <span class="step">Step 6</span>
           <div class="sender-row">
             <div class="avatar">P</div>
             <div class="sender-info">
@@ -5883,7 +6419,7 @@ if (suClose && setupModal) {
 
       <div class="cell row-spine" style="grid-column: 7;">
         <div class="card hero email-chrome surface-mail clickable" id="n-ch5" data-email="ch-5" role="button" tabindex="0" aria-label="Open CH-5 celebration email">
-          <span class="step">7</span>
+          <span class="step">Step 7</span>
           <div class="sender-row">
             <div class="avatar">P</div>
             <div class="sender-info">
@@ -5905,7 +6441,7 @@ if (suClose && setupModal) {
 
       <div class="cell row-spine" style="grid-column: 8;">
         <div class="card hero email-chrome surface-mail clickable" id="n-ch6" data-email="ch-6" role="button" tabindex="0" aria-label="Open CH-6 gap email">
-          <span class="step">8</span>
+          <span class="step">Step 8</span>
           <div class="sender-row">
             <div class="avatar">P</div>
             <div class="sender-info">
@@ -5927,7 +6463,7 @@ if (suClose && setupModal) {
 
       <div class="cell row-spine" style="grid-column: 9;">
         <div class="card hero email-chrome surface-mail clickable" id="n-ch7" data-email="ch-7" role="button" tabindex="0" aria-label="Open CH-7 proof email">
-          <span class="step">9</span>
+          <span class="step">Step 9</span>
           <div class="sender-row">
             <div class="avatar">P</div>
             <div class="sender-info">
@@ -5941,7 +6477,7 @@ if (suClose && setupModal) {
               <span class="tag-pill">CH-7 · Proof</span>
             </div>
             <div class="subject-line">She started exactly where you are</div>
-            <div class="preview-line">Transformation story that makes MEM credible.</div>
+            <div class="preview-line">Transformation story that makes Madame Estrogen credible.</div>
             <div class="trigger-row"><span class="dot"></span>Sends Day 14 · 9am</div>
           </div>
         </div>
@@ -5949,7 +6485,7 @@ if (suClose && setupModal) {
 
       <div class="cell row-spine" style="grid-column: 10;">
         <div class="card hero email-chrome surface-mail clickable" id="n-ch8" data-email="ch-8" role="button" tabindex="0" aria-label="Open CH-8 full picture email">
-          <span class="step">10</span>
+          <span class="step">Step 10</span>
           <div class="sender-row">
             <div class="avatar">P</div>
             <div class="sender-info">
@@ -5963,7 +6499,7 @@ if (suClose && setupModal) {
               <span class="tag-pill">CH-8 · Full Picture</span>
             </div>
             <div class="subject-line">What 12 weeks with me actually looks like</div>
-            <div class="preview-line">The full MEM offer and pricing context.</div>
+            <div class="preview-line">The full Madame Estrogen offer and pricing context.</div>
             <div class="trigger-row"><span class="dot"></span>Sends Day 17 · 9am</div>
           </div>
         </div>
@@ -5971,7 +6507,7 @@ if (suClose && setupModal) {
 
       <div class="cell row-spine" style="grid-column: 11;">
         <div class="card hero email-chrome surface-mail clickable" id="n-ch9" data-email="ch-9" role="button" tabindex="0" aria-label="Open CH-9 objection buster email">
-          <span class="step">11</span>
+          <span class="step">Step 11</span>
           <div class="sender-row">
             <div class="avatar">P</div>
             <div class="sender-info">
@@ -5985,7 +6521,7 @@ if (suClose && setupModal) {
               <span class="tag-pill">CH-9 · Objections</span>
             </div>
             <div class="subject-line">The 3 things women ask me before they join</div>
-            <div class="preview-line">Final MEM email before cooldown.</div>
+            <div class="preview-line">Final Madame Estrogen email before cooldown.</div>
             <div class="trigger-row"><span class="dot"></span>Sends Day 20 · 9am</div>
           </div>
         </div>
@@ -5993,15 +6529,15 @@ if (suClose && setupModal) {
 
       <div class="cell row-spine" style="grid-column: 12;">
         <div class="card hero end system-card surface-bts kind-tinted" id="n-end">
-          <span class="step">12</span>
+          <span class="step">Step 12</span>
           <div class="sys-topbar">
             <span class="sys-chip"><span class="sys-gear">⚙</span>System</span>
             <span class="sys-mini">Exit</span>
           </div>
           <div class="sys-body">
-            <span class="kind">End of Challenge Flow</span>
+            <span class="kind">End of 7-Day Challenge Flow</span>
             <h3>→ General nurture</h3>
-            <div class="detail">Core post-purchase is complete. MEM bridge ends and future promotions cool down.</div>
+            <div class="detail">Core post-purchase is complete. Madame Estrogen bridge ends and future promotions cool down.</div>
           </div>
         </div>
       </div>
@@ -6040,8 +6576,8 @@ if (suClose && setupModal) {
       <button class="close" id="suClose" aria-label="Close">×</button>
     </div>
     <div class="su-headers">
-      <div class="title" id="suTitle">Grant Challenge Offer — Zap Setup</div>
-      <div class="subtitle">Fires on every Challenge purchase. Creates/updates the Kajabi contact and grants the offer. Kajabi handles the setup email for new users automatically.</div>
+      <div class="title" id="suTitle">Grant 7-Day Challenge Offer — Zap Setup</div>
+      <div class="subtitle">Fires on every 7-Day Challenge purchase. Creates/updates the Kajabi contact and grants the offer. Kajabi handles the setup email for new users automatically.</div>
     </div>
     <div class="su-body">
 
@@ -6073,7 +6609,7 @@ if (suClose && setupModal) {
         <div class="num">4</div>
         <div>
           <div class="label">Kajabi · Grant an Offer</div>
-          <div class="detail">Action: <code>Grant an Offer</code>. Person = step 3 <code>person_id</code>. Offer = <strong>Challenge</strong>. On new users, Kajabi auto-sends the <code>Set Up Your Account</code> email — we don't build that email. Returning users skip it and keep existing login.</div>
+          <div class="detail">Action: <code>Grant an Offer</code>. Person = step 3 <code>person_id</code>. Offer = <strong>7-Day Challenge</strong>. On new users, Kajabi auto-sends the <code>Set Up Your Account</code> email — we don't build that email. Returning users skip it and keep existing login.</div>
         </div>
       </div>
 
@@ -6081,7 +6617,7 @@ if (suClose && setupModal) {
         <div class="num">5</div>
         <div>
           <div class="label">GHL · Write back the Kajabi tag</div>
-          <div class="detail">Action: <code>GHL Update Contact</code> → add tag <code>kajabi_account_created</code>. This is how every future Zap (MEM, HWN, upsells) knows the user already has a Kajabi login and skips the setup email.</div>
+          <div class="detail">Action: <code>GHL Update Contact</code> → add tag <code>kajabi_account_created</code>. This is how every future Zap (Madame Estrogen, Hormone Network, upsells) knows the user already has a Kajabi login and skips the setup email.</div>
         </div>
       </div>
 
@@ -6089,7 +6625,7 @@ if (suClose && setupModal) {
         <div class="num">6</div>
         <div>
           <div class="label">Publish + test end-to-end</div>
-          <div class="detail">Turn the Zap <strong>ON</strong>. Run one real $1 test purchase. Verify: contact exists in Kajabi · <strong>Challenge</strong> offer granted · new user got the setup email (returning user did not) · <code>kajabi_account_created</code> tag present in GHL.</div>
+          <div class="detail">Turn the Zap <strong>ON</strong>. Run one real $1 test purchase. Verify: contact exists in Kajabi · <strong>7-Day Challenge</strong> offer granted · new user got the setup email (returning user did not) · <code>kajabi_account_created</code> tag present in GHL.</div>
         </div>
       </div>
 
@@ -6396,7 +6932,7 @@ function resetToFirstHappyPathCard() {
 viewport.addEventListener('pointerdown', (e) => {
   // Don't start a pan if the user pressed inside the toolbar or on a clickable
   // card (clickable cards open the email modal on tap).
-  if (e.target.closest('.toolbar, .card.clickable')) return;
+  if (e.target.closest('.toolbar, .card.clickable, .web-cta')) return;
   e.preventDefault();
   state.isPanning = true;
   state.startX = e.clientX;
@@ -6496,7 +7032,7 @@ viewport.addEventListener('pointercancel', _endPinch, true);
 // view anchored at the tap point. Useful on touch where pinch is the only
 // other zoom affordance.
 viewport.addEventListener('dblclick', (e) => {
-  if (e.target.closest('[data-email], .toolbar, .card.clickable')) return;
+  if (e.target.closest('[data-email], .toolbar, .card.clickable, .web-cta')) return;
   const vpRect = viewport.getBoundingClientRect();
   const { width: cw, height: ch } = getCanvasContentSize();
   const fitScale = Math.min((vpRect.width - 80) / cw, (vpRect.height - 80) / ch);
@@ -6604,7 +7140,7 @@ Heads up: this link expires in 7 days. If it has expired, use the Login button a
     variants: [
       {
         label: 'New Kajabi User',
-        subject: 'Your Challenge starts now, here is how to log in',
+        subject: 'Your 7-Day Challenge starts now, here is how to log in',
         preheader: 'You are in. Let me get you straight to Day 1.',
         cond: 'Sent when kajabi_account_created tag was just applied',
         body: `[First Name],
@@ -6641,12 +7177,12 @@ I read the replies.
 Dr. P
 
 Order summary:
-7-Day Hormone Reset & Recharge Challenge, $47
+7-Day Hormone Reset & Recharge Challenge, $37
 [Order details / receipt]`
       },
       {
         label: 'Returning Kajabi User',
-        subject: 'Your Challenge starts now, Day 1 is live',
+        subject: 'Your 7-Day Challenge starts now, Day 1 is live',
         preheader: 'Your login already works. Go straight to Day 1.',
         cond: 'Sent when kajabi_account_created already existed',
         body: `[First Name],
@@ -6670,7 +7206,7 @@ And hit reply when you have a second. Tell me what you want to change in the nex
 Dr. P
 
 Order summary:
-7-Day Hormone Reset & Recharge Challenge, $47
+7-Day Hormone Reset & Recharge Challenge, $37
 [Order details / receipt]`
       }
     ]
@@ -6726,7 +7262,7 @@ Dr. P`
 
 I see you showing up, sis, and I want you to know that it matters.
 
-The first part of this Challenge helped you build your base:
+The first part of this 7-Day Challenge helped you build your base:
 
 1. Intention
 2. Nutrition
@@ -6754,7 +7290,7 @@ Dr. P`
         cond: 'Sent when no Kajabi login has been recorded',
         body: `[First Name],
 
-I noticed you have not logged into the Challenge yet.
+I noticed you have not logged into the 7-Day Challenge yet.
 
 No shame. Life is real.
 
@@ -6950,12 +7486,11 @@ You also get:
 
 The investment is:
 
-Pay in full, $1,997
-or
-3 monthly payments of $667
+Pay in full, $1,497 (with DOCTORP500)
+or a payment plan (3× $667, or $497 + 10× $150)
 
 If you are ready to go deeper, here is the link:
-👉 [MEM CHECKOUT URL]
+👉 https://callmedoctorp.com/madame-estrogen-mastermind-checkout/?coupon=DOCTORP500
 
 If you have questions first, hit reply. I will answer honestly.
 
@@ -6965,12 +7500,12 @@ Dr. P`
 
   'ch-9': {
     tag: 'CH-9',
-    when: '⏱ Day 20, 9am · Final MEM bridge email',
+    when: '⏱ Day 20, 9am · Final Madame Estrogen bridge email',
     variants: [{
       label: null,
       subject: 'Three honest questions women ask before joining',
       preheader: 'Let me answer them plainly.',
-      cond: 'SKIP if purchased_mem tag exists. Then cool down MEM pitches.',
+      cond: 'SKIP if purchased_mem tag exists. Then cool down Madame Estrogen pitches.',
       body: `[First Name],
 
 Before women join the Mastermind, they usually ask me the same three questions.
@@ -6990,11 +7525,11 @@ You can always try, but if guessing and Googling were enough, you probably would
 The Mastermind is for the woman who wants depth, structure, and support.
 
 If that is you:
-👉 [MEM CHECKOUT URL]
+👉 https://callmedoctorp.com/madame-estrogen-mastermind-checkout/?coupon=DOCTORP500
 
 If not, that is okay too. This is the last email I will send you about it for a while.
 
-Either way, I am glad you did the Challenge.
+Either way, I am glad you did the 7-Day Challenge.
 
 Dr. P`
     }]
@@ -7015,7 +7550,8 @@ let lastTrigger = null;
 
 function renderWithTokens(text) {
   const esc = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  return esc.replace(/\[([^\]]+)\]/g, '<span class="tok">[$1]</span>');
+  const withTokens = esc.replace(/\[([^\]]+)\]/g, '<span class="tok">[$1]</span>');
+  return withTokens.replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
 }
 
 function renderVariant(emailId, variantIndex) {
@@ -7162,7 +7698,7 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>MEM Post-Purchase — Hero Spine Workflow</title>
+<title>Madame Estrogen Post-Purchase — Hero Spine Workflow</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -7774,18 +8310,21 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
     position: absolute;
     bottom: -8px;
     right: -8px;
-    width: 22px;
-    height: 22px;
+    min-width: 32px;
+    height: 28px;
+    padding: 0 10px;
     background: var(--spine);
     color: #FFFFFF;
-    border-radius: 50%;
+    border-radius: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.7rem;
+    white-space: nowrap;
+    font-size: 0.72rem;
     font-weight: 800;
-    border: 1.5px solid #FFFFFF;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    border: 2px solid #FFFFFF;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    letter-spacing: 0.02em;
     z-index: 10;
   }
 
@@ -7818,22 +8357,26 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
   }
   /* Notification badge style step marker for email cards (bottom right) */
   .card.email-chrome .step {
+    position: absolute;
     top: auto;
     left: auto;
     bottom: -10px;
     right: -10px;
-    width: 26px;
-    height: 26px;
+    min-width: 32px;
+    height: 32px;
+    padding: 0 14px;
     background: var(--mail-accent);
     color: #FFFFFF;
-    border-radius: 50%;
+    border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.78rem;
+    white-space: nowrap;
+    font-size: 0.8rem;
     font-weight: 800;
-    border: 2px solid #FFFFFF;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+    border: 2.5px solid #FFFFFF;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    letter-spacing: 0.02em;
     z-index: 10;
   }
   
@@ -8030,23 +8573,26 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
   /* Notification badge style step marker for hero cards (bottom right) */
   .card.hero .step {
     position: absolute;
-    top: auto; 
+    top: auto;
     left: auto;
     bottom: -12px;
     right: -12px;
-    width: 32px;
+    min-width: 32px;
     height: 32px;
+    padding: 0 14px;
     background: var(--spine);
     color: #FFFFFF;
-    border-radius: 50%;
+    border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.96rem;
+    white-space: nowrap;
+    font-size: 0.8rem;
     font-weight: 800;
     box-shadow: 0 4px 12px rgba(14,107,107,0.35);
     border: 2.5px solid #FFFFFF;
-    font-family: 'Fraunces', serif;
+    font-family: var(--font-main);
+    letter-spacing: 0.02em;
     z-index: 10;
   }
   .card.hero .kind {
@@ -8614,6 +9160,17 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
     font-weight: 600;
     white-space: nowrap;
   }
+  .em-body a, .em-headers a {
+    color: #0E6B6B;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    word-break: break-word;
+  }
+  .em-body a:hover, .em-headers a:hover {
+    color: #0a4f4f;
+    text-decoration-thickness: 2px;
+  }
 
   @media (max-width: 900px) {
     header.hero { flex-wrap: wrap; gap: 14px; }
@@ -8953,8 +9510,8 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
 <header class="hero">
   <div class="title-block">
     <div class="eyebrow">Dr. P Program Automation</div>
-    <h1>MEM Post-Purchase Flow</h1>
-    <div class="sub">Main path from enrollment through graduation, with billing recovery and the HWN handoff.</div>
+    <h1>Madame Estrogen Post-Purchase Flow</h1>
+    <div class="sub">Main path from enrollment through graduation, with billing recovery and the Hormone Network handoff.</div>
   </div>
   <div class="legend">
     <div class="legend-group">
@@ -8989,7 +9546,7 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
     <div class="impl-head">
       <div>
         <div class="t-eyebrow">GHL Build Spec</div>
-        <h2 id="implTitle">MEM — Automation Notes</h2>
+        <h2 id="implTitle">Madame Estrogen — Automation Notes</h2>
       </div>
       <button class="impl-close" id="implClose" type="button" aria-label="Close notes">×</button>
     </div>
@@ -8999,79 +9556,93 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
         <div class="sec-label"><span class="num">1</span> Workflow Context</div>
         <dl class="impl-kv">
           <dt>Workflow</dt>
-          <dd><code>MEM | 12-Week Course + Graduation → HWN Cross-Sell</code></dd>
+          <dd><code>Madame Estrogen | 12-Week Course + Graduation → Hormone Network Cross-Sell</code></dd>
           <dt>Trigger</dt>
-          <dd>Kajabi <em>Offer Granted</em> (MEM or MEM Payment Plan) → tag <code>mem_purchased</code>; password branch on <code>kajabi_account_created</code>.</dd>
+          <dd>Kajabi <em>Offer Granted</em> (Madame Estrogen or Madame Estrogen Payment Plan) → tag <code>mem_purchased</code>; password branch on <code>kajabi_account_created</code>.</dd>
           <dt>Entry</dt>
           <dd>Contact has <code>mem_purchased</code> AND NOT <code>mem_14_sent</code> (prevents re-entry after full sequence).</dd>
           <dt>Delivery</dt>
-          <dd>Kajabi weekly drip + GHL email sequence (14 emails) + community invite + live-call calendar. Payment-plan path branches into a parallel dunning sub-flow (MEM-D1 → MEM-D3 → MEM-DR).</dd>
+          <dd>Kajabi weekly drip + GHL email sequence (14 emails) + community invite + live-call calendar. Payment-plan path branches into a parallel dunning sub-flow (Madame Estrogen-D1 → Madame Estrogen-D3 → Madame Estrogen-DR).</dd>
           <dt>Price</dt>
-          <dd>$1,997 one-time OR payment plan (triggers dunning sub-flow if any installment fails).</dd>
+          <dd>$1,497 headline one-time (with DOCTORP500) OR payment plan — 3 × $667/mo or $497 + 10 × $150. Payment-plan path triggers dunning sub-flow if any installment fails.</dd>
           <dt>Purpose</dt>
-          <dd>Deliver 12-week Mastermind curriculum (MEM-1 → MEM-10) then pivot to HWN cross-sell (MEM-11 → MEM-14). Cross-sell emails (MEM-12/13/14) skip if <code>purchased_hwn</code> already exists.</dd>
+          <dd>Deliver 12-week Mastermind curriculum (Madame Estrogen-1 → Madame Estrogen-10) then pivot to Hormone Network cross-sell (Madame Estrogen-11 → Madame Estrogen-14). Cross-sell emails (Madame Estrogen-12/13/14) skip if <code>purchased_hwn</code> already exists.</dd>
         </dl>
       </section>
 
       <section class="impl-section">
-        <div class="sec-label"><span class="num">2</span> Key GHL Tags</div>
+        <div class="sec-label"><span class="num">2</span> Kajabi Offer Mapping</div>
+        <dl class="impl-kv">
+          <dt>Offer</dt>
+          <dd><strong>Madame Estrogen Mastermind</strong></dd>
+          <dt>Kajabi Pricing Offers</dt>
+          <dd>The Madame Estrogen Mastermind - 499 + The Madame Estrogen Mastermind - 1497.</dd>
+          <dt>Includes</dt>
+          <dd>Madame Estrogen Mastermind Course + Madame Estrogen Members - Access group.</dd>
+          <dt>Page Relevance</dt>
+          <dd>This page documents the post-purchase automation, onboarding, and continuity flow for the Madame Estrogen Kajabi offer set.</dd>
+        </dl>
+      </section>
+
+      <section class="impl-section">
+        <div class="sec-label"><span class="num">3</span> Key GHL Tags</div>
         <ul class="impl-list tags">
           <li><code>mem_purchased</code> — primary entry flag.</li>
           <li><code>mem_payment_plan</code> — set if payment-plan offer; gates dunning sub-flow.</li>
           <li><code>kajabi_account_created</code> — persistent; drives password-setup vs direct-login branch.</li>
-          <li><code>mem_1_sent</code> … <code>mem_14_sent</code> — per-email send flags (MEM-1 Welcome through MEM-14 Continue HWN).</li>
+          <li><code>mem_1_sent</code> … <code>mem_14_sent</code> — per-email send flags (Madame Estrogen-1 Welcome through Madame Estrogen-14 Continue Hormone Network).</li>
           <li><code>mem_d1_sent</code>, <code>mem_d2_sent</code>, <code>mem_d3_sent</code>, <code>mem_dr_sent</code> — dunning sub-flow send flags.</li>
           <li><code>mem_community_joined</code> — from community platform webhook.</li>
           <li><code>mem_payment_failed</code>, <code>mem_payment_recovered</code> — dunning state.</li>
-          <li><code>purchased_hwn</code> — suppresses MEM-12 / MEM-13 / MEM-14 (don't cross-sell HWN to existing members).</li>
-          <li><code>mem_graduated</code> — set at MEM-10 send or on Kajabi course-complete webhook.</li>
+          <li><code>purchased_hwn</code> — suppresses Madame Estrogen-12 / Madame Estrogen-13 / Madame Estrogen-14 (don't cross-sell Hormone Network to existing members).</li>
+          <li><code>mem_graduated</code> — set at Madame Estrogen-10 send or on Kajabi course-complete webhook.</li>
           <li><code>mem_paused</code>, <code>mem_cancelled</code>, <code>mem_refunded</code> — terminal/pause states.</li>
         </ul>
       </section>
 
       <section class="impl-section">
-        <div class="sec-label"><span class="num">3</span> Decision Gates</div>
+        <div class="sec-label"><span class="num">4</span> Decision Gates</div>
         <ul class="impl-list gates">
           <li><strong>Steps 1-2 (Purchase + Access)</strong> — Kajabi grants access; password-setup branch on <code>kajabi_account_created</code>; community + first-call calendar links delivered.</li>
-          <li><strong>MEM-1 Welcome (Now)</strong> — onboarding moment; community + first-call calendar + password path.</li>
-          <li><strong>MEM-2 Rhythm (Day 2 · 9am)</strong> — set expectations for weekly cadence.</li>
-          <li><strong>MEM-3 Accountability (Day 4 · 9am)</strong> — community-intro prompt.</li>
-          <li><strong>MEM-4 Nutrition (Week 2 · Mon)</strong> — weekly module 1.</li>
-          <li><strong>MEM-5 Movement (Week 3 · Mon)</strong> — weekly module 2.</li>
-          <li><strong>MEM-6 Hormones (Week 4 · Mon)</strong> — weekly module 3.</li>
-          <li><strong>MEM-7 Midpoint (Week 6 · Mon)</strong> — halfway check-in.</li>
-          <li><strong>MEM-8 Final Stretch (Week 9 · Mon)</strong> — Q4 push.</li>
-          <li><strong>MEM-9 Final Module (Week 12 · Mon)</strong> — last content module.</li>
-          <li><strong>MEM-10 Graduation (Week 12 + 3d)</strong> — celebration; sets <code>mem_graduated</code>.</li>
-          <li><strong>MEM-11 What Now? (Bonus final stretch)</strong> — transition email that pivots to HWN as the next step.</li>
-          <li><strong>MEM-12 HWN Reminder (-14 days)</strong> — first HWN cross-sell. <strong>SKIP if <code>purchased_hwn</code></strong>.</li>
-          <li><strong>MEM-13 HWN Reminder (-7 days)</strong> — second HWN push. <strong>SKIP if <code>purchased_hwn</code></strong>.</li>
-          <li><strong>MEM-14 Continue HWN (-2 days)</strong> — final cross-sell. <strong>SKIP if <code>purchased_hwn</code></strong>.</li>
-          <li><strong>Dunning sub-flow</strong> (payment-plan only) — MEM-D1 +2h → MEM-D2 Day 3 → MEM-D3 Day 6; MEM-DR fires on recovery. Pauses main cadence while active.</li>
+          <li><strong>Madame Estrogen-1 Welcome (Now)</strong> — onboarding moment; community + first-call calendar + password path.</li>
+          <li><strong>Madame Estrogen-2 Rhythm (Day 2 · 9am)</strong> — set expectations for weekly cadence.</li>
+          <li><strong>Madame Estrogen-3 Accountability (Day 4 · 9am)</strong> — community-intro prompt.</li>
+          <li><strong>Madame Estrogen-4 Nutrition (Week 2 · Mon)</strong> — weekly module 1.</li>
+          <li><strong>Madame Estrogen-5 Movement (Week 3 · Mon)</strong> — weekly module 2.</li>
+          <li><strong>Madame Estrogen-6 Hormones (Week 4 · Mon)</strong> — weekly module 3.</li>
+          <li><strong>Madame Estrogen-7 Midpoint (Week 6 · Mon)</strong> — halfway check-in.</li>
+          <li><strong>Madame Estrogen-8 Final Stretch (Week 9 · Mon)</strong> — Q4 push.</li>
+          <li><strong>Madame Estrogen-9 Final Module (Week 12 · Mon)</strong> — last content module.</li>
+          <li><strong>Madame Estrogen-10 Graduation (Week 12 + 3d)</strong> — celebration; sets <code>mem_graduated</code>.</li>
+          <li><strong>Madame Estrogen-11 What Now? (Bonus final stretch)</strong> — transition email that pivots to Hormone Network as the next step.</li>
+          <li><strong>Madame Estrogen-12 Hormone Network Reminder (-14 days)</strong> — first Hormone Network cross-sell. <strong>SKIP if <code>purchased_hwn</code></strong>.</li>
+          <li><strong>Madame Estrogen-13 Hormone Network Reminder (-7 days)</strong> — second Hormone Network push. <strong>SKIP if <code>purchased_hwn</code></strong>.</li>
+          <li><strong>Madame Estrogen-14 Continue Hormone Network (-2 days)</strong> — final cross-sell. <strong>SKIP if <code>purchased_hwn</code></strong>.</li>
+          <li><strong>Dunning sub-flow</strong> (payment-plan only) — Madame Estrogen-D1 +2h → Madame Estrogen-D2 Day 3 → Madame Estrogen-D3 Day 6; Madame Estrogen-DR fires on recovery. Pauses main cadence while active.</li>
         </ul>
       </section>
 
       <section class="impl-section">
-        <div class="sec-label"><span class="num">4</span> Exits &amp; Errors</div>
+        <div class="sec-label"><span class="num">5</span> Exits &amp; Errors</div>
         <ul class="impl-list exits">
           <li><strong>Refund</strong> — Stripe refund webhook → remove <code>mem_purchased</code>, add <code>mem_refunded</code>, halt.</li>
           <li><strong>Cancel</strong> — manual or Kajabi cancel → add <code>mem_cancelled</code>, halt all future weekly + cross-sell sends.</li>
           <li><strong>Payment pause</strong> — add <code>mem_paused</code>, pause weekly cadence; resume on <code>mem_payment_recovered</code>.</li>
-          <li><strong>HWN purchased mid-flow</strong> — on <code>purchased_hwn</code>, suppress MEM-12 / MEM-13 / MEM-14.</li>
-          <li><strong>Dunning exhausted</strong> — if MEM-D3 fires without recovery within grace period → add <code>mem_cancelled</code>, halt.</li>
+          <li><strong>Hormone Network purchased mid-flow</strong> — on <code>purchased_hwn</code>, suppress Madame Estrogen-12 / Madame Estrogen-13 / Madame Estrogen-14.</li>
+          <li><strong>Dunning exhausted</strong> — if Madame Estrogen-D3 fires without recovery within grace period → add <code>mem_cancelled</code>, halt.</li>
           <li><strong>Unsubscribe</strong> — suppression list; workflow continues silently.</li>
         </ul>
       </section>
 
       <section class="impl-section">
-        <div class="sec-label"><span class="num">5</span> Open Questions</div>
+        <div class="sec-label"><span class="num">6</span> Open Questions</div>
         <div class="impl-open-q">
-          <strong>MEM-11 "Bonus final stretch" — concrete anchor still needed.</strong><br>
-          The time-chip label isn't a fixed day. Proposal: fire at MEM-10 + 3d, OR tie to a specific Kajabi bonus-module unlock. Lock before build.
+          <strong>Madame Estrogen-11 "Bonus final stretch" — concrete anchor still needed.</strong><br>
+          The time-chip label isn't a fixed day. Proposal: fire at Madame Estrogen-10 + 3d, OR tie to a specific Kajabi bonus-module unlock. Lock before build.
         </div>
         <div class="impl-open-q">
-          <strong>MEM-12/13/14 timing anchor — what is "-15 / -8 / -2 days" counting down to?</strong><br>
-          Likely the next HWN masterclass date OR HWN monthly billing. Confirm the anchor event so the cross-sell cadence makes sense.
+          <strong>Madame Estrogen-12/13/14 timing anchor — what is "-15 / -8 / -2 days" counting down to?</strong><br>
+          Likely the next Hormone Network masterclass date OR Hormone Network monthly billing. Confirm the anchor event so the cross-sell cadence makes sense.
         </div>
         <div class="impl-open-q">
           <strong>Payment-failed dunning trigger source.</strong><br>
@@ -9079,18 +9650,18 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
         </div>
         <div class="impl-open-q">
           <strong>Dunning ↔ main-cadence interaction.</strong><br>
-          When dunning is active, do we <em>pause</em> MEM-n weekly sends, or keep them flowing? Current assumption: pause until MEM-DR recovery. Confirm.
+          When dunning is active, do we <em>pause</em> Madame Estrogen-n weekly sends, or keep them flowing? Current assumption: pause until Madame Estrogen-DR recovery. Confirm.
         </div>
         <div class="impl-open-q">
           <strong>Refund / cancel exits — pattern not yet canonical.</strong><br>
-          Align with UHA / Challenge / HWN on a shared exit convention.
+          Align with UHA / 7-Day Challenge / Hormone Network on a shared exit convention.
         </div>
       </section>
 
     </div>
     <div class="impl-foot">
       <span>Press <span class="kbd">i</span> to toggle · <span class="kbd">Esc</span> to close</span>
-      <span>MEM · $1,997</span>
+      <span>Madame Estrogen · $1,497</span>
     </div>
   </div>
 </aside>
@@ -9133,14 +9704,14 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
       </div>
 
       <div class="cell row-sat-top" style="grid-column: 2;">
-        <div class="card sat scaffold system-card surface-bts kind-tinted clickable" id="n-kajabi" data-setup="mem-grant-offer" role="button" tabindex="0" aria-label="Open MEM grant offer setup guide">
+        <div class="card sat scaffold system-card surface-bts kind-tinted clickable" id="n-kajabi" data-setup="mem-grant-offer" role="button" tabindex="0" aria-label="Open Madame Estrogen grant offer setup guide">
           <div class="sys-topbar">
             <span class="sys-chip"><span class="sys-gear">⚙</span>System</span>
             <span class="sys-mini">GHL → Kajabi</span>
           </div>
           <div class="sys-body">
-            <span class="kind">Enroll MEM + Community</span>
-            <div>Purchase triggers Kajabi enrollment for the MEM course, Empowered Sister Community, and the HWN bonus.</div>
+            <span class="kind">Enroll Madame Estrogen + Community</span>
+            <div>Purchase triggers Kajabi enrollment for the Madame Estrogen course, Empowered Sister Community, and the Hormone Network bonus.</div>
             <div class="setup-link">Setup guide →</div>
           </div>
         </div>
@@ -9161,7 +9732,7 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
       </div>
 
       <div class="cell row-sat-top" style="grid-column: 6;">
-        <div class="card sat email-chrome mail-recovery clickable" id="n-md1" data-email="mem-d1" role="button" tabindex="0" aria-label="Open MEM-D1 payment recovery email">
+        <div class="card sat email-chrome mail-recovery clickable" id="n-md1" data-email="mem-d1" role="button" tabindex="0" aria-label="Open Madame Estrogen-D1 payment recovery email">
           <div class="sender-row">
             <div class="avatar">P</div>
             <div class="sender-info">
@@ -9172,7 +9743,7 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
           </div>
           <div class="mail-body">
             <div class="tag-row">
-              <span class="tag-pill">MEM-D1 · Dunning</span>
+              <span class="tag-pill">Madame Estrogen-D1 · Dunning</span>
             </div>
             <div class="subject-line">Quick heads up about your Mastermind payment</div>
             <div class="preview-line">First payment-failure recovery touch.</div>
@@ -9182,7 +9753,7 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
       </div>
 
       <div class="cell row-sat-top" style="grid-column: 7;">
-        <div class="card sat email-chrome mail-recovery clickable" id="n-md2" data-email="mem-d2" role="button" tabindex="0" aria-label="Open MEM-D2 payment recovery email">
+        <div class="card sat email-chrome mail-recovery clickable" id="n-md2" data-email="mem-d2" role="button" tabindex="0" aria-label="Open Madame Estrogen-D2 payment recovery email">
           <div class="sender-row">
             <div class="avatar">P</div>
             <div class="sender-info">
@@ -9193,7 +9764,7 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
           </div>
           <div class="mail-body">
             <div class="tag-row">
-              <span class="tag-pill">MEM-D2 · Follow-Up</span>
+              <span class="tag-pill">Madame Estrogen-D2 · Follow-Up</span>
             </div>
             <div class="subject-line">Following up on your payment</div>
             <div class="preview-line">Second billing rescue email.</div>
@@ -9203,7 +9774,7 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
       </div>
 
       <div class="cell row-sat-top" style="grid-column: 8;">
-        <div class="card sat email-chrome mail-recovery clickable" id="n-md3" data-email="mem-d3" role="button" tabindex="0" aria-label="Open MEM-D3 payment recovery email">
+        <div class="card sat email-chrome mail-recovery clickable" id="n-md3" data-email="mem-d3" role="button" tabindex="0" aria-label="Open Madame Estrogen-D3 payment recovery email">
           <div class="sender-row">
             <div class="avatar">P</div>
             <div class="sender-info">
@@ -9214,7 +9785,7 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
           </div>
           <div class="mail-body">
             <div class="tag-row">
-              <span class="tag-pill">MEM-D3 · Final Notice</span>
+              <span class="tag-pill">Madame Estrogen-D3 · Final Notice</span>
             </div>
             <div class="subject-line">Last step to keep your Mastermind access</div>
             <div class="preview-line">Last warning before access pause.</div>
@@ -9224,7 +9795,7 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
       </div>
 
       <div class="cell row-sat-top" style="grid-column: 9;">
-        <div class="card sat email-chrome mail-recovery clickable" id="n-mdr" data-email="mem-dr" role="button" tabindex="0" aria-label="Open MEM-DR recovery confirmation email">
+        <div class="card sat email-chrome mail-recovery clickable" id="n-mdr" data-email="mem-dr" role="button" tabindex="0" aria-label="Open Madame Estrogen-DR recovery confirmation email">
           <div class="sender-row">
             <div class="avatar">P</div>
             <div class="sender-info">
@@ -9235,7 +9806,7 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
           </div>
           <div class="mail-body">
             <div class="tag-row">
-              <span class="tag-pill">MEM-DR · Recovery</span>
+              <span class="tag-pill">Madame Estrogen-DR · Recovery</span>
             </div>
             <div class="subject-line">You are all set, payment confirmed</div>
             <div class="preview-line">Restores access the moment payment clears.</div>
@@ -9251,59 +9822,101 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
             <span class="sys-mini">Suppression</span>
           </div>
           <div class="sys-body">
-            <span class="kind">HWN Check</span>
-            <div>MEM-12 through MEM-14 skip if <code>purchased_hwn</code> already exists.</div>
+            <span class="kind">Hormone Network Check</span>
+            <div>Madame Estrogen-12 through Madame Estrogen-14 skip if <code>purchased_hwn</code> already exists.</div>
           </div>
         </div>
       </div>
 
       <div class="cell row-spine" style="grid-column: 1;">
-        <div class="card hero web-chrome surface-web kind-tinted" id="n-checkout">
-          <span class="step">1</span>
-          <div class="chrome-bar">
-            <div class="tdots">
-              <span class="tdot r"></span>
-              <span class="tdot y"></span>
-              <span class="tdot g"></span>
+        <div class="card hero stacked-group surface-web" id="n-checkout">
+          <span class="group-label">Step 1 · Checkout (3 offers)</span>
+          <div class="sub-card web-chrome" id="n-checkout-1497">
+            <span class="step">Step 1</span>
+            <div class="chrome-bar">
+              <div class="tdots">
+                <span class="tdot r"></span>
+                <span class="tdot y"></span>
+                <span class="tdot g"></span>
+              </div>
+              <div class="url-pill" title="callmedoctorp.com/madame-estrogen-mastermind-checkout/?coupon=DOCTORP500">
+                <span class="lock">🔒</span>
+                <span class="path">/madame-estrogen-mastermind-checkout?coupon=DOCTORP500</span>
+              </div>
             </div>
-            <div class="url-pill" title="callmedoctorp.com/mem-checkout">
-              <span class="lock">🔒</span>
-              <span class="domain">callmedoctorp.com</span><span class="path">/mem-checkout</span>
+            <div class="web-body">
+              <span class="kind">Flagship · Pay in Full</span>
+              <h3>$1,497 (with DOCTORP500)</h3>
+              <a class="web-cta" href="https://callmedoctorp.com/madame-estrogen-mastermind-checkout/?coupon=DOCTORP500" target="_blank" rel="noopener noreferrer">Open checkout <span class="arrow">→</span></a>
             </div>
           </div>
-          <div class="web-body">
-            <span class="kind">Checkout Page</span>
-            <h2>User buys MEM</h2>
-            <div class="detail">Premium GHL checkout with full-pay or payment-plan paths, plus optional UHA bump.</div>
+          <div class="sub-card web-chrome" id="n-checkout-667">
+            <span class="step">Step 1</span>
+            <div class="chrome-bar">
+              <div class="tdots">
+                <span class="tdot r"></span>
+                <span class="tdot y"></span>
+                <span class="tdot g"></span>
+              </div>
+              <div class="url-pill" title="callmedoctorp.com/madame-estrogen-checkout-monthly-667">
+                <span class="lock">🔒</span>
+                <span class="path">/madame-estrogen-checkout-monthly-667</span>
+              </div>
+            </div>
+            <div class="web-body">
+              <span class="kind">Payment Plan · Monthly</span>
+              <h3>3 × $667/mo</h3>
+              <a class="web-cta" href="https://callmedoctorp.com/madame-estrogen-checkout-monthly-667/" target="_blank" rel="noopener noreferrer">Open checkout <span class="arrow">→</span></a>
+            </div>
+          </div>
+          <div class="sub-card web-chrome" id="n-checkout-497-150">
+            <span class="step">Step 1</span>
+            <div class="chrome-bar">
+              <div class="tdots">
+                <span class="tdot r"></span>
+                <span class="tdot y"></span>
+                <span class="tdot g"></span>
+              </div>
+              <div class="url-pill" title="callmedoctorp.com/the-madame-estrogen-mastermind-checkout-upfront-and-monthly-regular-price">
+                <span class="lock">🔒</span>
+                <span class="path">/the-madame-estrogen-mastermind-checkout-upfront-and-monthly-regular-price</span>
+              </div>
+            </div>
+            <div class="web-body">
+              <span class="kind">Upfront + Monthly</span>
+              <h3>$497 upfront + $150/mo</h3>
+              <a class="web-cta" href="https://callmedoctorp.com/the-madame-estrogen-mastermind-checkout-upfront-and-monthly-regular-price/" target="_blank" rel="noopener noreferrer">Open checkout <span class="arrow">→</span></a>
+            </div>
           </div>
         </div>
       </div>
 
       <div class="cell row-spine" style="grid-column: 2;">
         <div class="card hero web-chrome surface-web kind-tinted" id="n-confirmation">
-          <span class="step">2</span>
+          <span class="step">Step 2</span>
           <div class="chrome-bar">
             <div class="tdots">
               <span class="tdot r"></span>
               <span class="tdot y"></span>
               <span class="tdot g"></span>
             </div>
-            <div class="url-pill" title="callmedoctorp.com/mem-confirmed">
+            <div class="url-pill" title="callmedoctorp.com/madame-estrogen-mastermind-thank-you-reg">
               <span class="lock">🔒</span>
-              <span class="domain">callmedoctorp.com</span><span class="path">/mem-confirmed</span>
+              <span class="domain">callmedoctorp.com</span><span class="path">/madame-estrogen-mastermind-thank-you-reg</span>
             </div>
           </div>
           <div class="web-body">
             <span class="kind">Confirmation Page · Premium Onboarding</span>
             <h2>Course, community, and first-call setup</h2>
             <div class="detail">Shows Kajabi login path, community button, first accountability call, payment schedule, and the 12-week roadmap.</div>
+            <a class="web-cta" href="https://callmedoctorp.com/madame-estrogen-mastermind-thank-you-reg/" target="_blank" rel="noopener noreferrer">Open page <span class="arrow">→</span></a>
           </div>
         </div>
       </div>
 
       <div class="cell row-spine" style="grid-column: 3;">
-        <div class="card hero email-chrome surface-mail clickable" id="n-m1" data-email="mem-1" data-variant="0" role="button" tabindex="0" aria-label="Open MEM-1 welcome email">
-          <span class="step">3</span>
+        <div class="card hero email-chrome surface-mail clickable" id="n-m1" data-email="mem-1" data-variant="0" role="button" tabindex="0" aria-label="Open Madame Estrogen-1 welcome email">
+          <span class="step">Step 3</span>
           <div class="sender-row">
             <div class="avatar">P</div>
             <div class="sender-info">
@@ -9314,7 +9927,7 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
           </div>
           <div class="mail-body">
             <div class="tag-row">
-              <span class="tag-pill">MEM-1 · Welcome</span>
+              <span class="tag-pill">Madame Estrogen-1 · Welcome</span>
               <span class="variants-pill">2 variants</span>
             </div>
             <div class="subject-line">You're in the Mastermind. Here's everything you need.</div>
@@ -9325,8 +9938,8 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
       </div>
 
       <div class="cell row-spine" style="grid-column: 4;">
-        <div class="card hero email-chrome surface-mail clickable" id="n-m2" data-email="mem-2" role="button" tabindex="0" aria-label="Open MEM-2 how this works email">
-          <span class="step">4</span>
+        <div class="card hero email-chrome surface-mail clickable" id="n-m2" data-email="mem-2" role="button" tabindex="0" aria-label="Open Madame Estrogen-2 how this works email">
+          <span class="step">Step 4</span>
           <div class="sender-row">
             <div class="avatar">P</div>
             <div class="sender-info">
@@ -9337,7 +9950,7 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
           </div>
           <div class="mail-body">
             <div class="tag-row">
-              <span class="tag-pill">MEM-2 · Rhythm</span>
+              <span class="tag-pill">Madame Estrogen-2 · Rhythm</span>
             </div>
             <div class="subject-line">Here's how to get the most out of the next 12 weeks</div>
             <div class="preview-line">Explains cadence, calls, and community.</div>
@@ -9347,8 +9960,8 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
       </div>
 
       <div class="cell row-spine" style="grid-column: 5;">
-        <div class="card hero email-chrome surface-mail clickable" id="n-m3" data-email="mem-3" role="button" tabindex="0" aria-label="Open MEM-3 week 1 accountability email">
-          <span class="step">5</span>
+        <div class="card hero email-chrome surface-mail clickable" id="n-m3" data-email="mem-3" role="button" tabindex="0" aria-label="Open Madame Estrogen-3 week 1 accountability email">
+          <span class="step">Step 5</span>
           <div class="sender-row">
             <div class="avatar">P</div>
             <div class="sender-info">
@@ -9359,7 +9972,7 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
           </div>
           <div class="mail-body">
             <div class="tag-row">
-              <span class="tag-pill">MEM-3 · Accountability</span>
+              <span class="tag-pill">Madame Estrogen-3 · Accountability</span>
             </div>
             <div class="subject-line">Have you started Week 1?</div>
             <div class="preview-line">Pushes Week 1 completion before the live call.</div>
@@ -9369,8 +9982,8 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
       </div>
 
       <div class="cell row-spine" style="grid-column: 6;">
-        <div class="card hero email-chrome surface-mail clickable" id="n-m4" data-email="mem-4" role="button" tabindex="0" aria-label="Open MEM-4 week 2 email">
-          <span class="step">6</span>
+        <div class="card hero email-chrome surface-mail clickable" id="n-m4" data-email="mem-4" role="button" tabindex="0" aria-label="Open Madame Estrogen-4 week 2 email">
+          <span class="step">Step 6</span>
           <div class="sender-row">
             <div class="avatar">P</div>
             <div class="sender-info">
@@ -9381,7 +9994,7 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
           </div>
           <div class="mail-body">
             <div class="tag-row">
-              <span class="tag-pill">MEM-4 · Nutrition</span>
+              <span class="tag-pill">Madame Estrogen-4 · Nutrition</span>
             </div>
             <div class="subject-line">Week 2 is live: Nutrition</div>
             <div class="preview-line">Week 2 kickoff and call reminder.</div>
@@ -9391,8 +10004,8 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
       </div>
 
       <div class="cell row-spine" style="grid-column: 7;">
-        <div class="card hero email-chrome surface-mail clickable" id="n-m5" data-email="mem-5" role="button" tabindex="0" aria-label="Open MEM-5 week 3 email">
-          <span class="step">7</span>
+        <div class="card hero email-chrome surface-mail clickable" id="n-m5" data-email="mem-5" role="button" tabindex="0" aria-label="Open Madame Estrogen-5 week 3 email">
+          <span class="step">Step 7</span>
           <div class="sender-row">
             <div class="avatar">P</div>
             <div class="sender-info">
@@ -9403,7 +10016,7 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
           </div>
           <div class="mail-body">
             <div class="tag-row">
-              <span class="tag-pill">MEM-5 · Movement</span>
+              <span class="tag-pill">Madame Estrogen-5 · Movement</span>
             </div>
             <div class="subject-line">Week 3 is live: Movement</div>
             <div class="preview-line">Reframes movement around hormones.</div>
@@ -9413,8 +10026,8 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
       </div>
 
       <div class="cell row-spine" style="grid-column: 8;">
-        <div class="card hero email-chrome surface-mail clickable" id="n-m6" data-email="mem-6" role="button" tabindex="0" aria-label="Open MEM-6 week 4 email">
-          <span class="step">8</span>
+        <div class="card hero email-chrome surface-mail clickable" id="n-m6" data-email="mem-6" role="button" tabindex="0" aria-label="Open Madame Estrogen-6 week 4 email">
+          <span class="step">Step 8</span>
           <div class="sender-row">
             <div class="avatar">P</div>
             <div class="sender-info">
@@ -9425,7 +10038,7 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
           </div>
           <div class="mail-body">
             <div class="tag-row">
-              <span class="tag-pill">MEM-6 · Hormones</span>
+              <span class="tag-pill">Madame Estrogen-6 · Hormones</span>
             </div>
             <div class="subject-line">Week 4 is live: Hormones Deep Dive</div>
             <div class="preview-line">One-month milestone plus the deep-dive module.</div>
@@ -9435,8 +10048,8 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
       </div>
 
       <div class="cell row-spine" style="grid-column: 9;">
-        <div class="card hero email-chrome surface-mail clickable" id="n-m7" data-email="mem-7" role="button" tabindex="0" aria-label="Open MEM-7 midpoint email">
-          <span class="step">9</span>
+        <div class="card hero email-chrome surface-mail clickable" id="n-m7" data-email="mem-7" role="button" tabindex="0" aria-label="Open Madame Estrogen-7 midpoint email">
+          <span class="step">Step 9</span>
           <div class="sender-row">
             <div class="avatar">P</div>
             <div class="sender-info">
@@ -9447,7 +10060,7 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
           </div>
           <div class="mail-body">
             <div class="tag-row">
-              <span class="tag-pill">MEM-7 · Midpoint</span>
+              <span class="tag-pill">Madame Estrogen-7 · Midpoint</span>
             </div>
             <div class="subject-line">6 weeks. Halfway. Let's talk about what's changed.</div>
             <div class="preview-line">Midpoint milestone and Week 6 gut-health prompt.</div>
@@ -9457,8 +10070,8 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
       </div>
 
       <div class="cell row-spine" style="grid-column: 10;">
-        <div class="card hero email-chrome surface-mail clickable" id="n-m8" data-email="mem-8" role="button" tabindex="0" aria-label="Open MEM-8 final stretch email">
-          <span class="step">10</span>
+        <div class="card hero email-chrome surface-mail clickable" id="n-m8" data-email="mem-8" role="button" tabindex="0" aria-label="Open Madame Estrogen-8 final stretch email">
+          <span class="step">Step 10</span>
           <div class="sender-row">
             <div class="avatar">P</div>
             <div class="sender-info">
@@ -9469,7 +10082,7 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
           </div>
           <div class="mail-body">
             <div class="tag-row">
-              <span class="tag-pill">MEM-8 · Final Stretch</span>
+              <span class="tag-pill">Madame Estrogen-8 · Final Stretch</span>
             </div>
             <div class="subject-line">4 weeks left. Let's finish this the right way.</div>
             <div class="preview-line">Frames the final four modules.</div>
@@ -9479,8 +10092,8 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
       </div>
 
       <div class="cell row-spine" style="grid-column: 11;">
-        <div class="card hero email-chrome surface-mail clickable" id="n-m9" data-email="mem-9" role="button" tabindex="0" aria-label="Open MEM-9 final module email">
-          <span class="step">11</span>
+        <div class="card hero email-chrome surface-mail clickable" id="n-m9" data-email="mem-9" role="button" tabindex="0" aria-label="Open Madame Estrogen-9 final module email">
+          <span class="step">Step 11</span>
           <div class="sender-row">
             <div class="avatar">P</div>
             <div class="sender-info">
@@ -9491,7 +10104,7 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
           </div>
           <div class="mail-body">
             <div class="tag-row">
-              <span class="tag-pill">MEM-9 · Final Module</span>
+              <span class="tag-pill">Madame Estrogen-9 · Final Module</span>
             </div>
             <div class="subject-line">Your last module is live. And I have something to say.</div>
             <div class="preview-line">Integration week and lead-in to graduation.</div>
@@ -9501,8 +10114,8 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
       </div>
 
       <div class="cell row-spine" style="grid-column: 12;">
-        <div class="card hero email-chrome surface-mail clickable" id="n-m10" data-email="mem-10" role="button" tabindex="0" aria-label="Open MEM-10 graduation email">
-          <span class="step">12</span>
+        <div class="card hero email-chrome surface-mail clickable" id="n-m10" data-email="mem-10" role="button" tabindex="0" aria-label="Open Madame Estrogen-10 graduation email">
+          <span class="step">Step 12</span>
           <div class="sender-row">
             <div class="avatar">P</div>
             <div class="sender-info">
@@ -9513,7 +10126,7 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
           </div>
           <div class="mail-body">
             <div class="tag-row">
-              <span class="tag-pill">MEM-10 · Graduation</span>
+              <span class="tag-pill">Madame Estrogen-10 · Graduation</span>
             </div>
             <div class="subject-line">12 weeks. You did it.</div>
             <div class="preview-line">Pure celebration and testimonial ask. No upsell.</div>
@@ -9523,8 +10136,8 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
       </div>
 
       <div class="cell row-spine" style="grid-column: 13;">
-        <div class="card hero email-chrome surface-mail clickable" id="n-m11" data-email="mem-11" role="button" tabindex="0" aria-label="Open MEM-11 HWN transition email">
-          <span class="step">13</span>
+        <div class="card hero email-chrome surface-mail clickable" id="n-m11" data-email="mem-11" role="button" tabindex="0" aria-label="Open Madame Estrogen-11 Hormone Network transition email">
+          <span class="step">Step 13</span>
           <div class="sender-row">
             <div class="avatar">P</div>
             <div class="sender-info">
@@ -9535,18 +10148,18 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
           </div>
           <div class="mail-body">
             <div class="tag-row">
-              <span class="tag-pill">MEM-11 · What Now?</span>
+              <span class="tag-pill">Madame Estrogen-11 · What Now?</span>
             </div>
             <div class="subject-line">So... what now?</div>
-            <div class="preview-line">Reintroduces HWN as the ongoing support layer.</div>
-            <div class="trigger-row"><span class="dot"></span>When final HWN bonus window begins</div>
+            <div class="preview-line">Reintroduces Hormone Network as the ongoing support layer.</div>
+            <div class="trigger-row"><span class="dot"></span>When final Hormone Network bonus window begins</div>
           </div>
         </div>
       </div>
 
       <div class="cell row-spine" style="grid-column: 14;">
-        <div class="card hero email-chrome surface-mail clickable" id="n-m12" data-email="mem-12" role="button" tabindex="0" aria-label="Open MEM-12 HWN reminder email">
-          <span class="step">14</span>
+        <div class="card hero email-chrome surface-mail clickable" id="n-m12" data-email="mem-12" role="button" tabindex="0" aria-label="Open Madame Estrogen-12 Hormone Network reminder email">
+          <span class="step">Step 14</span>
           <div class="sender-row">
             <div class="avatar">P</div>
             <div class="sender-info">
@@ -9557,18 +10170,18 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
           </div>
           <div class="mail-body">
             <div class="tag-row">
-              <span class="tag-pill">MEM-12 · HWN Reminder</span>
+              <span class="tag-pill">Madame Estrogen-12 · Hormone Network Reminder</span>
             </div>
-            <div class="subject-line">Your HWN bonus is ending soon</div>
+            <div class="subject-line">Your Hormone Network bonus is ending soon</div>
             <div class="preview-line">First continuity reminder before expiry.</div>
-            <div class="trigger-row"><span class="dot"></span>14 days before HWN expiry</div>
+            <div class="trigger-row"><span class="dot"></span>14 days before Hormone Network expiry</div>
           </div>
         </div>
       </div>
 
       <div class="cell row-spine" style="grid-column: 15;">
-        <div class="card hero email-chrome surface-mail clickable" id="n-m13" data-email="mem-13" role="button" tabindex="0" aria-label="Open MEM-13 HWN reminder email">
-          <span class="step">15</span>
+        <div class="card hero email-chrome surface-mail clickable" id="n-m13" data-email="mem-13" role="button" tabindex="0" aria-label="Open Madame Estrogen-13 Hormone Network reminder email">
+          <span class="step">Step 15</span>
           <div class="sender-row">
             <div class="avatar">P</div>
             <div class="sender-info">
@@ -9579,18 +10192,18 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
           </div>
           <div class="mail-body">
             <div class="tag-row">
-              <span class="tag-pill">MEM-13 · HWN Reminder</span>
+              <span class="tag-pill">Madame Estrogen-13 · Hormone Network Reminder</span>
             </div>
-            <div class="subject-line">One week left on your HWN bonus</div>
+            <div class="subject-line">One week left on your Hormone Network bonus</div>
             <div class="preview-line">Short reminder as expiry gets closer.</div>
-            <div class="trigger-row"><span class="dot"></span>7 days before HWN expiry</div>
+            <div class="trigger-row"><span class="dot"></span>7 days before Hormone Network expiry</div>
           </div>
         </div>
       </div>
 
       <div class="cell row-spine" style="grid-column: 16;">
-        <div class="card hero email-chrome surface-mail clickable" id="n-m14" data-email="mem-14" role="button" tabindex="0" aria-label="Open MEM-14 HWN conversion email">
-          <span class="step">16</span>
+        <div class="card hero email-chrome surface-mail clickable" id="n-m14" data-email="mem-14" role="button" tabindex="0" aria-label="Open Madame Estrogen-14 Hormone Network conversion email">
+          <span class="step">Step 16</span>
           <div class="sender-row">
             <div class="avatar">P</div>
             <div class="sender-info">
@@ -9601,26 +10214,26 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
           </div>
           <div class="mail-body">
             <div class="tag-row">
-              <span class="tag-pill">MEM-14 · Continue HWN</span>
+              <span class="tag-pill">Madame Estrogen-14 · Continue Hormone Network</span>
             </div>
-            <div class="subject-line">Keep your HWN access going</div>
+            <div class="subject-line">Keep your Hormone Network access going</div>
             <div class="preview-line">Last continuity invite before bonus ends.</div>
-            <div class="trigger-row"><span class="dot"></span>2 days before HWN expiry</div>
+            <div class="trigger-row"><span class="dot"></span>2 days before Hormone Network expiry</div>
           </div>
         </div>
       </div>
 
       <div class="cell row-spine" style="grid-column: 17;">
         <div class="card hero end system-card surface-bts kind-tinted" id="n-end">
-          <span class="step">17</span>
+          <span class="step">Step 17</span>
           <div class="sys-topbar">
             <span class="sys-chip"><span class="sys-gear">⚙</span>System</span>
             <span class="sys-mini">Exit</span>
           </div>
           <div class="sys-body">
-            <span class="kind">End of MEM Flow</span>
-            <h3>→ HWN retained or nurture</h3>
-            <div class="detail">If HWN converts, continuity begins. If not, bonus access expires and the contact drops into general nurture.</div>
+            <span class="kind">End of Madame Estrogen Flow</span>
+            <h3>→ Hormone Network retained or nurture</h3>
+            <div class="detail">If Hormone Network converts, continuity begins. If not, bonus access expires and the contact drops into general nurture.</div>
           </div>
         </div>
       </div>
@@ -9654,7 +10267,7 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
           </div>
           <div class="sys-body">
             <span class="kind">Empowered Sister Intro</span>
-            <div>Confirmation page and MEM-1 push the buyer to post an intro in the community right away.</div>
+            <div>Confirmation page and Madame Estrogen-1 push the buyer to post an intro in the community right away.</div>
           </div>
         </div>
       </div>
@@ -9692,7 +10305,7 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
             <span class="sys-mini">Bonus</span>
           </div>
           <div class="sys-body">
-            <span class="kind">HWN Bonus Clock</span>
+            <span class="kind">Hormone Network Bonus Clock</span>
             <div><code>hwn_bonus_active</code> is live for 90 days, with expiry date stored for the reminder sequence.</div>
           </div>
         </div>
@@ -9706,7 +10319,7 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
           </div>
           <div class="sys-body">
             <span class="kind">Bonus Ends</span>
-            <div>System removes <code>hwn_bonus_active</code> and revokes HWN access only if the buyer did not convert.</div>
+            <div>System removes <code>hwn_bonus_active</code> and revokes Hormone Network access only if the buyer did not convert.</div>
           </div>
         </div>
       </div>
@@ -9724,16 +10337,16 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
       <button class="close" id="suClose" aria-label="Close">×</button>
     </div>
     <div class="su-headers">
-      <div class="title" id="suTitle">Grant MEM + Community Offers — Zap Setup</div>
-      <div class="subtitle">Fires on every MEM purchase. Creates or updates the Kajabi person, grants the core MEM offer plus community access, and preserves the no-new-password branch for returning Kajabi users.</div>
+      <div class="title" id="suTitle">Grant Madame Estrogen + Community Offers — Zap Setup</div>
+      <div class="subtitle">Fires on every Madame Estrogen purchase. Creates or updates the Kajabi person, grants the core Madame Estrogen offer plus community access, and preserves the no-new-password branch for returning Kajabi users.</div>
     </div>
     <div class="su-body">
 
       <div class="su-step">
         <div class="num">1</div>
         <div>
-          <div class="label">Zap trigger — catch the MEM purchase webhook</div>
-          <div class="detail">From the MEM purchase workflow in GHL, POST the buyer payload into Zapier. Include at minimum <code>email</code>, <code>first_name</code>, <code>last_name</code>, <code>contact_id</code>, plan type, and any payment-status fields used for dunning branches.</div>
+          <div class="label">Zap trigger — catch the Madame Estrogen purchase webhook</div>
+          <div class="detail">From the Madame Estrogen purchase workflow in GHL, POST the buyer payload into Zapier. Include at minimum <code>email</code>, <code>first_name</code>, <code>last_name</code>, <code>contact_id</code>, plan type, and any payment-status fields used for dunning branches.</div>
         </div>
       </div>
 
@@ -9741,7 +10354,7 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
         <div class="num">2</div>
         <div>
           <div class="label">Pull a live sample and confirm plan metadata</div>
-          <div class="detail">Run one test purchase so Zapier sees the real payload. Confirm the sample distinguishes full-pay vs payment-plan buyers because MEM-1 variants and downstream recovery logic depend on that state.</div>
+          <div class="detail">Run one test purchase so Zapier sees the real payload. Confirm the sample distinguishes full-pay vs payment-plan buyers because Madame Estrogen-1 variants and downstream recovery logic depend on that state.</div>
         </div>
       </div>
 
@@ -9749,15 +10362,15 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
         <div class="num">3</div>
         <div>
           <div class="label">Kajabi — find or create the person</div>
-          <div class="detail">Use <code>Find Person</code> with create-if-missing enabled, keyed on <code>email</code>. That output becomes the single person record used for the MEM course, the Empowered Sister community, and any bundled access.</div>
+          <div class="detail">Use <code>Find Person</code> with create-if-missing enabled, keyed on <code>email</code>. That output becomes the single person record used for the Madame Estrogen course, the Empowered Sister community, and any bundled access.</div>
         </div>
       </div>
 
       <div class="su-step">
         <div class="num">4</div>
         <div>
-          <div class="label">Grant the MEM offer and community access</div>
-          <div class="detail">Grant the MEM course offer, then grant the community product/access in the same Zap. If the HWN bonus is still bundled at purchase, include that offer grant here too so onboarding matches the confirmation page promise.</div>
+          <div class="label">Grant the Madame Estrogen offer and community access</div>
+          <div class="detail">Grant the Madame Estrogen course offer, then grant the community product/access in the same Zap. If the Hormone Network bonus is still bundled at purchase, include that offer grant here too so onboarding matches the confirmation page promise.</div>
         </div>
       </div>
 
@@ -9773,7 +10386,7 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
         <div class="num">6</div>
         <div>
           <div class="label">Test new-user and returning-user paths</div>
-          <div class="detail">Verify one brand-new buyer gets the Kajabi setup email, one existing Kajabi user skips it, both land in MEM + community correctly, and the GHL contact reflects the right tags for weekly cadence and dunning follow-up.</div>
+          <div class="detail">Verify one brand-new buyer gets the Kajabi setup email, one existing Kajabi user skips it, both land in Madame Estrogen + community correctly, and the GHL contact reflects the right tags for weekly cadence and dunning follow-up.</div>
         </div>
       </div>
 
@@ -9785,7 +10398,7 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && setupMod
 <div class="email-modal" id="emailModal" role="dialog" aria-modal="true" aria-hidden="true">
   <div class="email-modal-card">
     <div class="em-topbar">
-      <span class="tag" id="emTag">MEM-1</span>
+      <span class="tag" id="emTag">Madame Estrogen-1</span>
       <span class="when" id="emWhen">Immediately</span>
       <button class="close" id="emClose" aria-label="Close">×</button>
     </div>
@@ -10094,7 +10707,7 @@ function resetToFirstHappyPathCard() {
 viewport.addEventListener('pointerdown', (e) => {
   // Don't start a pan if the user pressed inside the toolbar or on a clickable
   // card (clickable cards open the email modal on tap).
-  if (e.target.closest('.toolbar, .card.clickable')) return;
+  if (e.target.closest('.toolbar, .card.clickable, .web-cta')) return;
   e.preventDefault();
   state.isPanning = true;
   state.startX = e.clientX;
@@ -10194,7 +10807,7 @@ viewport.addEventListener('pointercancel', _endPinch, true);
 // view anchored at the tap point. Useful on touch where pinch is the only
 // other zoom affordance.
 viewport.addEventListener('dblclick', (e) => {
-  if (e.target.closest('[data-email], .toolbar, .card.clickable')) return;
+  if (e.target.closest('[data-email], .toolbar, .card.clickable, .web-cta')) return;
   const vpRect = viewport.getBoundingClientRect();
   const { width: cw, height: ch } = getCanvasContentSize();
   const fitScale = Math.min((vpRect.width - 80) / cw, (vpRect.height - 80) / ch);
@@ -10297,7 +10910,7 @@ Heads up: this link expires in 7 days. If it has expired, use the Login button a
   },
 
   'mem-1': {
-    tag: 'MEM-1',
+    tag: 'Madame Estrogen-1',
     when: '⏱ Immediately on purchase · New or returning Kajabi user',
     variants: [
       {
@@ -10314,7 +10927,7 @@ You just made a serious decision for your health, and I want to help you land th
 Here is what matters right now:
 
 1. Here is your course link
-👉 [KAJABI MEM COURSE URL]
+👉 [KAJABI Madame Estrogen COURSE URL]
 If you already set up your Kajabi account, log in now.
 If you already had a Kajabi account from before, use your existing password.
 If neither is true yet, watch for a Set Up Your Account email from Kajabi and create your password there.
@@ -10324,7 +10937,7 @@ If neither is true yet, watch for a Set Up Your Account email from Kajabi and cr
 
 You do not need to think about all 12 weeks today.
 
-You do not need to think about your HWN bonus today either.
+You do not need to think about your Hormone Network bonus today either.
 
 Right now, I just want you inside the Mastermind and grounded in Week 1.
 
@@ -10346,7 +10959,7 @@ Dr. P`
 You are in, sis.
 
 Here is your link:
-👉 [KAJABI MEM COURSE URL]
+👉 [KAJABI Madame Estrogen COURSE URL]
 
 Use your existing Kajabi password and get straight into Week 1.
 
@@ -10360,7 +10973,7 @@ Dr. P`
   },
 
   'mem-2': {
-    tag: 'MEM-2',
+    tag: 'Madame Estrogen-2',
     when: '⏱ Day 2, 9am · Everyone',
     variants: [{
       label: null,
@@ -10399,7 +11012,7 @@ Dr. P`
   },
 
   'mem-3': {
-    tag: 'MEM-3',
+    tag: 'Madame Estrogen-3',
     when: '⏱ Day 4, 9am · Everyone',
     variants: [{
       label: null,
@@ -10425,7 +11038,7 @@ Dr. P`
   },
 
   'mem-4': {
-    tag: 'MEM-4',
+    tag: 'Madame Estrogen-4',
     when: '⏱ Week 2 Monday, 8am',
     variants: [{
       label: null,
@@ -10451,7 +11064,7 @@ Dr. P`
   },
 
   'mem-5': {
-    tag: 'MEM-5',
+    tag: 'Madame Estrogen-5',
     when: '⏱ Week 3 Monday, 8am',
     variants: [{
       label: null,
@@ -10476,7 +11089,7 @@ Dr. P`
   },
 
   'mem-6': {
-    tag: 'MEM-6',
+    tag: 'Madame Estrogen-6',
     when: '⏱ Week 4 Monday, 8am',
     variants: [{
       label: null,
@@ -10498,7 +11111,7 @@ Dr. P`
   },
 
   'mem-7': {
-    tag: 'MEM-7',
+    tag: 'Madame Estrogen-7',
     when: '⏱ Week 6 Monday, 8am',
     variants: [{
       label: null,
@@ -10529,7 +11142,7 @@ Dr. P`
   },
 
   'mem-8': {
-    tag: 'MEM-8',
+    tag: 'Madame Estrogen-8',
     when: '⏱ Week 9 Monday, 8am',
     variants: [{
       label: null,
@@ -10558,7 +11171,7 @@ Dr. P`
   },
 
   'mem-9': {
-    tag: 'MEM-9',
+    tag: 'Madame Estrogen-9',
     when: '⏱ Week 12 Monday, 8am',
     variants: [{
       label: null,
@@ -10582,13 +11195,13 @@ Dr. P`
   },
 
   'mem-10': {
-    tag: 'MEM-10',
+    tag: 'Madame Estrogen-10',
     when: '⏱ Week 12 + 3 days · No upsell',
     variants: [{
       label: null,
       subject: 'Twelve weeks. You did that.',
       preheader: 'No pitch here. Just pause and take this in.',
-      cond: 'Pure celebration. No HWN mention here.',
+      cond: 'Pure celebration. No Hormone Network mention here.',
       body: `[First Name],
 
 Twelve weeks.
@@ -10611,8 +11224,8 @@ Dr. P`
   },
 
   'mem-11': {
-    tag: 'MEM-11',
-    when: '⏱ Final 15 days of HWN bonus access',
+    tag: 'Madame Estrogen-11',
+    when: '⏱ Final 15 days of Hormone Network bonus access',
     variants: [{
       label: null,
       subject: 'What comes after the Mastermind?',
@@ -10624,9 +11237,9 @@ The Mastermind may be ending, but your hormone journey is still alive and moving
 
 That is why you also have access to the Hormone Wellness Network as a bonus.
 
-Inside HWN, you keep the connection, the support, and the community.
+Inside Hormone Network, you keep the connection, the support, and the community.
 
-Your bonus access runs through [HWN BONUS EXPIRY DATE].
+Your bonus access runs through [Hormone Network BONUS EXPIRY DATE].
 
 If you want to continue after that, your options are:
 
@@ -10635,18 +11248,18 @@ or
 $470 per year
 
 When you are ready:
-👉 [HWN CHECKOUT URL]
+👉 https://callmedoctorp.com/hormone-wellness-network-checkout/
 
 Dr. P`
     }]
   },
 
   'mem-12': {
-    tag: 'MEM-12',
-    when: '⏱ 14 days before HWN expiry',
+    tag: 'Madame Estrogen-12',
+    when: '⏱ 14 days before Hormone Network expiry',
     variants: [{
       label: null,
-      subject: 'Your HWN bonus ends in 2 weeks',
+      subject: 'Your Hormone Network bonus ends in 2 weeks',
       preheader: 'Just making sure this does not catch you off guard.',
       cond: 'SKIP if purchased_hwn tag exists',
       body: `[First Name],
@@ -10655,13 +11268,13 @@ Quick heads up, sis.
 
 Your Hormone Wellness Network bonus is moving into its final stretch.
 
-If you want to keep your access after [HWN BONUS EXPIRY DATE], here are your options:
+If you want to keep your access after [Hormone Network BONUS EXPIRY DATE], here are your options:
 
 $47 per month
 or
 $470 per year
 
-👉 [HWN CHECKOUT URL]
+👉 https://callmedoctorp.com/hormone-wellness-network-checkout/
 
 If it is not the right next step for you, no pressure. I just wanted to make sure you knew it was coming.
 
@@ -10670,19 +11283,19 @@ Dr. P`
   },
 
   'mem-13': {
-    tag: 'MEM-13',
-    when: '⏱ 7 days before HWN expiry',
+    tag: 'Madame Estrogen-13',
+    when: '⏱ 7 days before Hormone Network expiry',
     variants: [{
       label: null,
-      subject: 'One week left on your HWN bonus',
+      subject: 'One week left on your Hormone Network bonus',
       preheader: 'Keeping this on your radar, sis.',
       cond: 'SKIP if purchased_hwn tag exists',
       body: `[First Name],
 
-Just a quick reminder that your HWN bonus access is getting close to the end.
+Just a quick reminder that your Hormone Network bonus access is getting close to the end.
 
 If you want to keep the community and ongoing support, you can continue here:
-👉 [HWN CHECKOUT URL]
+👉 https://callmedoctorp.com/hormone-wellness-network-checkout/
 
 If not, that is okay too. What you built in the Mastermind is still yours.
 
@@ -10691,19 +11304,19 @@ Dr. P`
   },
 
   'mem-14': {
-    tag: 'MEM-14',
-    when: '⏱ 2 days before HWN expiry',
+    tag: 'Madame Estrogen-14',
+    when: '⏱ 2 days before Hormone Network expiry',
     variants: [{
       label: null,
-      subject: 'Keep your HWN access if you want continued support',
+      subject: 'Keep your Hormone Network access if you want continued support',
       preheader: 'Two more days before your bonus access ends.',
       cond: 'SKIP if purchased_hwn tag exists',
       body: `[First Name],
 
-Your complimentary HWN access from the Mastermind is almost over.
+Your complimentary Hormone Network access from the Mastermind is almost over.
 
 If you want to stay connected to the community, support, and membership resources, here is the next step:
-👉 [HWN CHECKOUT URL]
+👉 https://callmedoctorp.com/hormone-wellness-network-checkout/
 
 Options:
 $47 per month
@@ -10716,7 +11329,7 @@ Dr. P`
   },
 
   'mem-d1': {
-    tag: 'MEM-D1',
+    tag: 'Madame Estrogen-D1',
     when: '⏱ 2 hours after payment failure',
     variants: [{
       label: null,
@@ -10739,7 +11352,7 @@ The Dr. P Team`
   },
 
   'mem-d2': {
-    tag: 'MEM-D2',
+    tag: 'Madame Estrogen-D2',
     when: '⏱ Day 3 after payment failure',
     variants: [{
       label: null,
@@ -10760,7 +11373,7 @@ The Dr. P Team`
   },
 
   'mem-d3': {
-    tag: 'MEM-D3',
+    tag: 'Madame Estrogen-D3',
     when: '⏱ Day 6 after payment failure',
     variants: [{
       label: null,
@@ -10781,7 +11394,7 @@ The Dr. P Team`
   },
 
   'mem-dr': {
-    tag: 'MEM-DR',
+    tag: 'Madame Estrogen-DR',
     when: '⏱ On payment recovery',
     variants: [{
       label: null,
@@ -10794,7 +11407,7 @@ Good news.
 
 Your payment went through, and everything is back on track. Your Mastermind course and community access are fully active again.
 
-👉 Back to your course → [KAJABI MEM COURSE URL]
+👉 Back to your course → [KAJABI Madame Estrogen COURSE URL]
 
 No action needed on your end.
 
@@ -10817,7 +11430,8 @@ let lastTrigger = null;
 
 function renderWithTokens(text) {
   const esc = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  return esc.replace(/\[([^\]]+)\]/g, '<span class="tok">[$1]</span>');
+  const withTokens = esc.replace(/\[([^\]]+)\]/g, '<span class="tok">[$1]</span>');
+  return withTokens.replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
 }
 
 function renderVariant(emailId, variantIndex) {
@@ -10968,7 +11582,7 @@ if (suClose && setupModal) {
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>HWN Post-Purchase — Hero Spine Workflow</title>
+<title>Hormone Network Post-Purchase — Hero Spine Workflow</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -11529,22 +12143,26 @@ if (suClose && setupModal) {
     animation-play-state: paused;
   }
   .card.email-chrome .step {
+    position: absolute;
     top: auto;
     left: auto;
     bottom: -10px;
     right: -10px;
-    width: 26px;
-    height: 26px;
+    min-width: 32px;
+    height: 32px;
+    padding: 0 14px;
     background: var(--mail-accent);
     color: #FFFFFF;
-    border-radius: 50%;
+    border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.78rem;
+    white-space: nowrap;
+    font-size: 0.8rem;
     font-weight: 800;
-    border: 2px solid #FFFFFF;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+    border: 2.5px solid #FFFFFF;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    letter-spacing: 0.02em;
     z-index: 10;
   }
 
@@ -11737,19 +12355,22 @@ if (suClose && setupModal) {
     left: auto;
     bottom: -12px;
     right: -12px;
-    width: 32px;
+    min-width: 32px;
     height: 32px;
+    padding: 0 14px;
     background: var(--spine);
     color: #FFFFFF;
-    border-radius: 50%;
+    border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.96rem;
+    white-space: nowrap;
+    font-size: 0.8rem;
     font-weight: 800;
     box-shadow: 0 4px 12px rgba(14,107,107,0.35);
     border: 2.5px solid #FFFFFF;
-    font-family: 'Fraunces', serif;
+    font-family: var(--font-main);
+    letter-spacing: 0.02em;
     z-index: 10;
   }
   .card.hero .kind {
@@ -12120,6 +12741,17 @@ if (suClose && setupModal) {
     font-weight: 600;
     white-space: nowrap;
   }
+  .em-body a, .em-headers a {
+    color: #0E6B6B;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    word-break: break-word;
+  }
+  .em-body a:hover, .em-headers a:hover {
+    color: #0a4f4f;
+    text-decoration-thickness: 2px;
+  }
 
   @media (max-width: 900px) {
     header.hero { flex-wrap: wrap; gap: 14px; }
@@ -12315,7 +12947,7 @@ if (suClose && setupModal) {
 <header class="hero">
   <div class="title-block">
     <div class="eyebrow">Dr. P Program Automation</div>
-    <h1>HWN Post-Purchase Flow</h1>
+    <h1>Hormone Network Post-Purchase Flow</h1>
     <div class="sub">Main path from purchase through orientation, then into the monthly value cycle.</div>
   </div>
   <div class="legend">
@@ -12349,7 +12981,7 @@ if (suClose && setupModal) {
     <div class="impl-head">
       <div>
         <div class="t-eyebrow">GHL Build Spec</div>
-        <h2 id="implTitle">HWN — Automation Notes</h2>
+        <h2 id="implTitle">Hormone Network — Automation Notes</h2>
       </div>
       <button class="impl-close" id="implClose" type="button" aria-label="Close notes">×</button>
     </div>
@@ -12359,22 +12991,34 @@ if (suClose && setupModal) {
         <div class="sec-label"><span class="num">1</span> Workflow Context</div>
         <dl class="impl-kv">
           <dt>Workflow</dt>
-          <dd><code>HWN | Onboarding (partial) → Monthly Cycle (not yet modeled)</code></dd>
+          <dd><code>Hormone Network | Onboarding (partial) → Monthly Cycle (not yet modeled)</code></dd>
           <dt>Trigger</dt>
-          <dd>GHL checkout at <code>callmedoctorp.com/hwn-checkout</code> → confirmation page at <code>callmedoctorp.com/hwn-confirmed</code> → tag <code>hwn_active</code>; Kajabi grants access; password branch on <code>kajabi_account_created</code>.</dd>
+          <dd>GHL checkout at <code>/hormone-wellness-network-checkout</code> (monthly $47) or <code>/hormone-wellness-network-checkout-annual</code> ($470/yr) → confirmation at <code>/hormone-wellness-network-membership-thank-you-reg</code> → tag <code>hwn_active</code>; Kajabi grants access; password branch on <code>kajabi_account_created</code>.</dd>
           <dt>Entry</dt>
           <dd>Contact has <code>hwn_active</code> AND NOT <code>hwn_2_sent</code>.</dd>
           <dt>Delivery</dt>
-          <dd><strong>Currently modeled:</strong> 2 onboarding emails (HWN-1 Welcome, HWN-2 Rhythm) + Kajabi system access. <strong>Not yet modeled:</strong> monthly masterclass reminders, replays, pre-renewal recaps, dunning.</dd>
+          <dd><strong>Currently modeled:</strong> 2 onboarding emails (Hormone Network-1 Welcome, Hormone Network-2 Rhythm) + Kajabi system access. <strong>Not yet modeled:</strong> monthly masterclass reminders, replays, pre-renewal recaps, dunning.</dd>
           <dt>Price</dt>
           <dd>$47/mo OR $470/yr (annual saves ~17%).</dd>
         </dl>
       </section>
 
       <section class="impl-section">
-        <div class="sec-label"><span class="num">2</span> Key GHL Tags</div>
+        <div class="sec-label"><span class="num">2</span> Kajabi Offer Mapping</div>
+        <dl class="impl-kv">
+          <dt>Offer</dt>
+          <dd><strong>The Hormone Wellness Network</strong></dd>
+          <dt>Includes</dt>
+          <dd>The Hormone Wellness Network Course + Hormone Wellness Network - Access group.</dd>
+          <dt>Page Relevance</dt>
+          <dd>This page documents the post-purchase onboarding and ongoing continuity flow for the Hormone Wellness Network Kajabi offer.</dd>
+        </dl>
+      </section>
+
+      <section class="impl-section">
+        <div class="sec-label"><span class="num">3</span> Key GHL Tags</div>
         <ul class="impl-list tags">
-          <li><code>hwn_active</code> (alias: <code>purchased_hwn</code>) — primary entry flag; removed on cancel. Also suppresses MEM-12/13/14 cross-sell.</li>
+          <li><code>hwn_active</code> (alias: <code>purchased_hwn</code>) — primary entry flag; removed on cancel. Also suppresses Madame Estrogen-12/13/14 cross-sell.</li>
           <li><code>hwn_term_monthly</code> / <code>hwn_term_annual</code> — set by offer SKU; drives pre-renewal cadence (not yet modeled).</li>
           <li><code>kajabi_account_created</code> — persistent; drives password-setup vs direct-login language.</li>
           <li><code>hwn_1_sent</code> (Welcome), <code>hwn_2_sent</code> (Rhythm) — per-email send flags for the modeled onboarding.</li>
@@ -12384,18 +13028,18 @@ if (suClose && setupModal) {
       </section>
 
       <section class="impl-section">
-        <div class="sec-label"><span class="num">3</span> Decision Gates</div>
+        <div class="sec-label"><span class="num">4</span> Decision Gates</div>
         <ul class="impl-list gates">
-          <li><strong>Steps 1-2 (Checkout + Confirmation)</strong> — GHL checkout at <code>/hwn-checkout</code>; on success → <code>/hwn-confirmed</code>; tag <code>hwn_active</code> applied; Kajabi access granted in parallel.</li>
-          <li><strong>HWN-1 Welcome (Now)</strong> — primary onboarding email; password-setup branch on <code>kajabi_account_created</code> (new vs returning).</li>
-          <li><strong>HWN-2 Rhythm (Day 2 · 9am)</strong> — how-to-get-the-most + community nudge.</li>
+          <li><strong>Steps 1-2 (Checkout + Confirmation)</strong> — GHL checkout at <code>/hormone-wellness-network-checkout</code> or <code>/hormone-wellness-network-checkout-annual</code>; on success → <code>/hormone-wellness-network-membership-thank-you-reg</code>; tag <code>hwn_active</code> applied; Kajabi access granted in parallel.</li>
+          <li><strong>Hormone Network-1 Welcome (Now)</strong> — primary onboarding email; password-setup branch on <code>kajabi_account_created</code> (new vs returning).</li>
+          <li><strong>Hormone Network-2 Rhythm (Day 2 · 9am)</strong> — how-to-get-the-most + community nudge.</li>
           <li><strong>Kajabi System (+ minutes)</strong> — side/system card: Kajabi creates user, fires setup-password email for new users (we don't author this send; Kajabi owns it).</li>
           <li><em>Not yet modeled in visual:</em> monthly masterclass reminder (T-3d), replay (T+1d), pre-renewal recap (monthly T-5d / annual T-14d), renewal-failure dunning.</li>
         </ul>
       </section>
 
       <section class="impl-section">
-        <div class="sec-label"><span class="num">4</span> Exits &amp; Errors</div>
+        <div class="sec-label"><span class="num">5</span> Exits &amp; Errors</div>
         <ul class="impl-list exits">
           <li><strong>Cancel</strong> — Kajabi subscription-cancel webhook → remove <code>hwn_active</code>, add <code>hwn_cancelled</code>, halt sends.</li>
           <li><strong>Refund (first month)</strong> — Stripe refund webhook → remove <code>hwn_active</code>, add <code>hwn_refunded</code>, halt.</li>
@@ -12405,14 +13049,14 @@ if (suClose && setupModal) {
       </section>
 
       <section class="impl-section">
-        <div class="sec-label"><span class="num">5</span> Open Questions</div>
+        <div class="sec-label"><span class="num">6</span> Open Questions</div>
         <div class="impl-open-q">
           <strong>Visual is incomplete — monthly cycle not yet drawn.</strong><br>
-          The HWN diagram only models onboarding (Steps 1-5). Before HWN can be built in GHL, the visual needs to add the recurring monthly cycle: masterclass reminder → replay → pre-renewal recap → renewal-failure dunning, with annual vs monthly branching.
+          The Hormone Network diagram only models onboarding (Steps 1-5). Before Hormone Network can be built in GHL, the visual needs to add the recurring monthly cycle: masterclass reminder → replay → pre-renewal recap → renewal-failure dunning, with annual vs monthly branching.
         </div>
         <div class="impl-open-q">
-          <strong>HWN-1 variants — was the "3 variants" idea dropped?</strong><br>
-          Earlier sketches mentioned 3 HWN-1 variants (new/annual/monthly). Current visual shows a single HWN-1 Welcome. Confirm: (a) collapse to single email with conditional content blocks, or (b) add variants to the visual.
+          <strong>Hormone Network-1 variants — was the "3 variants" idea dropped?</strong><br>
+          Earlier sketches mentioned 3 Hormone Network-1 variants (new/annual/monthly). Current visual shows a single Hormone Network-1 Welcome. Confirm: (a) collapse to single email with conditional content blocks, or (b) add variants to the visual.
         </div>
         <div class="impl-open-q">
           <strong>Pre-renewal cadence for annual members.</strong><br>
@@ -12420,14 +13064,14 @@ if (suClose && setupModal) {
         </div>
         <div class="impl-open-q">
           <strong>Refund / cancel exits — pattern not yet canonical.</strong><br>
-          Align with UHA / Challenge / MEM on a shared exit convention.
+          Align with UHA / 7-Day Challenge / Madame Estrogen on a shared exit convention.
         </div>
       </section>
 
     </div>
     <div class="impl-foot">
       <span>Press <span class="kbd">i</span> to toggle · <span class="kbd">Esc</span> to close</span>
-      <span>HWN · $47/mo or $470/yr</span>
+      <span>Hormone Network · $47/mo or $470/yr</span>
     </div>
   </div>
 </aside>
@@ -12477,7 +13121,7 @@ if (suClose && setupModal) {
             <span class="sys-mini">GHL → Kajabi</span>
           </div>
           <div class="sys-body">
-            <span class="kind">Enroll HWN + Community</span>
+            <span class="kind">Enroll Hormone Network + Community</span>
             <div>Purchase triggers Kajabi enrollment for the Hormone Wellness Network product and the Empowered Sister Community.</div>
           </div>
         </div>
@@ -12491,60 +13135,83 @@ if (suClose && setupModal) {
           </div>
           <div class="sys-body">
             <span class="kind">Welcome Variant</span>
-            <div class="question">Returning HWN member?</div>
-            <div class="detail">Routes HWN-1 variant: new Kajabi, returning Kajabi, or welcome-back</div>
+            <div class="question">Returning Hormone Network member?</div>
+            <div class="detail">Routes Hormone Network-1 variant: new Kajabi, returning Kajabi, or welcome-back</div>
           </div>
         </div>
       </div>
 
       <!-- Spine row: happy path -->
       <div class="cell row-spine" style="grid-column: 1;">
-        <div class="card hero web-chrome surface-web kind-tinted" id="n-checkout">
-          <span class="step">1</span>
-          <div class="chrome-bar">
-            <div class="tdots">
-              <span class="tdot r"></span>
-              <span class="tdot y"></span>
-              <span class="tdot g"></span>
+        <div class="card hero stacked-group surface-web" id="n-checkout">
+          <span class="group-label">Step 1 · Checkout (2 offers)</span>
+          <div class="sub-card web-chrome" id="n-checkout-monthly">
+            <span class="step">Step 1</span>
+            <div class="chrome-bar">
+              <div class="tdots">
+                <span class="tdot r"></span>
+                <span class="tdot y"></span>
+                <span class="tdot g"></span>
+              </div>
+              <div class="url-pill" title="callmedoctorp.com/hormone-wellness-network-checkout">
+                <span class="lock">🔒</span>
+                <span class="path">/hormone-wellness-network-checkout</span>
+              </div>
             </div>
-            <div class="url-pill" title="callmedoctorp.com/hwn-checkout">
-              <span class="lock">🔒</span>
-              <span class="domain">callmedoctorp.com</span><span class="path">/hwn-checkout</span>
+            <div class="web-body">
+              <span class="kind">Monthly</span>
+              <h3>$47/mo</h3>
+              <a class="web-cta" href="https://callmedoctorp.com/hormone-wellness-network-checkout/" target="_blank" rel="noopener noreferrer">Open checkout <span class="arrow">→</span></a>
             </div>
           </div>
-          <div class="web-body">
-            <span class="kind">Checkout Page</span>
-            <h2>User buys HWN</h2>
-            <div class="detail">GHL checkout form — $47/month or $470/year subscription. Payment processor runs downstream of GHL.</div>
+          <div class="sub-card web-chrome" id="n-checkout-annual">
+            <span class="step">Step 1</span>
+            <div class="chrome-bar">
+              <div class="tdots">
+                <span class="tdot r"></span>
+                <span class="tdot y"></span>
+                <span class="tdot g"></span>
+              </div>
+              <div class="url-pill" title="callmedoctorp.com/hormone-wellness-network-checkout-annual">
+                <span class="lock">🔒</span>
+                <span class="path">/hormone-wellness-network-checkout-annual</span>
+              </div>
+            </div>
+            <div class="web-body">
+              <span class="kind">Annual</span>
+              <h3>$470/yr</h3>
+              <a class="web-cta" href="https://callmedoctorp.com/hormone-wellness-network-checkout-annual/" target="_blank" rel="noopener noreferrer">Open checkout <span class="arrow">→</span></a>
+            </div>
           </div>
         </div>
       </div>
 
       <div class="cell row-spine" style="grid-column: 2;">
         <div class="card hero web-chrome surface-web kind-tinted" id="n-confirmation">
-          <span class="step">2</span>
+          <span class="step">Step 2</span>
           <div class="chrome-bar">
             <div class="tdots">
               <span class="tdot r"></span>
               <span class="tdot y"></span>
               <span class="tdot g"></span>
             </div>
-            <div class="url-pill" title="callmedoctorp.com/hwn-confirmed">
+            <div class="url-pill" title="callmedoctorp.com/hormone-wellness-network-membership-thank-you-reg">
               <span class="lock">🔒</span>
-              <span class="domain">callmedoctorp.com</span><span class="path">/hwn-confirmed</span>
+              <span class="domain">callmedoctorp.com</span><span class="path">/hormone-wellness-network-membership-thank-you-reg</span>
             </div>
           </div>
           <div class="web-body">
             <span class="kind">Confirmation Page</span>
             <h2>Membership active — login + community</h2>
             <div class="detail">Shows Kajabi login path, Empowered Sister Community button, and an at-a-glance orientation for what to do first.</div>
+            <a class="web-cta" href="https://callmedoctorp.com/hormone-wellness-network-membership-thank-you-reg/" target="_blank" rel="noopener noreferrer">Open page <span class="arrow">→</span></a>
           </div>
         </div>
       </div>
 
       <div class="cell row-spine" style="grid-column: 3;">
-        <div class="card hero email-chrome surface-mail clickable" id="n-h1" data-email="hwn-1" data-variant="0" role="button" tabindex="0" aria-label="Open HWN-1 welcome email">
-          <span class="step">3</span>
+        <div class="card hero email-chrome surface-mail clickable" id="n-h1" data-email="hwn-1" data-variant="0" role="button" tabindex="0" aria-label="Open Hormone Network-1 welcome email">
+          <span class="step">Step 3</span>
           <div class="sender-row">
             <div class="avatar">P</div>
             <div class="sender-info">
@@ -12555,7 +13222,7 @@ if (suClose && setupModal) {
           </div>
           <div class="mail-body">
             <div class="tag-row">
-              <span class="tag-pill">HWN-1 · Welcome</span>
+              <span class="tag-pill">Hormone Network-1 · Welcome</span>
               <span class="variants-pill">3 variants</span>
             </div>
             <div class="subject-line">Welcome to the Network, [First Name]</div>
@@ -12566,8 +13233,8 @@ if (suClose && setupModal) {
       </div>
 
       <div class="cell row-spine" style="grid-column: 4;">
-        <div class="card hero email-chrome surface-mail clickable" id="n-h2" data-email="hwn-2" role="button" tabindex="0" aria-label="Open HWN-2 rhythm email">
-          <span class="step">4</span>
+        <div class="card hero email-chrome surface-mail clickable" id="n-h2" data-email="hwn-2" role="button" tabindex="0" aria-label="Open Hormone Network-2 rhythm email">
+          <span class="step">Step 4</span>
           <div class="sender-row">
             <div class="avatar">P</div>
             <div class="sender-info">
@@ -12578,7 +13245,7 @@ if (suClose && setupModal) {
           </div>
           <div class="mail-body">
             <div class="tag-row">
-              <span class="tag-pill">HWN-2 · Rhythm</span>
+              <span class="tag-pill">Hormone Network-2 · Rhythm</span>
             </div>
             <div class="subject-line">Here's how this works (it's simpler than you think)</div>
             <div class="preview-line">Light orientation — one resource at a time, keep the rhythm simple. Login-check injects a help block if no Kajabi login yet.</div>
@@ -12589,7 +13256,7 @@ if (suClose && setupModal) {
 
       <div class="cell row-spine" style="grid-column: 5;">
         <div class="card hero end system-card surface-bts kind-tinted" id="n-end">
-          <span class="step">5</span>
+          <span class="step">Step 5</span>
           <div class="sys-topbar">
             <span class="sys-chip"><span class="sys-gear">⚙</span>System</span>
             <span class="sys-mini">Handoff</span>
@@ -12597,7 +13264,7 @@ if (suClose && setupModal) {
           <div class="sys-body">
             <span class="kind">End of Post-Purchase</span>
             <h3>→ Monthly Value Cycle</h3>
-            <div class="detail">Contact hands off to the HWN Monthly Value Cycle workflow (start-of-month, mid-month, end-of-month). Renewal dunning and retention run in separate flows.</div>
+            <div class="detail">Contact hands off to the Hormone Network Monthly Value Cycle workflow (start-of-month, mid-month, end-of-month). Renewal dunning and retention run in separate flows.</div>
           </div>
         </div>
       </div>
@@ -12632,7 +13299,7 @@ if (suClose && setupModal) {
           </div>
           <div class="sys-body">
             <span class="kind">Empowered Sister Intro</span>
-            <div>Confirmation page and HWN-1 both push the new member to post an intro in the community right away.</div>
+            <div>Confirmation page and Hormone Network-1 both push the new member to post an intro in the community right away.</div>
           </div>
         </div>
       </div>
@@ -12645,7 +13312,7 @@ if (suClose && setupModal) {
           </div>
           <div class="sys-body">
             <span class="kind">Kajabi Login Detection</span>
-            <div>If no Kajabi login detected by Day 2, HWN-2 adds a short help block inviting a reply for fast password or access help.</div>
+            <div>If no Kajabi login detected by Day 2, Hormone Network-2 adds a short help block inviting a reply for fast password or access help.</div>
           </div>
         </div>
       </div>
@@ -12658,7 +13325,7 @@ if (suClose && setupModal) {
 <div class="email-modal" id="emailModal" role="dialog" aria-modal="true" aria-hidden="true">
   <div class="email-modal-card">
     <div class="em-topbar">
-      <span class="tag" id="emTag">HWN-1</span>
+      <span class="tag" id="emTag">Hormone Network-1</span>
       <span class="when" id="emWhen">Immediately</span>
       <button class="close" id="emClose" aria-label="Close">×</button>
     </div>
@@ -12936,7 +13603,7 @@ function resetToFirstHappyPathCard() {
 }
 
 viewport.addEventListener('pointerdown', (e) => {
-  if (e.target.closest('.toolbar, .card.clickable')) return;
+  if (e.target.closest('.toolbar, .card.clickable, .web-cta')) return;
   e.preventDefault();
   state.isPanning = true;
   state.startX = e.clientX;
@@ -13030,7 +13697,7 @@ viewport.addEventListener('pointercancel', _endPinch, true);
 // view anchored at the tap point. Useful on touch where pinch is the only
 // other zoom affordance.
 viewport.addEventListener('dblclick', (e) => {
-  if (e.target.closest('[data-email], .toolbar, .card.clickable')) return;
+  if (e.target.closest('[data-email], .toolbar, .card.clickable, .web-cta')) return;
   const vpRect = viewport.getBoundingClientRect();
   const { width: cw, height: ch } = getCanvasContentSize();
   const fitScale = Math.min((vpRect.width - 80) / cw, (vpRect.height - 80) / ch);
@@ -13083,26 +13750,38 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-function init() {
-  applyTransform();
+let fitPassTimer = null;
+function scheduleFitPasses() {
+  clearTimeout(fitPassTimer);
   requestAnimationFrame(() => {
     fitToScreen();
     requestAnimationFrame(() => {
       try { drawConnectors(); } catch (_) {}
     });
   });
+  // First paint inside the shell iframe can still be settling after the
+  // initial frame; run one delayed pass so HWN opens in its fitted view
+  // without needing a manual refresh.
+  fitPassTimer = setTimeout(() => {
+    requestAnimationFrame(() => {
+      fitToScreen();
+      try { drawConnectors(); } catch (_) {}
+    });
+  }, 180);
+}
+
+function init() {
+  applyTransform();
+  scheduleFitPasses();
 }
 window.addEventListener('load', init);
-window.addEventListener('drp:refit', () => fitToScreen());
+window.addEventListener('drp:refit', scheduleFitPasses);
 window.addEventListener('resize', () => {
   try { drawConnectors(); } catch (_) {}
 });
 if (document.fonts && document.fonts.ready) {
   document.fonts.ready.then(() => {
-    requestAnimationFrame(() => {
-      fitToScreen();
-      try { drawConnectors(); } catch (_) {}
-    });
+    scheduleFitPasses();
   });
 }
 
@@ -13144,7 +13823,7 @@ Heads up: this link expires in 7 days. If it has expired, use the Login button a
   },
 
   'hwn-1': {
-    tag: 'HWN-1',
+    tag: 'Hormone Network-1',
     when: '⏱ Immediately on purchase · Variant selected by member + Kajabi status',
     variants: [
       {
@@ -13162,7 +13841,7 @@ Here is what matters first:
 Here is your link:
 
 Here is your membership link:
-👉 Your HWN Membership → [KAJABI HWN URL]
+👉 Your Hormone Network Membership → [KAJABI Hormone Network URL]
 
 If you already set up your Kajabi account, log in there now.
 
@@ -13214,7 +13893,7 @@ Here is what matters first:
 Here is your link:
 
         Use this login link:
-👉 Your HWN Membership → [KAJABI HWN URL]
+👉 Your Hormone Network Membership → [KAJABI Hormone Network URL]
 
 Use your existing Kajabi password and get right in.
 
@@ -13255,7 +13934,7 @@ Hormone Wellness Network — [Monthly $47/mo | Annual $470/yr]
 Welcome back to the Network. I am glad you are here, and there is no need to make this complicated.
 
 Your access is fully restored — everything is right where you left it:
-👉 Your Membership → [KAJABI HWN URL]
+👉 Your Membership → [KAJABI Hormone Network URL]
 👉 Community → [KAJABI COMMUNITY URL]
 
 No long onboarding — you already know how this works. Log in, check the community, and pick one thing to re-engage with this week. That is enough to get back in the rhythm.
@@ -13268,7 +13947,7 @@ It is good to have you back.
   },
 
   'hwn-2': {
-    tag: 'HWN-2',
+    tag: 'Hormone Network-2',
     when: '⏱ Day 2, 9am · Everyone',
     variants: [{
       label: null,
@@ -13343,7 +14022,8 @@ let lastTrigger = null;
 
 function renderWithTokens(text) {
   const esc = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  return esc.replace(/\[([^\]]+)\]/g, '<span class="tok">[$1]</span>');
+  const withTokens = esc.replace(/\[([^\]]+)\]/g, '<span class="tok">[$1]</span>');
+  return withTokens.replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
 }
 
 function renderVariant(emailId, variantIndex) {

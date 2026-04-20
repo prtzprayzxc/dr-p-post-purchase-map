@@ -6,55 +6,155 @@
   <title>Dr. P Post-Purchase Flows</title>
   <meta http-equiv="refresh" content="0; url=/visuals/drp-all-flows-simple.html" />
   <link rel="canonical" href="/visuals/drp-all-flows-simple.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       color-scheme: light;
-      --bg: #f7f4ee;
-      --ink: #1a1a1a;
-      --muted: #5f5a52;
-      --accent: #0e6b6b;
+      --bg: #F7F4EE;
+      --ink: #1A1A1A;
+      --ink-soft: #4A4A4A;
+      --muted: #8A8A8A;
+      --border: #E8E0D4;
+      --spine: #0E6B6B;
+      --spine-deep: #0A5050;
     }
-
     * { box-sizing: border-box; }
-
     body {
       margin: 0;
       min-height: 100vh;
       display: grid;
       place-items: center;
-      padding: 24px;
+      padding: 32px 24px;
       background: radial-gradient(circle at top, #ffffff 0%, var(--bg) 58%);
       color: var(--ink);
-      font: 16px/1.5 Inter, system-ui, sans-serif;
+      font: 15px/1.5 Inter, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
     }
-
     main {
-      max-width: 560px;
+      max-width: 620px;
+      width: 100%;
       text-align: center;
     }
-
+    .eyebrow {
+      display: inline-block;
+      font-size: 0.66rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--spine);
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
     h1 {
-      margin: 0 0 10px;
-      font-size: clamp(2rem, 5vw, 3rem);
+      font-family: 'Fraunces', Georgia, serif;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin: 0 0 12px;
+      font-size: clamp(1.75rem, 4.5vw, 2.6rem);
       line-height: 1.05;
     }
-
-    p {
-      margin: 0 0 16px;
+    p.lede {
+      margin: 0 auto 22px;
+      color: var(--ink-soft);
+      max-width: 48ch;
+    }
+    .pricing {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(138px, 1fr));
+      gap: 10px;
+      margin: 22px 0 26px;
+      text-align: left;
+    }
+    .pricing-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px 14px;
+      box-shadow: 0 2px 6px rgba(26,26,26,0.04);
+    }
+    .pricing-card .label {
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 700;
       color: var(--muted);
     }
-
-    a {
-      color: var(--accent);
+    .pricing-card .name {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-top: 3px;
+    }
+    .pricing-card .price {
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--spine);
+      margin-top: 4px;
+      line-height: 1;
+    }
+    .pricing-card .sub {
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+    a.cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 22px;
+      background: var(--spine);
+      color: #fff;
+      border-radius: 999px;
+      text-decoration: none;
       font-weight: 700;
+      font-size: 0.92rem;
+      box-shadow: 0 4px 12px rgba(14,107,107,0.22);
+      transition: background 120ms ease, transform 120ms ease;
+    }
+    a.cta:hover { background: var(--spine-deep); transform: translateY(-1px); }
+    .fineprint {
+      margin-top: 18px;
+      font-size: 0.72rem;
+      color: var(--muted);
     }
   </style>
 </head>
 <body>
   <main>
-    <h1>Opening Dr. P Program Flows</h1>
-    <p>If the redirect does not start automatically, use the link below.</p>
-    <p><a href="/visuals/drp-all-flows-simple.html">Open the flow map</a></p>
+    <span class="eyebrow">Dr. P Program Automation</span>
+    <h1>Opening the Post-Purchase Flow map…</h1>
+    <p class="lede">If the redirect doesn't start, use the button below. Pricing was updated <strong>2026-04-21</strong>.</p>
+
+    <div class="pricing" aria-label="Program pricing snapshot">
+      <div class="pricing-card">
+        <div class="label">Tripwire</div>
+        <div class="name">UHA</div>
+        <div class="price">$27</div>
+        <div class="sub">+ $14 PDF bump</div>
+      </div>
+      <div class="pricing-card">
+        <div class="label">Bridge</div>
+        <div class="name">7-Day Challenge</div>
+        <div class="price">$37</div>
+        <div class="sub">Kajabi drip</div>
+      </div>
+      <div class="pricing-card">
+        <div class="label">Core</div>
+        <div class="name">Madame Estrogen</div>
+        <div class="price">$1,497</div>
+        <div class="sub">+ payment plans</div>
+      </div>
+      <div class="pricing-card">
+        <div class="label">Retention</div>
+        <div class="name">Hormone Network</div>
+        <div class="price">$47/mo</div>
+        <div class="sub">or $470/yr</div>
+      </div>
+    </div>
+
+    <a class="cta" href="/visuals/drp-all-flows-simple.html">Open the flow map →</a>
+    <div class="fineprint">callmedoctorp.com · Multi-entry guided pathway</div>
   </main>
 </body>
 </html>

@@ -1454,6 +1454,17 @@
     font-weight: 600;
     white-space: nowrap;
   }
+  .em-body a, .em-headers a {
+    color: #0E6B6B;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    word-break: break-word;
+  }
+  .em-body a:hover, .em-headers a:hover {
+    color: #0a4f4f;
+    text-decoration-thickness: 2px;
+  }
 
   @media (max-width: 900px) {
     header.hero { flex-wrap: wrap; gap: 14px; }
@@ -2218,7 +2229,7 @@ Dr. P
 
 ———
 Order summary:
-7-Day Hormone Reset & Recharge Challenge — $47
+7-Day Hormone Reset & Recharge Challenge — $37
 [Order details / receipt]`
       },
       {
@@ -2267,7 +2278,7 @@ Dr. P
 
 ———
 Order summary:
-7-Day Hormone Reset & Recharge Challenge — $47
+7-Day Hormone Reset & Recharge Challenge — $37
 [Order details / receipt]`
       }
     ]
@@ -2550,10 +2561,11 @@ Full access to my ongoing membership — ongoing support, member resources, and 
 
 THE INVESTMENT:
 
-I'm not going to pretend $1,997 is nothing. It's a real investment. So let me give you the options:
+I'm not going to pretend $1,497 is nothing. It's a real investment. So let me give you the options:
 
-→ Pay in full: $1,997
+→ Pay in full: $1,497 (with DOCTORP500)
 → 3 monthly payments of $667
+→ Or a $497 deposit + 10 monthly payments of $150
 
 Here's how I think about it: what's it costing you to keep feeling the way you feel? In lost productivity, in supplements that don't work, in doctor visits that end with "your labs are normal," in the mental energy of trying to figure this out alone?
 
@@ -2580,13 +2592,13 @@ If you have questions first, reply to this email. I'll answer personally.
 Before women join the Mastermind, they almost always have the same 3 questions. I want to answer them directly:
 
 
-"IS IT REALLY WORTH $2,000?"
+"IS IT REALLY WORTH $1,500?"
 
-Here's what I'd ask back: how much have you already spent on supplements, books, online programs, and doctor visits trying to fix your hormones? For most women I talk to, the answer is well over $2,000 — spread across things that didn't work or only worked temporarily.
+Here's what I'd ask back: how much have you already spent on supplements, books, online programs, and doctor visits trying to fix your hormones? For most women I talk to, the answer is well over $1,500 — spread across things that didn't work or only worked temporarily.
 
 The Mastermind is 12 weeks of structured, deep work with a board-certified OB-GYN (me), weekly live calls, and a community of women doing it alongside you. It's not another course you watch alone and forget.
 
-And if $1,997 upfront isn't feasible, the 3-pay option is $667 per month. That's less than most women spend monthly on supplements that aren't doing what they think.
+And if $1,497 upfront isn't feasible, the 3-pay option is $667 per month, or the 10-pay is a $497 deposit + $150/mo. That's less than most women spend monthly on supplements that aren't doing what they think.
 
 
 "WHAT IF I DON'T FOLLOW THROUGH?"
@@ -2632,7 +2644,8 @@ let lastTrigger = null;
 
 function renderWithTokens(text) {
   const esc = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  return esc.replace(/\[([^\]]+)\]/g, '<span class="tok">[$1]</span>');
+  const withTokens = esc.replace(/\[([^\]]+)\]/g, '<span class="tok">[$1]</span>');
+  return withTokens.replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
 }
 
 function renderVariant(emailId, variantIndex) {

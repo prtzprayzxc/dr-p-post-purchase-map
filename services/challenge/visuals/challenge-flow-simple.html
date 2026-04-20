@@ -129,10 +129,25 @@
     color: var(--ink-mute);
     align-self: center;
   }
-  .legend-item { display: flex; align-items: center; gap: 5px; color: var(--ink-soft); }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+  .legend-code {
+    font-family: 'SF Mono', Consolas, monospace;
+    font-size: 0.61rem;
+    letter-spacing: 0.02em;
+    color: var(--ink-mute);
+  }
   .legend-swatch {
     width: 24px; height: 4px; border-radius: 2px;
     display: inline-block;
+    flex: 0 0 auto;
+    min-width: 24px;
+    box-shadow: inset 0 0 0 1px rgba(26,26,26,0.08);
   }
   .swatch-spine    { background: var(--spine); height: 5px; }
   .swatch-recovery { background: repeating-linear-gradient(90deg, var(--recovery), var(--recovery) 5px, transparent 5px, transparent 9px); }
@@ -141,6 +156,9 @@
   .legend-dot {
     width: 10px; height: 10px; border-radius: 50%;
     display: inline-block;
+    flex: 0 0 auto;
+    min-width: 10px;
+    box-shadow: inset 0 0 0 1px rgba(26,26,26,0.12);
   }
   .legend-dot.surf-web  { background: var(--ico-web); }
   .legend-dot.surf-quiz { background: var(--ico-quiz); }
@@ -1455,6 +1473,17 @@
     font-weight: 600;
     white-space: nowrap;
   }
+  .em-body a, .em-headers a {
+    color: #0E6B6B;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    word-break: break-word;
+  }
+  .em-body a:hover, .em-headers a:hover {
+    color: #0a4f4f;
+    text-decoration-thickness: 2px;
+  }
 
   /* =========== Setup guide link (on system card) =========== */
   .setup-link {
@@ -1775,6 +1804,24 @@
     .impl-panel { width: 86vw; }
     .impl-tab { padding: 12px 6px; font-size: 0.62rem; }
   }
+
+  /* ===== Prominent CTA on every website card ===== */
+  .web-cta {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-top: 12px; padding: 9px 16px;
+    background: #0e6b6b; color: #fff !important;
+    border-radius: 999px; font-weight: 700; font-size: 13px; letter-spacing: .2px;
+    text-decoration: none; box-shadow: 0 2px 8px rgba(14,107,107,.22);
+    transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+    cursor: pointer; align-self: flex-start;
+  }
+  .web-cta:hover, .web-cta:focus-visible {
+    background: #0a5555; transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(14,107,107,.3); outline: none;
+  }
+  .web-cta .arrow { transition: transform .15s ease; display: inline-block; }
+  .web-cta:hover .arrow { transform: translateX(3px); }
+  .sub-card .web-cta { margin-top: 8px; padding: 7px 12px; font-size: 12px; }
 </style>
 </head>
 <body>
@@ -1788,17 +1835,17 @@
   <div class="legend">
     <div class="legend-group">
       <div class="legend-label">Flow</div>
-      <div class="legend-item"><span class="legend-swatch swatch-spine"></span>Happy path</div>
-      <div class="legend-item"><span class="legend-swatch swatch-recovery"></span>Recovery</div>
-      <div class="legend-item"><span class="legend-swatch swatch-side"></span>Always fires</div>
-      <div class="legend-item"><span class="legend-swatch swatch-scaffold"></span>Behind scenes</div>
+      <div class="legend-item"><span class="legend-swatch swatch-spine"></span>Happy path <span class="legend-code">#0E6B6B</span></div>
+      <div class="legend-item"><span class="legend-swatch swatch-recovery"></span>Recovery <span class="legend-code">#C47A2C</span></div>
+      <div class="legend-item"><span class="legend-swatch swatch-side"></span>Always fires <span class="legend-code">#C47A2C</span></div>
+      <div class="legend-item"><span class="legend-swatch swatch-scaffold"></span>Behind scenes <span class="legend-code">#8A8A8A</span></div>
     </div>
     <div class="legend-group">
       <div class="legend-label">Surface</div>
-      <div class="legend-item"><span class="legend-dot surf-web"></span>Website</div>
-      <div class="legend-item"><span class="legend-dot surf-quiz"></span>Kajabi</div>
-      <div class="legend-item"><span class="legend-dot surf-mail"></span>Email</div>
-      <div class="legend-item"><span class="legend-dot surf-bts"></span>System</div>
+      <div class="legend-item"><span class="legend-dot surf-web"></span>Website <span class="legend-code">#2E6FAE</span></div>
+      <div class="legend-item"><span class="legend-dot surf-quiz"></span>Kajabi <span class="legend-code">#6B5B8A</span></div>
+      <div class="legend-item"><span class="legend-dot surf-mail"></span>Email <span class="legend-code">#B8863D</span></div>
+      <div class="legend-item"><span class="legend-dot surf-bts"></span>System <span class="legend-code">#5C6670</span></div>
     </div>
   </div>
   <div class="help-hint">
@@ -1886,7 +1933,7 @@
         <div class="sec-label"><span class="num">5</span> Open Questions</div>
         <div class="impl-open-q">
           <strong>Upsell target — MEM or HWN?</strong><br>
-          CH-5 → CH-9 are framed generically as "the next step". Confirm whether the pitch sequence targets MEM ($1,997), HWN ($47/mo), or split by segment (e.g., high-intent → MEM, low-intent → HWN).
+          CH-5 → CH-9 are framed generically as "the next step". Confirm whether the pitch sequence targets MEM ($1,497 headline), HWN ($47/mo or $470/yr), or split by segment (e.g., high-intent → MEM, low-intent → HWN).
         </div>
         <div class="impl-open-q">
           <strong>Kajabi → GHL activity heartbeat.</strong><br>
@@ -1905,7 +1952,7 @@
     </div>
     <div class="impl-foot">
       <span>Press <span class="kbd">i</span> to toggle · <span class="kbd">Esc</span> to close</span>
-      <span>Challenge · $47</span>
+      <span>Challenge · $37</span>
     </div>
   </div>
 </aside>
@@ -2018,15 +2065,16 @@
               <span class="tdot y"></span>
               <span class="tdot g"></span>
             </div>
-            <div class="url-pill" title="callmedoctorp.com/challenge-checkout">
+            <div class="url-pill" title="callmedoctorp.com/7-day-challenge-checkout">
               <span class="lock">🔒</span>
-              <span class="domain">callmedoctorp.com</span><span class="path">/challenge-checkout</span>
+              <span class="domain">callmedoctorp.com</span><span class="path">/7-day-challenge-checkout</span>
             </div>
           </div>
           <div class="web-body">
             <span class="kind">Checkout Page</span>
             <h2>User buys the 7-Day Challenge</h2>
             <div class="detail">GHL captures contact + payment, then redirects into onboarding.</div>
+            <a class="web-cta" href="https://callmedoctorp.com/7-day-challenge-checkout/" target="_blank" rel="noopener noreferrer">Open checkout <span class="arrow">→</span></a>
           </div>
         </div>
       </div>
@@ -2040,15 +2088,16 @@
               <span class="tdot y"></span>
               <span class="tdot g"></span>
             </div>
-            <div class="url-pill" title="callmedoctorp.com/challenge-confirmed">
+            <div class="url-pill" title="callmedoctorp.com/7-day-challenge-thank-you-reg">
               <span class="lock">🔒</span>
-              <span class="domain">callmedoctorp.com</span><span class="path">/challenge-confirmed</span>
+              <span class="domain">callmedoctorp.com</span><span class="path">/7-day-challenge-thank-you-reg</span>
             </div>
           </div>
           <div class="web-body">
             <span class="kind">Confirmation Page · Primary Onboarding</span>
             <h2>Day 1 access starts here</h2>
             <div class="detail">Primary onboarding moment. Shows Kajabi login path, Day 1 expectations, and bonus preview. Email is backup.</div>
+            <a class="web-cta" href="https://callmedoctorp.com/7-day-challenge-thank-you-reg/" target="_blank" rel="noopener noreferrer">Open page <span class="arrow">→</span></a>
           </div>
         </div>
       </div>
@@ -2651,7 +2700,7 @@ function resetToFirstHappyPathCard() {
 viewport.addEventListener('pointerdown', (e) => {
   // Don't start a pan if the user pressed inside the toolbar or on a clickable
   // card (clickable cards open the email modal on tap).
-  if (e.target.closest('.toolbar, .card.clickable')) return;
+  if (e.target.closest('.toolbar, .card.clickable, .web-cta')) return;
   e.preventDefault();
   state.isPanning = true;
   state.startX = e.clientX;
@@ -2703,7 +2752,7 @@ viewport.addEventListener('wheel', (e) => {
 }, { passive: false });
 
 viewport.addEventListener('dblclick', (e) => {
-  if (e.target.closest('[data-email], .toolbar, .card.clickable')) return;
+  if (e.target.closest('[data-email], .toolbar, .card.clickable, .web-cta')) return;
   fitToScreen();
 });
 
@@ -2841,7 +2890,7 @@ I read the replies.
 Dr. P
 
 Order summary:
-7-Day Hormone Reset & Recharge Challenge, $47
+7-Day Hormone Reset & Recharge Challenge, $37
 [Order details / receipt]`
       },
       {
@@ -2870,7 +2919,7 @@ And hit reply when you have a second. Tell me what you want to change in the nex
 Dr. P
 
 Order summary:
-7-Day Hormone Reset & Recharge Challenge, $47
+7-Day Hormone Reset & Recharge Challenge, $37
 [Order details / receipt]`
       }
     ]
@@ -3150,12 +3199,11 @@ You also get:
 
 The investment is:
 
-Pay in full, $1,997
-or
-3 monthly payments of $667
+Pay in full, $1,497 (with DOCTORP500)
+or a payment plan (3× $667, or $497 + 10× $150)
 
 If you are ready to go deeper, here is the link:
-👉 [MEM CHECKOUT URL]
+👉 https://callmedoctorp.com/madame-estrogen-mastermind-checkout/?coupon=DOCTORP500
 
 If you have questions first, hit reply. I will answer honestly.
 
@@ -3190,7 +3238,7 @@ You can always try, but if guessing and Googling were enough, you probably would
 The Mastermind is for the woman who wants depth, structure, and support.
 
 If that is you:
-👉 [MEM CHECKOUT URL]
+👉 https://callmedoctorp.com/madame-estrogen-mastermind-checkout/?coupon=DOCTORP500
 
 If not, that is okay too. This is the last email I will send you about it for a while.
 
@@ -3215,7 +3263,8 @@ let lastTrigger = null;
 
 function renderWithTokens(text) {
   const esc = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  return esc.replace(/\[([^\]]+)\]/g, '<span class="tok">[$1]</span>');
+  const withTokens = esc.replace(/\[([^\]]+)\]/g, '<span class="tok">[$1]</span>');
+  return withTokens.replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
 }
 
 function renderVariant(emailId, variantIndex) {

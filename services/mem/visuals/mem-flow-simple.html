@@ -129,10 +129,25 @@
     color: var(--ink-mute);
     align-self: center;
   }
-  .legend-item { display: flex; align-items: center; gap: 5px; color: var(--ink-soft); }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+  .legend-code {
+    font-family: 'SF Mono', Consolas, monospace;
+    font-size: 0.61rem;
+    letter-spacing: 0.02em;
+    color: var(--ink-mute);
+  }
   .legend-swatch {
     width: 24px; height: 4px; border-radius: 2px;
     display: inline-block;
+    flex: 0 0 auto;
+    min-width: 24px;
+    box-shadow: inset 0 0 0 1px rgba(26,26,26,0.08);
   }
   .swatch-spine    { background: var(--spine); height: 5px; }
   .swatch-recovery { background: repeating-linear-gradient(90deg, var(--recovery), var(--recovery) 5px, transparent 5px, transparent 9px); }
@@ -141,6 +156,9 @@
   .legend-dot {
     width: 10px; height: 10px; border-radius: 50%;
     display: inline-block;
+    flex: 0 0 auto;
+    min-width: 10px;
+    box-shadow: inset 0 0 0 1px rgba(26,26,26,0.12);
   }
   .legend-dot.surf-web  { background: var(--ico-web); }
   .legend-dot.surf-quiz { background: var(--ico-quiz); }
@@ -1455,6 +1473,17 @@
     font-weight: 600;
     white-space: nowrap;
   }
+  .em-body a, .em-headers a {
+    color: #0E6B6B;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    word-break: break-word;
+  }
+  .em-body a:hover, .em-headers a:hover {
+    color: #0a4f4f;
+    text-decoration-thickness: 2px;
+  }
 
   @media (max-width: 900px) {
     header.hero { flex-wrap: wrap; gap: 14px; }
@@ -1787,6 +1816,24 @@
     .impl-panel { width: 86vw; }
     .impl-tab { padding: 12px 6px; font-size: 0.62rem; }
   }
+
+  /* ===== Prominent CTA on every website card ===== */
+  .web-cta {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-top: 12px; padding: 9px 16px;
+    background: #0e6b6b; color: #fff !important;
+    border-radius: 999px; font-weight: 700; font-size: 13px; letter-spacing: .2px;
+    text-decoration: none; box-shadow: 0 2px 8px rgba(14,107,107,.22);
+    transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+    cursor: pointer; align-self: flex-start;
+  }
+  .web-cta:hover, .web-cta:focus-visible {
+    background: #0a5555; transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(14,107,107,.3); outline: none;
+  }
+  .web-cta .arrow { transition: transform .15s ease; display: inline-block; }
+  .web-cta:hover .arrow { transform: translateX(3px); }
+  .sub-card .web-cta { margin-top: 8px; padding: 7px 12px; font-size: 12px; }
 </style>
 </head>
 <body>
@@ -1800,17 +1847,17 @@
   <div class="legend">
     <div class="legend-group">
       <div class="legend-label">Flow</div>
-      <div class="legend-item"><span class="legend-swatch swatch-spine"></span>Happy path</div>
-      <div class="legend-item"><span class="legend-swatch swatch-recovery"></span>Recovery</div>
-      <div class="legend-item"><span class="legend-swatch swatch-side"></span>Always fires</div>
-      <div class="legend-item"><span class="legend-swatch swatch-scaffold"></span>Behind scenes</div>
+      <div class="legend-item"><span class="legend-swatch swatch-spine"></span>Happy path <span class="legend-code">#0E6B6B</span></div>
+      <div class="legend-item"><span class="legend-swatch swatch-recovery"></span>Recovery <span class="legend-code">#C47A2C</span></div>
+      <div class="legend-item"><span class="legend-swatch swatch-side"></span>Always fires <span class="legend-code">#C47A2C</span></div>
+      <div class="legend-item"><span class="legend-swatch swatch-scaffold"></span>Behind scenes <span class="legend-code">#8A8A8A</span></div>
     </div>
     <div class="legend-group">
       <div class="legend-label">Surface</div>
-      <div class="legend-item"><span class="legend-dot surf-web"></span>Website</div>
-      <div class="legend-item"><span class="legend-dot surf-quiz"></span>Kajabi</div>
-      <div class="legend-item"><span class="legend-dot surf-mail"></span>Email</div>
-      <div class="legend-item"><span class="legend-dot surf-bts"></span>System</div>
+      <div class="legend-item"><span class="legend-dot surf-web"></span>Website <span class="legend-code">#2E6FAE</span></div>
+      <div class="legend-item"><span class="legend-dot surf-quiz"></span>Kajabi <span class="legend-code">#6B5B8A</span></div>
+      <div class="legend-item"><span class="legend-dot surf-mail"></span>Email <span class="legend-code">#B8863D</span></div>
+      <div class="legend-item"><span class="legend-dot surf-bts"></span>System <span class="legend-code">#5C6670</span></div>
     </div>
   </div>
   <div class="help-hint">
@@ -1848,7 +1895,7 @@
           <dt>Delivery</dt>
           <dd>Kajabi weekly drip + GHL email sequence (14 emails) + community invite + live-call calendar. Payment-plan path branches into a parallel dunning sub-flow (MEM-D1 → MEM-D3 → MEM-DR).</dd>
           <dt>Price</dt>
-          <dd>$1,997 one-time OR payment plan (triggers dunning sub-flow if any installment fails).</dd>
+          <dd>$1,497 headline one-time (with DOCTORP500) OR payment plan — 3 × $667/mo or $497 + 10 × $150. Payment-plan path triggers dunning sub-flow if any installment fails.</dd>
           <dt>Purpose</dt>
           <dd>Deliver 12-week Mastermind curriculum (MEM-1 → MEM-10) then pivot to HWN cross-sell (MEM-11 → MEM-14). Cross-sell emails (MEM-12/13/14) skip if <code>purchased_hwn</code> already exists.</dd>
         </dl>
@@ -1931,7 +1978,7 @@
     </div>
     <div class="impl-foot">
       <span>Press <span class="kbd">i</span> to toggle · <span class="kbd">Esc</span> to close</span>
-      <span>MEM · $1,997</span>
+      <span>MEM · $1,497</span>
     </div>
   </div>
 </aside>
@@ -2099,23 +2146,64 @@
       </div>
 
       <div class="cell row-spine" style="grid-column: 1;">
-        <div class="card hero web-chrome surface-web kind-tinted" id="n-checkout">
-          <span class="step">1</span>
-          <div class="chrome-bar">
-            <div class="tdots">
-              <span class="tdot r"></span>
-              <span class="tdot y"></span>
-              <span class="tdot g"></span>
+        <div class="card hero stacked-group surface-web" id="n-checkout">
+          <span class="group-label">Step 1 · Checkout (3 offers)</span>
+          <div class="sub-card web-chrome" id="n-checkout-1497">
+            <span class="step">1a</span>
+            <div class="chrome-bar">
+              <div class="tdots">
+                <span class="tdot r"></span>
+                <span class="tdot y"></span>
+                <span class="tdot g"></span>
+              </div>
+              <div class="url-pill" title="callmedoctorp.com/madame-estrogen-mastermind-checkout/?coupon=DOCTORP500">
+                <span class="lock">🔒</span>
+                <span class="path">/madame-estrogen-mastermind-checkout?coupon=DOCTORP500</span>
+              </div>
             </div>
-            <div class="url-pill" title="callmedoctorp.com/mem-checkout">
-              <span class="lock">🔒</span>
-              <span class="domain">callmedoctorp.com</span><span class="path">/mem-checkout</span>
+            <div class="web-body">
+              <span class="kind">Flagship · Pay in Full</span>
+              <h3>$1,497 (with DOCTORP500)</h3>
+              <a class="web-cta" href="https://callmedoctorp.com/madame-estrogen-mastermind-checkout/?coupon=DOCTORP500" target="_blank" rel="noopener noreferrer">Open checkout <span class="arrow">→</span></a>
             </div>
           </div>
-          <div class="web-body">
-            <span class="kind">Checkout Page</span>
-            <h2>User buys MEM</h2>
-            <div class="detail">Premium GHL checkout with full-pay or payment-plan paths, plus optional UHA bump.</div>
+          <div class="sub-card web-chrome" id="n-checkout-667">
+            <span class="step">1b</span>
+            <div class="chrome-bar">
+              <div class="tdots">
+                <span class="tdot r"></span>
+                <span class="tdot y"></span>
+                <span class="tdot g"></span>
+              </div>
+              <div class="url-pill" title="callmedoctorp.com/madame-estrogen-checkout-monthly-667">
+                <span class="lock">🔒</span>
+                <span class="path">/madame-estrogen-checkout-monthly-667</span>
+              </div>
+            </div>
+            <div class="web-body">
+              <span class="kind">Payment Plan · Monthly</span>
+              <h3>3 × $667/mo</h3>
+              <a class="web-cta" href="https://callmedoctorp.com/madame-estrogen-checkout-monthly-667/" target="_blank" rel="noopener noreferrer">Open checkout <span class="arrow">→</span></a>
+            </div>
+          </div>
+          <div class="sub-card web-chrome" id="n-checkout-497-150">
+            <span class="step">1c</span>
+            <div class="chrome-bar">
+              <div class="tdots">
+                <span class="tdot r"></span>
+                <span class="tdot y"></span>
+                <span class="tdot g"></span>
+              </div>
+              <div class="url-pill" title="callmedoctorp.com/the-madame-estrogen-mastermind-checkout-upfront-and-monthly-regular-price">
+                <span class="lock">🔒</span>
+                <span class="path">/the-madame-estrogen-mastermind-checkout-upfront-and-monthly-regular-price</span>
+              </div>
+            </div>
+            <div class="web-body">
+              <span class="kind">Upfront + Monthly</span>
+              <h3>$497 upfront + $150/mo</h3>
+              <a class="web-cta" href="https://callmedoctorp.com/the-madame-estrogen-mastermind-checkout-upfront-and-monthly-regular-price/" target="_blank" rel="noopener noreferrer">Open checkout <span class="arrow">→</span></a>
+            </div>
           </div>
         </div>
       </div>
@@ -2129,15 +2217,16 @@
               <span class="tdot y"></span>
               <span class="tdot g"></span>
             </div>
-            <div class="url-pill" title="callmedoctorp.com/mem-confirmed">
+            <div class="url-pill" title="callmedoctorp.com/madame-estrogen-mastermind-thank-you-reg">
               <span class="lock">🔒</span>
-              <span class="domain">callmedoctorp.com</span><span class="path">/mem-confirmed</span>
+              <span class="domain">callmedoctorp.com</span><span class="path">/madame-estrogen-mastermind-thank-you-reg</span>
             </div>
           </div>
           <div class="web-body">
             <span class="kind">Confirmation Page · Premium Onboarding</span>
             <h2>Course, community, and first-call setup</h2>
             <div class="detail">Shows Kajabi login path, community button, first accountability call, payment schedule, and the 12-week roadmap.</div>
+            <a class="web-cta" href="https://callmedoctorp.com/madame-estrogen-mastermind-thank-you-reg/" target="_blank" rel="noopener noreferrer">Open page <span class="arrow">→</span></a>
           </div>
         </div>
       </div>
@@ -2928,7 +3017,7 @@ function resetToFirstHappyPathCard() {
 viewport.addEventListener('pointerdown', (e) => {
   // Don't start a pan if the user pressed inside the toolbar or on a clickable
   // card (clickable cards open the email modal on tap).
-  if (e.target.closest('.toolbar, .card.clickable')) return;
+  if (e.target.closest('.toolbar, .card.clickable, .web-cta')) return;
   e.preventDefault();
   state.isPanning = true;
   state.startX = e.clientX;
@@ -2980,7 +3069,7 @@ viewport.addEventListener('wheel', (e) => {
 }, { passive: false });
 
 viewport.addEventListener('dblclick', (e) => {
-  if (e.target.closest('[data-email], .toolbar, .card.clickable')) return;
+  if (e.target.closest('[data-email], .toolbar, .card.clickable, .web-cta')) return;
   fitToScreen();
 });
 
@@ -3414,7 +3503,7 @@ or
 $470 per year
 
 When you are ready:
-👉 [HWN CHECKOUT URL]
+👉 https://callmedoctorp.com/hormone-wellness-network-checkout/
 
 Dr. P`
     }]
@@ -3440,7 +3529,7 @@ $47 per month
 or
 $470 per year
 
-👉 [HWN CHECKOUT URL]
+👉 https://callmedoctorp.com/hormone-wellness-network-checkout/
 
 If it is not the right next step for you, no pressure. I just wanted to make sure you knew it was coming.
 
@@ -3461,7 +3550,7 @@ Dr. P`
 Just a quick reminder that your HWN bonus access is getting close to the end.
 
 If you want to keep the community and ongoing support, you can continue here:
-👉 [HWN CHECKOUT URL]
+👉 https://callmedoctorp.com/hormone-wellness-network-checkout/
 
 If not, that is okay too. What you built in the Mastermind is still yours.
 
@@ -3482,7 +3571,7 @@ Dr. P`
 Your complimentary HWN access from the Mastermind is almost over.
 
 If you want to stay connected to the community, support, and membership resources, here is the next step:
-👉 [HWN CHECKOUT URL]
+👉 https://callmedoctorp.com/hormone-wellness-network-checkout/
 
 Options:
 $47 per month
@@ -3596,7 +3685,8 @@ let lastTrigger = null;
 
 function renderWithTokens(text) {
   const esc = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  return esc.replace(/\[([^\]]+)\]/g, '<span class="tok">[$1]</span>');
+  const withTokens = esc.replace(/\[([^\]]+)\]/g, '<span class="tok">[$1]</span>');
+  return withTokens.replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
 }
 
 function renderVariant(emailId, variantIndex) {
