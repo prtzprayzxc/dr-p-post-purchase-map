@@ -30,10 +30,9 @@ Welcome to the Hormone Wellness Network. You're in a room with women who decided
 Here is what matters first:
 
 
-Here is your link:
+Your membership lives behind your Kajabi login. One login, and you're in.
 
-Here is your membership link:
-👉 Your HWN Membership → [KAJABI HWN URL]
+👉 Log in to Kajabi → https://kerry-anne-perkins.mykajabi.com/login
 
 If you already set up your Kajabi account before this email arrived, log in there now.
 
@@ -41,13 +40,12 @@ If you already had a Kajabi account from before, use your existing password ther
 
 If neither of those is true yet, you'll receive a separate email from our course platform (Kajabi) in the next few minutes. It might land in spam — check there if you don't see it within 5 minutes.
 
-Click the link in that email to set your password. Then come right back to the login link above.
+Click the link in that email to set your password. Then come back and log in.
 
 
-Then come into the community:
+Then head into the community:
 
-This is where the day-to-day conversation happens:
-👉 [KAJABI COMMUNITY URL]
+Once you're logged in, click into the Hormone Wellness Network and head to the community — that's where the day-to-day conversation happens.
 
 You do not need to do much today:
 
@@ -77,10 +75,9 @@ Hormone Wellness Network — [Monthly $47/mo | Annual $470/yr]
 **Same email but replace login section with:**
 
 ```
-Here is your link:
+Your membership lives behind your Kajabi login. Use your existing password, then click into the Hormone Wellness Network.
 
-Use this login link:
-👉 Your HWN Membership → [KAJABI HWN URL]
+👉 Log in to Kajabi → https://kerry-anne-perkins.mykajabi.com/login
 
 If you already set up your Kajabi account before this email arrived, log in there now.
 
@@ -106,11 +103,11 @@ PREHEADER: Your access is restored. Here's the easiest way to jump back in.
 
 Welcome back to the Network. I'm glad you're here.
 
-Your access is fully restored — everything is right where you left it:
-👉 Your Membership → [KAJABI HWN URL]
-👉 Community → [KAJABI COMMUNITY URL]
+Your access is fully restored — everything is right where you left it, one login away.
 
-No long onboarding — you already know how this works. Log in, check the community, and pick one thing to re-engage with this week. That's enough to get back in the rhythm.
+👉 Log in to Kajabi → https://kerry-anne-perkins.mykajabi.com/login
+
+No long onboarding — you already know how this works. Log in, click into the Network, head to the community, and pick one thing to re-engage with this week. That's enough to get back in the rhythm.
 
 It's good to have you back.
 
@@ -159,8 +156,9 @@ Stay connected to one thing this week. That's it.
 
 Don't try to catch up on everything. Just choose one useful next step and take it.
 
-The easiest place to start is the community:
-👉 [KAJABI COMMUNITY URL]
+The easiest place to start is the community. Log into Kajabi, click into the Network, and head there first.
+
+👉 Log in to Kajabi → https://kerry-anne-perkins.mykajabi.com/login
 
 [IF NO KAJABI LOGIN DETECTED — ADD THIS SECTION:]
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -200,8 +198,8 @@ If the Network has been sitting in the background for you, don't overcomplicate 
 
 What to do next:
 
-→ Log into your membership: [KAJABI HWN URL]
-→ Check the community: [COMMUNITY URL]
+→ Log into Kajabi: https://kerry-anne-perkins.mykajabi.com/login
+→ Once you're in, click into the Network and head to the community
 → Pick one lesson, replay, or discussion to engage with this week
 
 If you only do one thing this month, make it this:
@@ -241,7 +239,7 @@ Log in today and do one small thing.
 → Ask one question in the community
 → Revisit one resource that supports what you're working on right now
 
-👉 Jump back in here: [KAJABI HWN URL]
+👉 Log in and jump back in → https://kerry-anne-perkins.mykajabi.com/login
 
 Small, consistent engagement is what makes this useful.
 
@@ -278,12 +276,15 @@ Use the Network for that.
 → More accountability
 → More connection and support
 
-Your next step is already inside the membership:
-👉 [KAJABI HWN URL]
+Your next step is already inside the membership. Log into Kajabi, click into the Network, and pick it up.
+
+👉 Log in → https://kerry-anne-perkins.mykajabi.com/login
 
 You don't need to do more. You just need to stay connected.
 
 Dr. P
+
+P.S. If you're on the monthly plan and plan to stick around, the annual plan works out to about $39/month (a $94/year savings). If that's useful: https://callmedoctorp.com/hormone-wellness-network-checkout-annual/
 ```
 
 ---
@@ -432,9 +433,9 @@ Hey [First Name],
 
 Your payment went through — your Network membership is fully active. No interruption.
 
-👉 Your Membership → [KAJABI HWN URL]
+👉 Log in and jump back in → https://kerry-anne-perkins.mykajabi.com/login
 
-Nothing else to do. Your access is fully active again.
+Nothing else to do. Once you're logged in, hop into the community and grab the next thing that's useful to you.
 
 — The Dr. P Team
 ```
@@ -502,7 +503,7 @@ One thing I'd remind you of:
 Consistency matters more than intensity. A small amount of ongoing support usually beats another full restart.
 
 If any of that sounds useful, you can rejoin anytime:
-👉 [HWN CHECKOUT URL]
+👉 https://callmedoctorp.com/hormone-wellness-network/
 
 If not — no hard feelings. Just wanted you to know what's happening.
 
@@ -545,7 +546,7 @@ You said you got what you needed — and honestly, that's a great outcome. If yo
 I've been thinking about what might have made the Network work better for you. If you have 30 seconds, I'd genuinely love to know — just reply to this email.
 
 If you want to give it another try:
-👉 [HWN CHECKOUT URL]
+👉 https://callmedoctorp.com/hormone-wellness-network/
 
 Either way, I wish you well.
 
@@ -581,7 +582,7 @@ She's been back for [X] months now and said the biggest difference was simply st
 
 I'm not sharing this to guilt you. I'm sharing it because if any part of you has been thinking about coming back, you're not the only one.
 
-👉 [HWN CHECKOUT URL]
+👉 https://callmedoctorp.com/hormone-wellness-network/
 
 No judgment either way.
 
@@ -620,7 +621,7 @@ OR
 That's free. That's yours. Use it.
 
 If you ever want to come back to the Network, the door is always open:
-👉 [HWN CHECKOUT URL]
+👉 https://callmedoctorp.com/hormone-wellness-network/
 
 Take care of yourself, [First Name]. You know more about your body now than most women ever will. Use it.
 

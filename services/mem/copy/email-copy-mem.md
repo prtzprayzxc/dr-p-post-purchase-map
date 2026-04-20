@@ -32,8 +32,9 @@ Here's what matters right now:
 
 1. Get inside
 
-Here is your course link:
-👉 Your Mastermind Course → [KAJABI MEM COURSE URL]
+Everything lives behind your Kajabi login — the course, the community, your calls. One login, and you're in.
+
+👉 Log in to Kajabi → https://kerry-anne-perkins.mykajabi.com/login
 
 If you already set up your Kajabi account before this email arrived, log in there now.
 
@@ -41,17 +42,16 @@ If you already had a Kajabi account from before, use your existing password ther
 
 If neither of those is true yet, you'll receive a separate email from our course platform (Kajabi) in the next few minutes. It may land in spam — check there if you don't see it within 5 minutes.
 
-Click the link in that email to set your password. Then come right back to the login link above.
+Click the link in that email to set your password. Then come back and log in.
 
-Week 1 (Rejuvenation) is already unlocked.
+Once you're in, click into the Madame Estrogen Mastermind — Week 1 (Rejuvenation) is already unlocked.
 
 
 2. Join the community
 
-This is where your fellow Mastermind women hang out — between calls, between modules, whenever you need support:
-👉 Empowered Sister Community → [KAJABI COMMUNITY URL]
+Once you're logged in, head to the Empowered Sister Community — it's where your fellow Mastermind women hang out between calls and between modules.
 
-Your first action in the community: introduce yourself. Tell us who you are, what brought you here, and what you want to be different 12 weeks from now.
+Your first action in there: introduce yourself. Tell us who you are, what brought you here, and what you want to be different 12 weeks from now.
 
 The women in there will welcome you. I promise.
 
@@ -78,7 +78,7 @@ Payment details:
 
 If you ever have a billing question, just reply to this email.
 
-[IF FULL PAY — replace with: "Payment: $1,997 (paid in full — thank you)"]
+[IF FULL PAY — replace with: "Payment: $1,497 (paid in full — thank you)"]
 
 
 What I want you to do today:
@@ -93,7 +93,7 @@ Welcome to the Mastermind, [First Name]. I'm honored you're here.
 
 ---
 Order summary:
-Madame Estrogen Mastermind — $1,997 [or payment plan details]
+Madame Estrogen Mastermind — $1,497 [or payment plan details]
 [Order details / receipt]
 ```
 
@@ -106,12 +106,11 @@ Madame Estrogen Mastermind — $1,997 [or payment plan details]
 ```
 1. Get inside
 
-Use this login link to access your course:
-👉 Your Mastermind Course → [KAJABI MEM COURSE URL]
+Everything — course, community, and calls — lives behind your Kajabi login. One login gets you in.
 
-If you already set up your Kajabi account before this email arrived, log in there now.
+👉 Log in to Kajabi → https://kerry-anne-perkins.mykajabi.com/login
 
-If you already had a Kajabi account from before, use your existing password.
+Use your existing Kajabi password, then click into the Madame Estrogen Mastermind.
 
 Week 1 (Rejuvenation) is already unlocked.
 ```
@@ -156,18 +155,15 @@ Don't try to binge all 12 modules in a weekend. Don't try to overhaul your entir
 
 What to do next:
 
-If you haven't already, go to the community and introduce yourself:
-👉 [KAJABI COMMUNITY URL]
+If you haven't already, log into Kajabi and head to the community. Introduce yourself — tell us who you are, what brought you to the Mastermind, and what you want to be different 12 weeks from now.
 
-Tell us:
-— Who you are
-— What brought you to the Mastermind
-— What you want to be different 12 weeks from now
+👉 Log in → https://kerry-anne-perkins.mykajabi.com/login
 
 The women in there are waiting to meet you.
 
-And if you haven't started Week 1 yet — today's the day:
-👉 Week 1: Rejuvenation → [KAJABI COURSE URL]
+And if you haven't started Week 1 yet — today's the day. Log in, click into the Mastermind, and open Week 1: Rejuvenation.
+
+👉 Log in and open Week 1 → https://kerry-anne-perkins.mykajabi.com/login
 
 We have 12 weeks. Let's make them count.
 
@@ -198,7 +194,9 @@ If not — today is the day. Here's why:
 
 The women who get the most out of the weekly accountability calls are the ones who come in having done the week's module. You'll have context. You'll have questions. And you'll get answers that actually apply to what you just learned.
 
-👉 Week 1: Rejuvenation → [KAJABI COURSE URL]
+Log into Kajabi, click into the Mastermind, and finish Week 1 before the call.
+
+👉 Log in and finish Week 1 → https://kerry-anne-perkins.mykajabi.com/login
 
 Watch it before the call. Come ready.
 
@@ -229,7 +227,9 @@ Before you roll your eyes and think "I already know about nutrition," stay with 
 
 We're talking about eating specifically for YOUR hormones — what your endocrine system needs to produce, metabolize, and eliminate hormones efficiently. Most of what you've been told about "healthy eating" wasn't designed for this.
 
-👉 Week 2: Nutrition → [KAJABI COURSE URL]
+Log in, click into the Mastermind, and open Week 2.
+
+👉 Log in and open Week 2 → https://kerry-anne-perkins.mykajabi.com/login
 
 After you watch it, bring your questions to the weekly accountability call inside your member area.
 
@@ -262,7 +262,9 @@ Here's what most women don't know: the wrong exercise at the wrong time in your 
 
 This week we redefine what movement means for your body specifically.
 
-👉 Week 3: Movement → [KAJABI COURSE URL]
+Log in, click into the Mastermind, and open Week 3 when you're ready.
+
+👉 Log in and open Week 3 → https://kerry-anne-perkins.mykajabi.com/login
 
 Bring your questions to the weekly accountability call inside your member area.
 
@@ -297,7 +299,9 @@ This is the module I personally find most important. We go beyond "estrogen" and
 
 After this week, you'll understand your body in a way most women never do — including most of the women your doctor sees.
 
-👉 Week 4: Hormones Deep Dive → [KAJABI COURSE URL]
+Log into Kajabi, click into the Mastermind, and open Week 4.
+
+👉 Log in and open Week 4 → https://kerry-anne-perkins.mykajabi.com/login
 
 Bring your questions to the weekly accountability call inside your member area.
 
@@ -352,7 +356,9 @@ Wk 12: Integration — your personalized long-term system
 
 The first half built the foundation. The second half is where you deepen the work.
 
-This week: Gut Health → [KAJABI COURSE URL]
+This week's module is Gut Health — log in and open it when you're ready.
+
+👉 Log in → https://kerry-anne-perkins.mykajabi.com/login
 
 Keep going.
 
@@ -390,7 +396,9 @@ Do not fade out now. I've seen women cruise through 8 weeks and coast the last 4
 
 Show up for these last 4 weeks like you showed up for the first.
 
-👉 Week 9: Liver Support → [KAJABI COURSE URL]
+Log into Kajabi, click into the Mastermind, and open Week 9.
+
+👉 Log in and open Week 9 → https://kerry-anne-perkins.mykajabi.com/login
 
 Bring your questions to the weekly accountability call inside your member area.
 
@@ -421,7 +429,9 @@ This is your last module. And it might be the most important one — because thi
 
 The habits that work for you. The routines that fit your life. The approach to nutrition, movement, stress, sleep, and supplements that you'll actually sustain after this program ends.
 
-👉 Week 12: Integration → [KAJABI COURSE URL]
+Log in, click into the Mastermind, and open Week 12.
+
+👉 Log in and open Week 12 → https://kerry-anne-perkins.mykajabi.com/login
 
 Before you watch it, I want to tell you something.
 
@@ -527,7 +537,7 @@ You already got real value from the Mastermind.
 
 But if you want ongoing support, continued access to the community, and a simple place to stay connected to this work, this is the next step.
 
-When you're ready: [HWN CHECKOUT URL]
+When you're ready: https://callmedoctorp.com/hormone-wellness-network/
 
 If you have questions, reply to this email and we'll help you.
 
@@ -562,7 +572,7 @@ If you've been using it and want to keep going:
 → Monthly: $47/mo
 → Annual: $470/yr (saves you $94)
 
-👉 Continue Your Membership → [HWN CHECKOUT URL]
+👉 Continue Your Membership → https://callmedoctorp.com/hormone-wellness-network/
 
 If you sign up before your bonus ends, your access continues seamlessly.
 
@@ -596,7 +606,7 @@ Just a quick note.
 
 You have one week left on your Hormone Wellness Network bonus.
 
-If you want to continue your access: [HWN CHECKOUT URL]
+If you want to continue your access: https://callmedoctorp.com/hormone-wellness-network/
 
 If not, no pressure. Everything you built in the Mastermind is still yours to keep.
 
@@ -625,7 +635,7 @@ Your complimentary HWN access from the Mastermind is almost over.
 
 If you want to keep the community, support, and membership resources available to you, you can continue here:
 
-👉 Continue Your Membership → [HWN CHECKOUT URL]
+👉 Continue Your Membership → https://callmedoctorp.com/hormone-wellness-network/
 
 Options:
 → Monthly: $47/mo
@@ -750,7 +760,9 @@ Good news — your payment went through and everything is back on track. Your Ma
 
 No action needed on your end. Just keep doing what you've been doing.
 
-👉 Back to your course → [KAJABI MEM COURSE URL]
+👉 Log in and pick up where you left off → https://kerry-anne-perkins.mykajabi.com/login
+
+Once you're in, pop into the community and say hi — the women in there notice when someone's been quiet, and a quick check-in is the fastest way to get your momentum back.
 
 If you have any questions, we're here.
 

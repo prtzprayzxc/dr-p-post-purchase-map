@@ -28,13 +28,13 @@ PREHEADER: Day 1 is unlocked. Here's how to get in.
 
 You're in the 7-Day Hormone Reset & Recharge Challenge.
 
-Here is your link:
+Everything lives behind your Kajabi login. One login gets you to Day 1.
 
-👉 [KAJABI CHALLENGE COURSE URL]
+👉 Log in to Kajabi → https://kerry-anne-perkins.mykajabi.com/login
 
-If you already set up your Kajabi account before this email arrived, use that link and log in now.
+If you already set up your Kajabi account before this email arrived, log in now.
 
-If you already had a Kajabi account from before, use that same link and your existing password.
+If you already had a Kajabi account from before, use your existing password.
 
 If neither of those is true yet, you'll receive a separate email from our course platform (Kajabi) in the next few minutes. It might land in your spam folder — check there if you don't see it within 5 minutes.
 
@@ -73,7 +73,7 @@ Dr. P
 
 ---
 Order summary:
-7-Day Hormone Reset & Recharge Challenge — $47
+7-Day Hormone Reset & Recharge Challenge — $37
 [Order details / receipt]
 ```
 
@@ -98,11 +98,9 @@ You're in the 7-Day Hormone Reset & Recharge Challenge.
 
 Here is your link:
 
-👉 Start Day 1 Now → [KAJABI CHALLENGE COURSE URL]
+👉 Log in and open Day 1 → https://kerry-anne-perkins.mykajabi.com/login
 
-If you already set up your Kajabi account before this email arrived, log in now.
-
-If you already had a Kajabi account from before, use your existing password.
+Log in with your existing Kajabi password, then click into the 7-Day Challenge and start Day 1: Goal Setting. It's already unlocked and waiting for you.
 
 
 Here is the rhythm for the week:
@@ -110,7 +108,7 @@ Here is the rhythm for the week:
 → 7 days, 7 modules
 → A new module unlocks every morning
 → Each one takes about 15 minutes
-→ Day 1 is unlocked right now: Goal Setting
+→ Day 1 is ready the moment you log in: Goal Setting
 
 
 Your bonuses are inside too:
@@ -133,7 +131,7 @@ Dr. P
 
 ---
 Order summary:
-7-Day Hormone Reset & Recharge Challenge — $47
+7-Day Hormone Reset & Recharge Challenge — $37
 [Order details / receipt]
 ```
 
@@ -160,9 +158,9 @@ Did you finish Day 1?
 
 If yes, good. You started the week the right way.
 
-If not, go back and do that first. It takes about 15 minutes, and it sets the tone for everything else.
+If not, log into Kajabi first thing today and finish it. 15 minutes. It sets the tone for everything else.
 
-👉 Day 1: Goal Setting → [KAJABI COURSE URL]
+👉 Log in and finish Day 1 → https://kerry-anne-perkins.mykajabi.com/login
 
 
 Now for Day 2:
@@ -171,7 +169,9 @@ Today we talk about nutrition. And I need you to hear this with fresh ears.
 
 Most hormone advice about food is backwards. It teaches women to restrict first and ask questions later. That is not how I teach this.
 
-👉 Day 2: Nutrition → [KAJABI COURSE URL]
+Log in, click into the Challenge, and open Day 2 when you're ready.
+
+👉 Log in and continue → https://kerry-anne-perkins.mykajabi.com/login
 
 Give me 15 minutes today. That is enough.
 
@@ -201,13 +201,13 @@ No shame. Life gets busy. But I don't want this turning into one more thing you 
 
 Do not worry about catching up.
 
-Just start with Day 1.
+Just log in and start Day 1. That's it.
 
-👉 Start Day 1 → [KAJABI COURSE URL]
+👉 Log in and start Day 1 → https://kerry-anne-perkins.mykajabi.com/login
 
 If you already have your Kajabi password, use it and head in.
 
-If you still need to set it up, look for the Kajabi email, create your password there, then come back to the link above.
+If you still need to set it up, look for the Kajabi email, create your password there, then come back and log in.
 
 If something is not working, reply to this email and we will help you get in.
 
@@ -248,9 +248,11 @@ Days 4-7:
 
 By Day 7, you will not just know what to do. You will have practiced it.
 
-👉 Day 4 is live → [KAJABI COURSE URL]
+Day 4 is unlocked — log in and open it when you're ready.
 
-Keep going.
+👉 Log in and open Day 4 → https://kerry-anne-perkins.mykajabi.com/login
+
+Keep going. Don't let momentum slip on the back half.
 
 — Dr. P
 ```
@@ -276,9 +278,9 @@ I noticed you have not logged into the Challenge yet.
 
 No judgment — life happens. But you signed up for a reason. Something about the way you're feeling right now made you say "I need to do something different." That reason is still there.
 
-Here's the thing: you don't need to "catch up." You don't need to do 4 days in one sitting. You just need to do Day 1.
+Here's the thing: you don't need to "catch up." You don't need to do 4 days in one sitting. You just need to log in and do Day 1.
 
-👉 Start Day 1 → [KAJABI COURSE URL]
+👉 Log in and start Day 1 → https://kerry-anne-perkins.mykajabi.com/login
 
 15 minutes. One module. That's the only thing I'm asking for today.
 
@@ -314,11 +316,11 @@ Today's module — Integration — is where it all comes together.
 
 This is not a wrap-up video. It is the day where you take what you learned and turn it into something you can actually sustain.
 
-👉 Day 7: Integration → [KAJABI COURSE URL]
+Log into Kajabi, open Day 7, and finish it today.
 
-Finish this today. Don't let it sit.
+👉 Log in and finish Day 7 → https://kerry-anne-perkins.mykajabi.com/login
 
-Tomorrow, I have something to say to you about what you just accomplished. But first, finish Day 7.
+Don't let it sit. Tomorrow I have something to say to you about what you just accomplished — but first, finish Day 7.
 
 — Dr. P
 ```
@@ -510,9 +512,9 @@ Full access to my ongoing membership — ongoing support, member resources, and 
 
 THE INVESTMENT:
 
-I'm not going to pretend $1,997 is nothing. It is a real investment. So here are the options:
+I'm not going to pretend $1,497 is nothing. It is a real investment. So here are the options:
 
-→ Pay in full: $1,997
+→ Pay in full today: $1,497 (save $500 with the current discount)
 → 3 monthly payments of $667
 
 Here is the question I would ask instead:
@@ -523,7 +525,7 @@ In lost energy. In half-working solutions. In supplements that do nothing. In do
 
 The Challenge showed you what's possible in 7 days. The Mastermind gives you 12 weeks to make it permanent.
 
-If you are ready, here is the next step: [MEM CHECKOUT URL]
+If you are ready, here is the next step: https://callmedoctorp.com/madame-estrogen-mastermind/
 
 If you have questions first, reply to this email. I'll answer personally.
 
@@ -550,13 +552,13 @@ PREHEADER: Real questions. Honest answers.
 Before women join the Mastermind, they almost always have the same 3 questions. I want to answer them directly:
 
 
-"IS IT REALLY WORTH $2,000?"
+"IS IT REALLY WORTH $1,500?"
 
-Here's what I'd ask back: how much have you already spent on supplements, books, online programs, and doctor visits trying to fix your hormones? For most women I talk to, the answer is well over $2,000 — spread across things that didn't work or only worked temporarily.
+Here's what I'd ask back: how much have you already spent on supplements, books, online programs, and doctor visits trying to fix your hormones? For most women I talk to, the answer is well over $1,500 — spread across things that didn't work or only worked temporarily.
 
 The Mastermind is 12 weeks of structured, guided work with a board-certified OB-GYN, weekly live calls, and a community of women doing it alongside you. It is not another course you buy, watch alone, and forget.
 
-And if $1,997 upfront isn't feasible, the 3-pay option is $667 per month. That's less than most women spend monthly on supplements that aren't doing what they think.
+And if $1,497 upfront isn't feasible, the 3-pay option is $667 per month. That's less than most women spend monthly on supplements that aren't doing what they think.
 
 
 "WHAT IF I DON'T FOLLOW THROUGH?"
@@ -576,9 +578,13 @@ If Googling, supplementing, and guessing were going to fix your hormones, they w
 
 That's what the Mastermind provides. 12 weeks. A proven system. A doctor who specializes in exactly this. And women who get it.
 
-If you know you're ready: [MEM CHECKOUT URL]
+If you know you're ready: https://callmedoctorp.com/madame-estrogen-mastermind/
 
-If you're not, I understand. This email is the last one I'll send about the Mastermind for a while. You'll still hear from me — just about other things.
+If the Mastermind isn't the right level for you right now, I also run an ongoing, lower-commitment support membership — the Hormone Wellness Network. It's $47/month, cancel anytime, and it's the easiest way to stay connected to this work without the full 12-week program.
+
+If that feels like a better fit: https://callmedoctorp.com/hormone-wellness-network/
+
+If neither is right for you, I understand. This email is the last one I'll send about either of these for a while. You'll still hear from me — just about other things.
 
 Either way, I'm glad you did the Challenge. That took guts.
 
